@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import { useForm } from "react-hook-form"
 import { useSignIn } from 'react-auth-kit'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Preloader from "../../components/Preloader";
 import Swal from 'sweetalert2'
 import axios from 'axios'
@@ -63,7 +63,7 @@ export default function Signin() {
         <div className="login-box">
           <div className="login-logo">
             <a href="#">
-              <b>OT </b>SYSTEM
+              <b>AP-</b>SYSTEM
             </a>
           </div>
           <div  id="auth_bg" className="card">
