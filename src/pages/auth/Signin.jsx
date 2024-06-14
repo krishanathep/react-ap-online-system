@@ -63,7 +63,7 @@ export default function Signin() {
         <div className="login-box">
           <div className="login-logo">
             <a href="#">
-              <b>AP-</b>SYSTEM
+              <b>AP </b>SYSTEM
             </a>
           </div>
           <div  id="auth_bg" className="card">

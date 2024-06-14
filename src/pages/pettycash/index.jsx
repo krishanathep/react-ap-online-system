@@ -99,7 +99,7 @@ const Payments = () => {
                     <div className="row">
                       <div className="col-md-12">
                         <div className="float-right mb-3">
-                        <button className="btn btn-secondary"><i className="fas fa-download"></i> EXPORT</button>{' '}
+                        <button onClick={()=>alert('Export all data to excel file!')} className="btn btn-secondary"><i className="fas fa-download"></i> EXPORT</button>{' '}
                           <Link
                             to={"/pettycash/create"}
                             className="btn btn-success"
@@ -111,43 +111,79 @@ const Payments = () => {
                     </div>
                     <div className="row">
                       <div className="col-lg-12">
-                        <div className="card">
+                        <div className="card shadow-none border">
                           <div className="card-body">
                             <div className="row">
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Employee</label>
-                                  <input className="form-control" type="text" />
+                                  <select class="form-control" id="sel1">
+                                  <option>Please Select</option>
+                                  <option>Employee 1</option>
+                                  <option>Employee 2</option>
+                                  <option>Employee 3</option>
+                                  <option>Employee 4</option>
+                                </select>
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Company</label>
-                                  <input className="form-control" type="text" />
+                                  <select class="form-control" id="sel1">
+                                  <option>Please Select</option>
+                                  <option>Company 1</option>
+                                  <option>Company 2</option>
+                                  <option>Company 3</option>
+                                  <option>Company 4</option>
+                                </select>
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Department</label>
-                                  <input className="form-control" type="text" />
+                                  <select class="form-control" id="sel1">
+                                  <option>Please Select</option>
+                                  <option>Department 1</option>
+                                  <option>Department 2</option>
+                                  <option>Department 3</option>
+                                  <option>Department 4</option>
+                                </select>
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Section</label>
-                                  <input className="form-control" type="text" />
+                                  <select class="form-control" id="sel1">
+                                  <option>Please Select</option>
+                                  <option>Section 1</option>
+                                  <option>Section 2</option>
+                                  <option>Section 3</option>
+                                  <option>Section 4</option>
+                                </select>
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Status</label>
-                                  <input className="form-control" type="text" />
+                                  <select class="form-control" id="sel1">
+                                  <option>Please Select</option>
+                                  <option>Status 1</option>
+                                  <option>Status 2</option>
+                                  <option>Status 3</option>
+                                  <option>Status 4</option>
+                                </select>
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Created at</label>
-                                  <input className="form-control" type="text" />
+                                  <select class="form-control" id="sel1">
+                                  <option>Please Select</option>
+                                  <option>Created at 1</option>
+                                  <option>Created at 2</option>
+                                  <option>Created at 3</option>
+                                  <option>Created at 4</option>
+                                </select>
                                 </div>
                               </div>
                             </div>

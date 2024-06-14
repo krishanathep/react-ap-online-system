@@ -51,90 +51,90 @@ const Create = () => {
               <div className="col-lg-12">
                 <div className="card card-outline card-primary">
                   <div className="card-body">
-                    <form>
-                      <div className="row">
-                        <div className="col-md-2">
-                          <div className="form-group">
-                            <label htmlFor="">Company</label>
-                            <select class="form-control" id="sel1">
-                              <option>Please Select</option>
-                              <option>Company 1</option>
-                              <option>Company 2</option>
-                              <option>Company 3</option>
-                              <option>Company 4</option>
-                            </select>
+                    <div className="card shadow-none border">
+                      <div className="card-body">
+                        <form>
+                          <div className="row">
+                            <div className="col-md-2">
+                              <div className="form-group">
+                                <label htmlFor="">Company</label>
+                                <select class="form-control" id="sel1">
+                                  <option>Please Select</option>
+                                  <option>Company 1</option>
+                                  <option>Company 2</option>
+                                  <option>Company 3</option>
+                                  <option>Company 4</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="col-md-2">
+                              <div className="form-group">
+                                <label htmlFor="">Branch</label>
+                                <select class="form-control" id="sel1">
+                                  <option>Please Select</option>
+                                  <option>Branch 1</option>
+                                  <option>Branch 2</option>
+                                  <option>Branch 3</option>
+                                  <option>Branch 4</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="col-md-2">
+                              <div className="form-group">
+                                <label htmlFor="">Segment</label>
+                                <select class="form-control" id="sel1">
+                                  <option>Please Select</option>
+                                  <option>Segment 1</option>
+                                  <option>Segment 2</option>
+                                  <option>Segment 3</option>
+                                  <option>Segment 4</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="col-md-2">
+                              <div className="form-group">
+                                <label htmlFor="">Cost Center</label>
+                                <select class="form-control" id="sel1">
+                                  <option>Please Select</option>
+                                  <option>Cost Center 1</option>
+                                  <option>Cost Center 2</option>
+                                  <option>Cost Center 3</option>
+                                  <option>Cost Center 4</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="col-md-2">
+                              <div className="form-group">
+                                <label htmlFor="">Project</label>
+                                <select class="form-control" id="sel1">
+                                  <option>Please Select</option>
+                                  <option>Project 1</option>
+                                  <option>Project 2</option>
+                                  <option>Project 3</option>
+                                  <option>Project 4</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="col-md-2">
+                              <div className="form-group">
+                                <label htmlFor="">Product</label>
+                                <select class="form-control" id="sel1">
+                                  <option>Please Select</option>
+                                  <option>Product 1</option>
+                                  <option>Product 2</option>
+                                  <option>Product 3</option>
+                                  <option>Product 4</option>
+                                </select>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                        <div className="col-md-2">
-                          <div className="form-group">
-                            <label htmlFor="">Branch</label>
-                            <select class="form-control" id="sel1">
-                              <option>Please Select</option>
-                              <option>Branch 1</option>
-                              <option>Branch 2</option>
-                              <option>Branch 3</option>
-                              <option>Branch 4</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div className="col-md-2">
-                          <div className="form-group">
-                            <label htmlFor="">Segment</label>
-                            <select class="form-control" id="sel1">
-                              <option>Please Select</option>
-                              <option>Segment 1</option>
-                              <option>Segment 2</option>
-                              <option>Segment 3</option>
-                              <option>Segment 4</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div className="col-md-2">
-                          <div className="form-group">
-                            <label htmlFor="">Cost Center</label>
-                            <select class="form-control" id="sel1">
-                              <option>Please Select</option>
-                              <option>Cost Center 1</option>
-                              <option>Cost Center 2</option>
-                              <option>Cost Center 3</option>
-                              <option>Cost Center 4</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div className="col-md-2">
-                          <div className="form-group">
-                            <label htmlFor="">Project</label>
-                            <select class="form-control" id="sel1">
-                              <option>Please Select</option>
-                              <option>Project 1</option>
-                              <option>Project 2</option>
-                              <option>Project 3</option>
-                              <option>Project 4</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div className="col-md-2">
-                          <div className="form-group">
-                            <label htmlFor="">Product</label>
-                            <select class="form-control" id="sel1">
-                              <option>Please Select</option>
-                              <option>Product 1</option>
-                              <option>Product 2</option>
-                              <option>Product 3</option>
-                              <option>Product 4</option>
-                            </select>
-                          </div>
-                        </div>
+                        </form>
                       </div>
-                    </form>
-                  </div>
-                </div>
-                <div className="card">
-                  <div className="card-body">
+                    </div>
                     {/* <form> */}
                     {inputFields.map((input, index) => {
                       return (
-                        <div className="card">
+                        <div className="card shadow-none border">
                           <div className="card-body">
                             <div className="row" key={index}>
                               <div className="col-md-12">
@@ -249,12 +249,9 @@ const Create = () => {
                     })}
                     <div className="col-md-12">
                       <div className="float-right">
-                        <button
-                          className="btn btn-info"
-                          onClick={addFields}
-                        >
+                        <button className="btn btn-info" onClick={addFields}>
                           <i className="fa fa-plus"></i> ITEMS
-                        </button>{' '}
+                        </button>{" "}
                         <button className="btn btn-primary">SUBMIT</button>{" "}
                         <Link to={"/pettycash"} className="btn btn-danger">
                           CANCEL
