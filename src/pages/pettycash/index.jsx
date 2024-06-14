@@ -77,14 +77,14 @@ const Payments = () => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0">Payment list</h1>
+                <h1 className="m-0">Petty Cash List</h1>
               </div>
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
                     <a href="#">Home</a>
                   </li>
-                  <li className="breadcrumb-item active">Payment</li>
+                  <li className="breadcrumb-item active">Petty Cash List</li>
                 </ol>
               </div>
             </div>
@@ -101,10 +101,10 @@ const Payments = () => {
                         <div className="float-right mb-3">
                         <button className="btn btn-secondary"><i className="fas fa-download"></i> EXPORT</button>{' '}
                           <Link
-                            to={"/payments/create"}
+                            to={"/pettycash/create"}
                             className="btn btn-success"
                           >
-                            <i className="fa fa-plus"></i> Create
+                            <i className="fa fa-plus"></i> CREATE
                           </Link>
                         </div>
                       </div>
@@ -183,7 +183,8 @@ const Payments = () => {
                               <td>{payment.created_at}</td>
                               <td>
                                 <button className="btn btn-info">VIEW</button>{' '}
-                                <button className="btn btn-primary">COPY</button>
+                                <button className="btn btn-primary">EDIT</button>{' '}
+                                <button className="btn btn-danger">DELETE</button>
                               </td>
                             </tr>
                           );

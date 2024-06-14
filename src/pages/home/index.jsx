@@ -129,10 +129,10 @@ export default function Home() {
               <div className="small-box bg-info">
                 <div className="inner">
                   <h3>{succestion}</h3>
-                  <p>All Overtime</p>
+                  <p>All Petty Cash</p>
                 </div>
                 <div className="icon">
-                <i className="far fa-clock"></i>
+                <i className="fab fa-bitcoin"></i>
                 </div>
               </div>
             </div>

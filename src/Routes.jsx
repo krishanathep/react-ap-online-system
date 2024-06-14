@@ -14,8 +14,8 @@ import Overtime from './pages/overtime'
 import OvertimeCreate from './pages/overtime/create'
 import OvertimeView from './pages/overtime/view'
 import OvertimeEdit from './pages/overtime/edit'
-import Payments from "./pages/payments";
-import PaymentCreate from "./pages/payments/create";
+import PettyCash from "./pages/pettycash";
+import PettyCashCreate from "./pages/pettycash/create";
 
 const RoutesPage = () => {
   return (
@@ -37,8 +37,9 @@ const RoutesPage = () => {
           <Route path="/overtime/create" element={<OvertimeCreate />} />
           <Route path="/overtime/view/:id" element={<OvertimeView />} />
           <Route path="/overtime/edit/:id" element={<OvertimeEdit />} />
-          <Route path="/payments" element={<Payments/>} />
-          <Route path="/payments/create" element={<PaymentCreate/>}/>
+
+          <Route path="/pettycash" element={<PettyCash />} />
+          <Route path="/pettycash/create" element={<PettyCashCreate/>}/>
         </Route>
       </Routes>
     </Router>

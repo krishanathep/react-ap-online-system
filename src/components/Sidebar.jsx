@@ -36,9 +36,9 @@ export default function Sidebar() {
                 </Link>
               </li> */}
               <li className="nav-item">
-                <Link to="/payments" className="nav-link">
+                <Link to="/pettycash" className="nav-link">
                   <i className="nav-icon fab fa-bitcoin"></i>
-                  <p>Payment</p>
+                  <p>Pretty cash</p>
                 </Link>
               </li>
             </ul>
