@@ -16,6 +16,7 @@ import OvertimeView from './pages/overtime/view'
 import OvertimeEdit from './pages/overtime/edit'
 import PettyCash from "./pages/pettycash";
 import PettyCashCreate from "./pages/pettycash/create";
+import TestFunctions from "./pages/test";
 
 const RoutesPage = () => {
   return (
@@ -40,6 +41,7 @@ const RoutesPage = () => {
 
           <Route path="/pettycash" element={<PettyCash />} />
           <Route path="/pettycash/create" element={<PettyCashCreate/>}/>
+          <Route path='/test' element={<TestFunctions/>} />
         </Route>
       </Routes>
     </Router>

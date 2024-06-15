@@ -11,7 +11,7 @@ const Payments = () => {
       section: "Section 1",
       division: "Division 1",
       depoartment: "Department 1",
-      status:"In Progress",
+      status:"APPROVED",
       created_at: "10-12-2024",
       created_pay: "10-12-2024",
       created_by: "User 1",
@@ -24,7 +24,7 @@ const Payments = () => {
       section: "Section 2",
       division: "Division 2",
       depoartment: "Department 2",
-      status:"In Progress",
+      status:"APPROVED",
       created_at: "10-12-2024",
       created_pay: "10-12-2024",
       created_by: "User 2",
@@ -37,7 +37,7 @@ const Payments = () => {
       section: "Section 3",
       division: "Division 3",
       depoartment: "Department 3",
-      status:"Approved",
+      status:"APPROVED",
       created_at: "10-12-2024",
       created_pay: "10-12-2024",
       created_by: "User 3",
@@ -50,7 +50,7 @@ const Payments = () => {
       section: "Section 4",
       division: "Division 4",
       depoartment: "Department 4",
-      status:"Approved",
+      status:"APPROVED",
       created_at: "10-12-2024",
       created_pay: "10-12-2024",
       created_by: "User 4",
@@ -63,7 +63,7 @@ const Payments = () => {
       section: "Section 5",
       division: "Division 5",
       depoartment: "Department 5",
-      status:"Approved",
+      status:"APPROVED",
       created_at: "10-12-2024",
       created_pay: "10-12-2024",
       created_by: "User 5",
@@ -215,7 +215,7 @@ const Payments = () => {
                               <td>{payment.company}</td>
                               <td>{payment.division}</td>
                               <td>{payment.section}</td>
-                              <td>{payment.status}</td>
+                              <td><span class="badge badge-success">{payment.status}</span></td>
                               <td>{payment.created_at}</td>
                               <td>
                                 <button className="btn btn-info">VIEW</button>{' '}
