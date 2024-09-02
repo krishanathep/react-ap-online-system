@@ -24,7 +24,7 @@ const Payments = () => {
       section: "Section 2",
       division: "Division 2",
       depoartment: "Department 2",
-      status:"APPROVED",
+      status:"IN PROGRESS",
       created_at: "10-12-2024",
       created_pay: "10-12-2024",
       created_by: "User 2",
@@ -37,7 +37,7 @@ const Payments = () => {
       section: "Section 3",
       division: "Division 3",
       depoartment: "Department 3",
-      status:"APPROVED",
+      status:"IN PROGRESS",
       created_at: "10-12-2024",
       created_pay: "10-12-2024",
       created_by: "User 3",
@@ -63,7 +63,7 @@ const Payments = () => {
       section: "Section 5",
       division: "Division 5",
       depoartment: "Department 5",
-      status:"APPROVED",
+      status:"REJECTED",
       created_at: "10-12-2024",
       created_pay: "10-12-2024",
       created_by: "User 5",
@@ -77,14 +77,14 @@ const Payments = () => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0">Petty Cash List</h1>
+                <h1 className="m-0">Petty cash list</h1>
               </div>
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
                     <a href="#">Home</a>
                   </li>
-                  <li className="breadcrumb-item active">Petty Cash List</li>
+                  <li className="breadcrumb-item active">Petty cash</li>
                 </ol>
               </div>
             </div>
@@ -193,7 +193,7 @@ const Payments = () => {
                     </div>
                     <table className="table table-bordered">
                       <thead>
-                        <tr>
+                        <tr align='center'>
                           <th>No</th>
                           <th>Employee ID</th>
                           <th>Employee Name</th>
@@ -202,25 +202,25 @@ const Payments = () => {
                           <th>Section</th>
                           <th>Status</th>
                           <th>Created At</th>
-                          <th>Actions</th>
+                          <th width='250'>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
                         {payments.map((payment) => {
                           return (
-                            <tr key={payment.id}>
+                            <tr key={payment.id} align='center'>
                               <td>{payment.id}</td>
                               <td>{payment.emp_id}</td>
                               <td>{payment.emp_name}</td>
                               <td>{payment.company}</td>
                               <td>{payment.division}</td>
                               <td>{payment.section}</td>
-                              <td><span class="badge badge-success">{payment.status}</span></td>
+                              <td><h6><span class="badge badge-primary">{payment.status}</span></h6></td>
                               <td>{payment.created_at}</td>
                               <td>
-                                <button className="btn btn-info">VIEW</button>{' '}
-                                <button className="btn btn-primary">EDIT</button>{' '}
-                                <button className="btn btn-danger">DELETE</button>
+                                <button className="btn btn-info"><i className="fas fa-eye"></i> VIEW</button>{' '}
+                                <button className="btn btn-primary"><i class="fas fa-edit"></i> EDIT</button>{' '}
+                                {/* <button className="btn btn-danger">DELETE</button> */}
                               </td>
                             </tr>
                           );

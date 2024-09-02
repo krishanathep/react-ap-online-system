@@ -132,7 +132,7 @@ export default function Home() {
                   <p>All Petty Cash</p>
                 </div>
                 <div className="icon">
-                <i className="fab fa-bitcoin"></i>
+                <i className="fas fa-cash-register"></i>
                 </div>
               </div>
             </div>
@@ -143,7 +143,7 @@ export default function Home() {
                   <p>In Progress</p>
                 </div>
                 <div className="icon">
-                <i className="fas fa-cogs"></i>
+                <i className="fas fa-clock"></i>
                 </div>
               </div>
             </div>

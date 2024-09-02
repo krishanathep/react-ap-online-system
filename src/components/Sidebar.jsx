@@ -26,19 +26,20 @@ export default function Sidebar() {
               <li className="nav-item">
                 <Link to="/" className="nav-link">
                   <i className="nav-icon fas fa-home"></i>
-                  <p>หน้าแรก</p>
+                  <p>Home</p>
                 </Link>
               </li>
               <li className="nav-item">
                 <Link to="/pettycash" className="nav-link">
-                  <i className="nav-icon fab fa-bitcoin"></i>
-                  <p>เงินสดย่อย</p>
+                  <i className="nav-icon fas fa-cash-register"></i>
+                  <p>Petty Cash</p>
                 </Link>
               </li>
+              <li className="nav-header">TEST MENU</li>
               <li className="nav-item">
                 <Link to="/test" className="nav-link">
                   <i className="nav-icon fas fa-vial"></i>
-                  <p>Test Functions</p>
+                  <p>Test One</p>
                 </Link>
               </li>
             </ul>
