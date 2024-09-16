@@ -31,7 +31,7 @@ export default function Sidebar() {
               </li>
               <li className="nav-item">
                 <Link to="/pettycash" className="nav-link">
-                  <i className="nav-icon fas fa-cash-register"></i>
+                <i className="nav-icon fas fa-wallet"></i>
                   <p>Petty Cash</p>
                 </Link>
               </li>

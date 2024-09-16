@@ -132,13 +132,17 @@ const Create = () => {
                         </form>
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div className="card">
+                  <div className="card-body">
                     {/* <form> */}
                     {inputFields.map((input, index) => {
                       return (
                         <div className="card shadow-none border">
                           <div className="card-body">
                             <div className="row" key={index}>
-                              <div className="col-md-12">
+                              {/* <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">ID</label>
                                   <input
@@ -152,8 +156,8 @@ const Create = () => {
                                     placeholder="Please Enter"
                                   />
                                 </div>
-                              </div>
-                              <div className="col-md-12">
+                              </div> */}
+                              <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Invoice</label>
                                   <input
@@ -168,7 +172,7 @@ const Create = () => {
                                   />
                                 </div>
                               </div>
-                              <div className="col-md-12">
+                              <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Created At</label>
                                   <input
@@ -183,7 +187,7 @@ const Create = () => {
                                   />
                                 </div>
                               </div>
-                              <div className="col-md-12">
+                              <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">VAT</label>
                                   <input
@@ -198,7 +202,7 @@ const Create = () => {
                                   />
                                 </div>
                               </div>
-                              <div className="col-md-12">
+                              <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Type</label>
                                   <input
@@ -213,7 +217,7 @@ const Create = () => {
                                   />
                                 </div>
                               </div>
-                              <div className="col-md-12">
+                              <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Decription</label>
                                   <input
@@ -228,7 +232,7 @@ const Create = () => {
                                   />
                                 </div>
                               </div>
-                              <div className="col-md-12">
+                              <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Amount</label>
                                   <input
@@ -253,9 +257,9 @@ const Create = () => {
                         <button className="btn btn-info" onClick={addFields}>
                           <i className="fa fa-plus"></i> ITEMS
                         </button>{" "}
-                        <button className="btn btn-primary">SUBMIT</button>{" "}
+                        <button className="btn btn-primary"><i className="fas fa-save"></i> SUBMIT</button>{" "}
                         <Link to={"/pettycash"} className="btn btn-danger">
-                          CANCEL
+                        <i className="fas fa-arrow-circle-left"></i>  CANCEL
                         </Link>{" "}
                       </div>
                     </div>

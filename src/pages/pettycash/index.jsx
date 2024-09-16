@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 const Payments = () => {
   const payments = [
@@ -11,7 +11,7 @@ const Payments = () => {
       section: "Section 1",
       division: "Division 1",
       depoartment: "Department 1",
-      status:"APPROVED",
+      status: "จ่ายเงินสำเร็จ",
       created_at: "10-12-2024",
       created_pay: "10-12-2024",
       created_by: "User 1",
@@ -24,7 +24,7 @@ const Payments = () => {
       section: "Section 2",
       division: "Division 2",
       depoartment: "Department 2",
-      status:"IN PROGRESS",
+      status: "รอสั่งจ่ายเงิน",
       created_at: "10-12-2024",
       created_pay: "10-12-2024",
       created_by: "User 2",
@@ -37,7 +37,7 @@ const Payments = () => {
       section: "Section 3",
       division: "Division 3",
       depoartment: "Department 3",
-      status:"IN PROGRESS",
+      status: "รอสั่งจ่ายเงิน",
       created_at: "10-12-2024",
       created_pay: "10-12-2024",
       created_by: "User 3",
@@ -50,7 +50,7 @@ const Payments = () => {
       section: "Section 4",
       division: "Division 4",
       depoartment: "Department 4",
-      status:"APPROVED",
+      status: "จ่ายเงินสำเร็จ",
       created_at: "10-12-2024",
       created_pay: "10-12-2024",
       created_by: "User 4",
@@ -63,7 +63,7 @@ const Payments = () => {
       section: "Section 5",
       division: "Division 5",
       depoartment: "Department 5",
-      status:"REJECTED",
+      status: "ยกเลิกเอกสาร",
       created_at: "10-12-2024",
       created_pay: "10-12-2024",
       created_by: "User 5",
@@ -98,8 +98,15 @@ const Payments = () => {
                   <div className="card-body">
                     <div className="row">
                       <div className="col-md-12">
-                        <div className="float-right mb-3">
-                        <button onClick={()=>alert('Export all data to excel file!')} className="btn btn-secondary"><i className="fas fa-download"></i> EXPORT</button>{' '}
+                        <div className="float-right mb-2">
+                          <button
+                            onClick={() =>
+                              alert("Export all data to excel file!")
+                            }
+                            className="btn btn-secondary"
+                          >
+                            <i className="fas fa-download"></i> EXPORT
+                          </button>{" "}
                           <Link
                             to={"/pettycash/create"}
                             className="btn btn-success"
@@ -118,72 +125,72 @@ const Payments = () => {
                                 <div className="form-group">
                                   <label htmlFor="">Employee</label>
                                   <select class="form-control" id="sel1">
-                                  <option>Please Select</option>
-                                  <option>Employee 1</option>
-                                  <option>Employee 2</option>
-                                  <option>Employee 3</option>
-                                  <option>Employee 4</option>
-                                </select>
+                                    <option>Please Select</option>
+                                    <option>Employee 1</option>
+                                    <option>Employee 2</option>
+                                    <option>Employee 3</option>
+                                    <option>Employee 4</option>
+                                  </select>
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Company</label>
                                   <select class="form-control" id="sel1">
-                                  <option>Please Select</option>
-                                  <option>Company 1</option>
-                                  <option>Company 2</option>
-                                  <option>Company 3</option>
-                                  <option>Company 4</option>
-                                </select>
+                                    <option>Please Select</option>
+                                    <option>Company 1</option>
+                                    <option>Company 2</option>
+                                    <option>Company 3</option>
+                                    <option>Company 4</option>
+                                  </select>
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Department</label>
                                   <select class="form-control" id="sel1">
-                                  <option>Please Select</option>
-                                  <option>Department 1</option>
-                                  <option>Department 2</option>
-                                  <option>Department 3</option>
-                                  <option>Department 4</option>
-                                </select>
+                                    <option>Please Select</option>
+                                    <option>Department 1</option>
+                                    <option>Department 2</option>
+                                    <option>Department 3</option>
+                                    <option>Department 4</option>
+                                  </select>
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Section</label>
                                   <select class="form-control" id="sel1">
-                                  <option>Please Select</option>
-                                  <option>Section 1</option>
-                                  <option>Section 2</option>
-                                  <option>Section 3</option>
-                                  <option>Section 4</option>
-                                </select>
+                                    <option>Please Select</option>
+                                    <option>Section 1</option>
+                                    <option>Section 2</option>
+                                    <option>Section 3</option>
+                                    <option>Section 4</option>
+                                  </select>
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Status</label>
                                   <select class="form-control" id="sel1">
-                                  <option>Please Select</option>
-                                  <option>Status 1</option>
-                                  <option>Status 2</option>
-                                  <option>Status 3</option>
-                                  <option>Status 4</option>
-                                </select>
+                                    <option>Please Select</option>
+                                    <option>Status 1</option>
+                                    <option>Status 2</option>
+                                    <option>Status 3</option>
+                                    <option>Status 4</option>
+                                  </select>
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Created at</label>
                                   <select class="form-control" id="sel1">
-                                  <option>Please Select</option>
-                                  <option>Created at 1</option>
-                                  <option>Created at 2</option>
-                                  <option>Created at 3</option>
-                                  <option>Created at 4</option>
-                                </select>
+                                    <option>Please Select</option>
+                                    <option>Created at 1</option>
+                                    <option>Created at 2</option>
+                                    <option>Created at 3</option>
+                                    <option>Created at 4</option>
+                                  </select>
                                 </div>
                               </div>
                             </div>
@@ -193,7 +200,7 @@ const Payments = () => {
                     </div>
                     <table className="table table-bordered">
                       <thead>
-                        <tr align='center'>
+                        <tr align="center">
                           <th>No</th>
                           <th>Employee ID</th>
                           <th>Employee Name</th>
@@ -202,24 +209,44 @@ const Payments = () => {
                           <th>Section</th>
                           <th>Status</th>
                           <th>Created At</th>
-                          <th width='250'>Actions</th>
+                          <th width="250">Actions</th>
                         </tr>
                       </thead>
                       <tbody>
                         {payments.map((payment) => {
                           return (
-                            <tr key={payment.id} align='center'>
+                            <tr key={payment.id} align="center">
                               <td>{payment.id}</td>
                               <td>{payment.emp_id}</td>
                               <td>{payment.emp_name}</td>
                               <td>{payment.company}</td>
                               <td>{payment.division}</td>
                               <td>{payment.section}</td>
-                              <td><h6><span class="badge badge-primary">{payment.status}</span></h6></td>
+                              <td>
+                                <h5>
+                                  {payment.status === "จ่ายเงินสำเร็จ" ? (
+                                    <span className="badge bg-success">
+                                      {payment.status}
+                                    </span>
+                                  ) : payment.status === "รอสั่งจ่ายเงิน" ? (
+                                    <span className="badge bg-primary">
+                                      {payment.status}
+                                    </span>
+                                  ) : (
+                                    <span className="badge bg-danger">
+                                      {payment.status}
+                                    </span>
+                                  )}
+                                </h5>
+                              </td>
                               <td>{payment.created_at}</td>
                               <td>
-                                <button className="btn btn-info"><i className="fas fa-eye"></i> VIEW</button>{' '}
-                                <button className="btn btn-primary"><i class="fas fa-edit"></i> EDIT</button>{' '}
+                                <button className="btn btn-info">
+                                  <i className="fas fa-eye"></i> VIEW
+                                </button>{" "}
+                                <button className="btn btn-primary">
+                                  <i class="fas fa-edit"></i> EDIT
+                                </button>{" "}
                                 {/* <button className="btn btn-danger">DELETE</button> */}
                               </td>
                             </tr>
