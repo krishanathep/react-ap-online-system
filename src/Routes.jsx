@@ -10,10 +10,6 @@ import Signup from "./pages/auth/Signup";
 
 import Home from './pages/home'
 
-import Overtime from './pages/overtime'
-import OvertimeCreate from './pages/overtime/create'
-import OvertimeView from './pages/overtime/view'
-import OvertimeEdit from './pages/overtime/edit'
 import PettyCash from "./pages/pettycash";
 import PettyCashCreate from "./pages/pettycash/create";
 import TestFunctions from "./pages/test";
@@ -34,11 +30,6 @@ const RoutesPage = () => {
           }
         >
           <Route path="/" element={<Home />} />
-          <Route path="/overtime" element={<Overtime />} />
-          <Route path="/overtime/create" element={<OvertimeCreate />} />
-          <Route path="/overtime/view/:id" element={<OvertimeView />} />
-          <Route path="/overtime/edit/:id" element={<OvertimeEdit />} />
-
           <Route path="/pettycash" element={<PettyCash />} />
           <Route path="/pettycash/create" element={<PettyCashCreate/>}/>
           <Route path='/test' element={<TestFunctions/>} />

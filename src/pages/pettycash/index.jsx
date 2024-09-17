@@ -1,74 +1,43 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
+import { DataTable } from "mantine-datatable";
+import axios from "axios";
+import dayjs from "dayjs";
+
+const PAGE_SIZES = [5, 10, 20, 30];
 
 const Payments = () => {
-  const payments = [
-    {
-      id: 1,
-      emp_id: "Employee ID 1",
-      emp_name: "Employee Name 1",
-      company: "Thai Rung",
-      section: "Section 1",
-      division: "Division 1",
-      depoartment: "Department 1",
-      status: "จ่ายเงินสำเร็จ",
-      created_at: "10-12-2024",
-      created_pay: "10-12-2024",
-      created_by: "User 1",
-    },
-    {
-      id: 2,
-      emp_id: "Employee ID 2",
-      emp_name: "Employee Name 2",
-      company: "Thai Rung",
-      section: "Section 2",
-      division: "Division 2",
-      depoartment: "Department 2",
-      status: "รอสั่งจ่ายเงิน",
-      created_at: "10-12-2024",
-      created_pay: "10-12-2024",
-      created_by: "User 2",
-    },
-    {
-      id: 3,
-      emp_id: "Employee ID 3",
-      emp_name: "Employee Name 3",
-      company: "Thai Rung",
-      section: "Section 3",
-      division: "Division 3",
-      depoartment: "Department 3",
-      status: "รอสั่งจ่ายเงิน",
-      created_at: "10-12-2024",
-      created_pay: "10-12-2024",
-      created_by: "User 3",
-    },
-    {
-      id: 4,
-      emp_id: "Employee ID 4",
-      emp_name: "Employee Name 4",
-      company: "Thai Rung",
-      section: "Section 4",
-      division: "Division 4",
-      depoartment: "Department 4",
-      status: "จ่ายเงินสำเร็จ",
-      created_at: "10-12-2024",
-      created_pay: "10-12-2024",
-      created_by: "User 4",
-    },
-    {
-      id: 5,
-      emp_id: "Employee ID 5",
-      emp_name: "Employee Name 5",
-      company: "Thai Rung",
-      section: "Section 5",
-      division: "Division 5",
-      depoartment: "Department 5",
-      status: "ยกเลิกเอกสาร",
-      created_at: "10-12-2024",
-      created_pay: "10-12-2024",
-      created_by: "User 5",
-    },
-  ];
+
+  const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
+  const [overtimes, setOvertimes] = useState([]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [pageSize]);
+
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [records, setRecords] = useState(overtimes.slice(0, pageSize));
+
+  const getData = async () => {
+    const from = (page - 1) * pageSize;
+    const to = from + pageSize;
+
+    await axios
+      .get(
+        "https://full-stack-app.com/laravel_auth_jwt_api/public/api/ksssystems"
+      )
+      .then((res) => {
+        setOvertimes(res.data.ksssystems);
+        setRecords(res.data.ksssystems.slice(from, to));
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    getData();
+  }, [page, pageSize]);
+
 
   return (
     <>
@@ -124,7 +93,7 @@ const Payments = () => {
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Employee</label>
-                                  <select class="form-control" id="sel1">
+                                  <select className="form-control" id="sel1">
                                     <option>Please Select</option>
                                     <option>Employee 1</option>
                                     <option>Employee 2</option>
@@ -136,7 +105,7 @@ const Payments = () => {
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Company</label>
-                                  <select class="form-control" id="sel1">
+                                  <select className="form-control" id="sel1">
                                     <option>Please Select</option>
                                     <option>Company 1</option>
                                     <option>Company 2</option>
@@ -148,7 +117,7 @@ const Payments = () => {
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Department</label>
-                                  <select class="form-control" id="sel1">
+                                  <select className="form-control" id="sel1">
                                     <option>Please Select</option>
                                     <option>Department 1</option>
                                     <option>Department 2</option>
@@ -160,7 +129,7 @@ const Payments = () => {
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Section</label>
-                                  <select class="form-control" id="sel1">
+                                  <select className="form-control" id="sel1">
                                     <option>Please Select</option>
                                     <option>Section 1</option>
                                     <option>Section 2</option>
@@ -172,7 +141,7 @@ const Payments = () => {
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Status</label>
-                                  <select class="form-control" id="sel1">
+                                  <select className="form-control" id="sel1">
                                     <option>Please Select</option>
                                     <option>Status 1</option>
                                     <option>Status 2</option>
@@ -184,7 +153,7 @@ const Payments = () => {
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Created at</label>
-                                  <select class="form-control" id="sel1">
+                                  <select className="form-control" id="sel1">
                                     <option>Please Select</option>
                                     <option>Created at 1</option>
                                     <option>Created at 2</option>
@@ -198,62 +167,105 @@ const Payments = () => {
                         </div>
                       </div>
                     </div>
-                    <table className="table table-bordered">
-                      <thead>
-                        <tr align="center">
-                          <th>No</th>
-                          <th>Employee ID</th>
-                          <th>Employee Name</th>
-                          <th>Company</th>
-                          <th>Division</th>
-                          <th>Section</th>
-                          <th>Status</th>
-                          <th>Created At</th>
-                          <th width="250">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {payments.map((payment) => {
-                          return (
-                            <tr key={payment.id} align="center">
-                              <td>{payment.id}</td>
-                              <td>{payment.emp_id}</td>
-                              <td>{payment.emp_name}</td>
-                              <td>{payment.company}</td>
-                              <td>{payment.division}</td>
-                              <td>{payment.section}</td>
-                              <td>
-                                <h5>
-                                  {payment.status === "จ่ายเงินสำเร็จ" ? (
-                                    <span className="badge bg-success">
-                                      {payment.status}
-                                    </span>
-                                  ) : payment.status === "รอสั่งจ่ายเงิน" ? (
-                                    <span className="badge bg-primary">
-                                      {payment.status}
-                                    </span>
-                                  ) : (
-                                    <span className="badge bg-danger">
-                                      {payment.status}
-                                    </span>
-                                  )}
-                                </h5>
-                              </td>
-                              <td>{payment.created_at}</td>
-                              <td>
-                                <button className="btn btn-info">
-                                  <i className="fas fa-eye"></i> VIEW
-                                </button>{" "}
-                                <button className="btn btn-primary">
-                                  <i class="fas fa-edit"></i> EDIT
-                                </button>{" "}
-                                {/* <button className="btn btn-danger">DELETE</button> */}
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </table>
+                   <DataTable
+                   style={{
+                    fontFamily: "Prompt",
+                  }}
+                  withBorder
+                  highlightOnHover
+                  fontSize={"md"}
+                  verticalSpacing="md"
+                  paginationSize="md"
+                  withColumnBorders
+                  fetching={loading}
+                  idAccessor="id"
+                  columns={[
+                    {
+                      accessor: "index",
+                      title: "#",
+                      textAlignment: "center",
+                      width: 80,
+                      render: (record) => records.indexOf(record) + 1,
+                    },
+                    {
+                      accessor: "title",
+                      title: "เลขที่ใบคำร้อง",
+                    },
+                    { accessor: "objective", title: "ผู้ควบคุมงาน" },
+                    {
+                      accessor: "suggest_type",
+                      title: "หน่วย / ส่วน / ฝ่าย",
+                    },
+                    // {
+                    //   accessor: "status",
+                    //   title: "สถานะการอนุมัติ",
+                    //   textAlignment: "center",
+                    //   render: ({ status }) => (
+                    //     <>
+                    //       <h5>
+                    //         {status === "Approved" ? (
+                    //           <Badge bg="success">{status}</Badge>
+                    //         ) : status === "Rejected" ? (
+                    //           <Badge bg="danger">{status}</Badge>
+                    //         ) : (
+                    //           <Badge bg="primary">{status}</Badge>
+                    //         )}
+                    //       </h5>
+                    //     </>
+                    //   ),
+                    // },
+                    // {
+                    //   accessor: "created_at",
+                    //   title: "วันที่เริ่มต้น",
+                    //   textAlignment: "center",
+                    //   render: ({ created_at }) =>
+                    //     dayjs(created_at).format("DD-MMM-YYYY"),
+                    // },
+                    {
+                      accessor: "created_at",
+                      title: "วันที่สิ้นสุด",
+                      textAlignment: "center",
+                      render: ({ updated_at }) =>
+                        dayjs(updated_at).format("DD-MMM-YYYY"),
+                    },
+                    {
+                      accessor: "actions",
+                      textAlignment: "center",
+                      title: "Actions",
+                      width: 300,
+                      render: (blogs) => (
+                        <>
+                          <Link
+                            to={"/overtime/view/" + blogs.id}
+                            className="btn btn-info"
+                          >
+                            View
+                          </Link>{" "}
+                          <Link
+                            to={"/overtime/edit/" + blogs.id}
+                            className="btn btn-primary"
+                          >
+                            Edit
+                          </Link>{" "}
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => hanldeDelete(blogs)}
+                          >
+                            Delete
+                          </button>
+                        </>
+                      ),
+                    },
+                  ]}
+                  records={records}
+                  minHeight={200}
+                  totalRecords={overtimes.length}
+                  recordsPerPage={pageSize}
+                  page={page}
+                  onPageChange={(p) => setPage(p)}
+                  recordsPerPageOptions={PAGE_SIZES}
+                  onRecordsPerPageChange={setPageSize}
+                />
                   </div>
                 </div>
               </div>

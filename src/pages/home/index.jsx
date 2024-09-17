@@ -11,7 +11,7 @@ export default function Home() {
             <div className="col-sm-6">
               <ol className="breadcrumb float-sm-right">
                 <li className="breadcrumb-item">
-                  <li className="breadcrumb-item active">Home</li>
+                  <a className="breadcrumb-item active">Home</a>
                 </li>
               </ol>
             </div>
@@ -30,7 +30,7 @@ export default function Home() {
                 <div className="icon">
                 <i className="fas fa-wallet"></i>
                 </div>
-                <a href="#" className="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <div className="col-lg-3">
@@ -42,7 +42,7 @@ export default function Home() {
                 <div className="icon">
                 <i className="fas fa-clock"></i>
                 </div>
-                <a href="#" className="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <div className="col-lg-3">
@@ -54,7 +54,7 @@ export default function Home() {
                 <div className="icon">
                 <i className="fas fa-hand-holding-usd"></i>
                 </div>
-                <a href="#" className="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <div className="col-lg-3">
@@ -66,65 +66,9 @@ export default function Home() {
                 <div className="icon">
                 <i className="fas fa-exclamation-circle"></i>
                 </div>
-                <a href="#" className="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            {/* <div className="col-lg-6 mt-5">
-                <div className="card card-outline card-primary">
-                  <div className="card-body">
-                    <h5>จำนวนเรื่องที่เขียน</h5>
-                    <ResponsiveContainer width={"100%"} height={300}>
-                    <BarChart
-                      width={600}
-                      height={300}
-                      data={data}
-                      margin={{
-                        top: 5,
-                        right: 30,
-                        left: 10,
-                        bottom: 5,
-                      }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Legend />
-                      <Bar dataKey="Target" fill="#8884d8" />
-                      <Bar dataKey="Actual" fill="#82ca9d" />
-                    </BarChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-6 mt-5">
-                <div className="card card-outline card-primary">
-                  <div className="card-body">
-                    <h5>จำนวนเรื่องที่มีคุณค่า</h5>
-                    <ResponsiveContainer width={"100%"} height={300}>
-                    <BarChart
-                      width={600}
-                      height={300}
-                      data={data_2}
-                      margin={{
-                        top: 5,
-                        right: 30,
-                        left: 10,
-                        bottom: 5,
-                      }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Legend />
-                      <Bar dataKey="Target" fill="#8884d8" />
-                      <Bar dataKey="Actual" fill="#82ca9d" />
-                    </BarChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-              </div> */}
           </div>
         </div>
       </div>
