@@ -348,7 +348,7 @@ const Update = () => {
                                 <div className="form-group">
                                   <label htmlFor="">VAT</label>
                                   <input
-                                    type="text"
+                                    type="number"
                                     className="form-control"
                                     placeholder="Please Enter"
                                     {...register(`test.${index}.pay_vat`, {
@@ -365,14 +365,22 @@ const Update = () => {
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">Pay type</label>
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Please Enter"
-                                    {...register(`test.${index}.pay_type`, {
-                                      required: true,
-                                    })}
-                                  />
+                                  <select 
+                                  className="form-control"
+                                  {...register(`test.${index}.pay_type`, {
+                                    required: true,
+                                  })}
+                                  >
+                                    <option value="">Please Select</option>
+                                    <option value="ค่าเดินทาง">ค่าเดินทาง</option>
+                                    <option value="ค่าทางด่วน">ค่าทางด่วน</option>
+                                    <option value="ค่าเบี้ยเลี้ยง">ค่าเบี้ยเลี้ยง</option>
+                                    <option value="ค่าปรับ">ค่าปรับ</option>
+                                    <option value="ค่ารับรอง">ค่ารับรอง</option>
+                                    <option value="วัสดุสิ้นเปลือง">วัสดุสิ้นเปลือง</option>
+                                    <option value="ค่าโทรศัพท์">ค่าโทรศัพท์</option>
+                                    <option value="เบ็ดเตล็ด">เบ็ดเตล็ด</option>
+                                  </select>
                                   {errors.test && (
                                     <span className="text-danger">
                                       This field is required
@@ -403,7 +411,7 @@ const Update = () => {
                                   <label htmlFor="">Amount</label>
                                   <input
                                     name="amount"
-                                    type="text"
+                                    type="number"
                                     className="form-control"
                                     placeholder="Please Enter"
                                     {...register(`test.${index}.amount`, {

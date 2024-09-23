@@ -23,9 +23,7 @@ const Payments = () => {
     const to = from + pageSize;
 
     await axios
-      .get(
-        "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash"
-      )
+      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
       .then((res) => {
         setPettyCash(res.data.data);
         setRecords(res.data.data.slice(from, to));
@@ -190,7 +188,11 @@ const Payments = () => {
                           title: "petty_cash_id",
                           textAlignment: "center",
                         },
-                        { accessor: "emp_id", title: "emp_id", textAlignment: "center"},
+                        {
+                          accessor: "emp_id",
+                          title: "emp_id",
+                          textAlignment: "center",
+                        },
                         {
                           accessor: "pay_to",
                           title: "pay_to",
@@ -220,6 +222,19 @@ const Payments = () => {
                           accessor: "status",
                           title: "status",
                           textAlignment: "center",
+                          render: ({ status }) => (
+                            <>
+                              <h5>
+                                {status === "In progress" ? (
+                                  <span className="badge bg-primary">{status}</span>
+                                ) : status === "Approved" ? (
+                                  <span className="badge bg-success">{status}</span>
+                                ) : (
+                                  <span className="badge bg-danger">{status}</span>
+                                )}
+                              </h5>
+                            </>
+                          ),
                         },
                         {
                           accessor: "created_at",
@@ -236,24 +251,26 @@ const Payments = () => {
                           render: (blogs) => (
                             <>
                               <Link
-                            to={"/pettycash/view/" + blogs.id}
-                            className="btn btn-info"
-                          >
-                           <i className="fas fa-eye"></i>
-                          </Link>{" "}
-                          <Link
-                            to={"/pettycash/update/" + blogs.id}
-                            className="btn btn-primary"
-                          >
-                           <i className="fas fa-edit"></i>
-                          </Link>{" "}
-                          <button
-                            className="btn btn-danger"
-                            //onClick={() => hanldeDelete(blogs)}
-                            onClick={()=>alert("This Petty Cash Deleted!!!")}
-                          >
-                            <i className="fas fa-trash-alt"></i>
-                          </button>
+                                to={"/pettycash/view/" + blogs.id}
+                                className="btn btn-info"
+                              >
+                                <i className="fas fa-eye"></i>
+                              </Link>{" "}
+                              <Link
+                                to={"/pettycash/update/" + blogs.id}
+                                className="btn btn-primary"
+                              >
+                                <i className="fas fa-edit"></i>
+                              </Link>{" "}
+                              <button
+                                className="btn btn-danger"
+                                //onClick={() => hanldeDelete(blogs)}
+                                onClick={() =>
+                                  alert("This Petty Cash Deleted!!!")
+                                }
+                              >
+                                <i className="fas fa-trash-alt"></i>
+                              </button>
                             </>
                           ),
                         },

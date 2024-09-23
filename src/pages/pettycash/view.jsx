@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 import { Link, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import axios from "axios";
@@ -6,10 +7,17 @@ import axios from "axios";
 const View = () => {
   const { id } = useParams();
 
+  const componentRef = useRef();
+
   const [pettycash, setPettyCash] = useState({});
   const [paylists, setPayLists] = useState([]);
   const [paytotal, setPayTotal] = useState(0);
   const [creddit, setCredit] = useState(0);
+
+  // Print Out wiht react-to-print
+  const handlePrintOut = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   const getData = async () => {
     await axios
@@ -57,7 +65,7 @@ const View = () => {
               <div className="col-lg-12">
                 <div className="card card-outline card-primary">
                   <div className="card-body">
-                    <div className="col-md-12">
+                    <div className="col-md-12" ref={componentRef}>
                       <div className="col-md-12 mt-3">
                         <h4>บริษัท ไทยรุ่งยูเนี่ยนคาร์ จำกัด (หมาชน)</h4>
                         <br />
@@ -70,7 +78,7 @@ const View = () => {
                           <div className="card-body">
                             <table className="table table-borderless">
                               <thead>
-                                <tr>
+                                <tr key={pettycash.id}>
                                   <td>
                                     <b>จ่ายให้แก่ :</b> {pettycash.pay_to}
                                   </td>
@@ -121,7 +129,7 @@ const View = () => {
                           <tbody>
                             {paylists.map((pay, index) => {
                               return (
-                                <tr align="center">
+                                <tr align="center" key={pay.id}>
                                   <td>{index + 1}</td>
                                   <td>{pay.acc_id}</td>
                                   <td>{pay.invoice_id}</td>
@@ -133,12 +141,12 @@ const View = () => {
                             })}
                           </tbody>
                           <tr align="center">
-                            <td colSpan={5}>
-                              <b>TOTAL</b>
+                            <td colSpan={4}>
                             </td>
+                            <td><b>TOTAL</b></td>
                             <td>
                               <span>
-                                <b>{paytotal}</b>
+                                {paytotal}
                               </span>
                             </td>
                           </tr>
@@ -160,9 +168,9 @@ const View = () => {
                           />{" "}
                           เกินงบประมาณ
                         </div>
-                        <div className="mt-3">
+                        <div className="mt-5">
                           <div className="row">
-                            <div className="col-md-3 text-center">
+                            <div className="col-sm-3 text-center">
                               <div className="card shadow-none border">
                                 <div className="card-body">
                                   <br />
@@ -170,11 +178,11 @@ const View = () => {
                                   <br />
                                   <b>ผู้เบิกเงิน</b> <br />
                                   <br />
-                                  วันที่............................................................
+                                  วันที่..................................................
                                 </div>
                               </div>
                             </div>
-                            <div className="col-md-3 text-center">
+                            <div className="col-sm-3 text-center">
                               <div className="card shadow-none border">
                                 <div className="card-body">
                                   <br />
@@ -182,11 +190,11 @@ const View = () => {
                                   <br />
                                   <b>ผู้อนุมัติ</b> <br />
                                   <br />
-                                  วันที่............................................................
+                                  วันที่..................................................
                                 </div>
                               </div>
                             </div>
-                            <div className="col-md-3 text-center">
+                            <div className="col-sm-3 text-center">
                               <div className="card shadow-none border">
                                 <div className="card-body">
                                   <br />
@@ -194,11 +202,11 @@ const View = () => {
                                   <br />
                                   <b>ผู้รับเงิน</b> <br />
                                   <br />
-                                  วันที่............................................................
+                                  วันที่..................................................
                                 </div>
                               </div>
                             </div>
-                            <div className="col-md-3 text-center">
+                            <div className="col-sm-3 text-center">
                               <div className="card shadow-none border">
                                 <div className="card-body">
                                   <br />
@@ -206,22 +214,23 @@ const View = () => {
                                   <br />
                                   <b>ผู้จ่ายเงิน</b> <br />
                                   <br />
-                                  วันที่............................................................
+                                  วันที่..................................................
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div className="col-md-12">
-                        <div className="float-right mt-2">
-                          <button className="btn btn-secondary">
-                            <i className="fas fa-print"></i> PRINT
-                          </button>{" "}
-                          <Link to={"/pettycash"} className="btn btn-danger">
-                            <i className="fas fa-arrow-circle-left"></i> CANCEL
-                          </Link>
-                        </div>
+                    </div>
+                    <div className="col-md-12">
+                      <div className="float-right mt-2">
+                        <button className="btn btn-secondary" onClick={handlePrintOut}>
+                          <i className="fas fa-print"></i> Print Out
+                        </button>{" "}
+                        <Link to={"/pettycash"} className="btn btn-danger">
+                          <i className="fas fa-arrow-circle-left"></i> Cancel
+                        </Link>{" "}
+                        
                       </div>
                     </div>
                   </div>
