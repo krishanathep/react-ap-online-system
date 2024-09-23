@@ -12,6 +12,9 @@ import Home from './pages/home'
 
 import PettyCash from "./pages/pettycash";
 import PettyCashCreate from "./pages/pettycash/create";
+import PettyCashUpdate from './pages/pettycash/edit'
+import PettyCashView from './pages/pettycash/view'
+
 import TestFunctions from "./pages/test";
 
 const RoutesPage = () => {
@@ -32,6 +35,9 @@ const RoutesPage = () => {
           <Route path="/" element={<Home />} />
           <Route path="/pettycash" element={<PettyCash />} />
           <Route path="/pettycash/create" element={<PettyCashCreate/>}/>
+          <Route path="/pettycash/update/:id" element={<PettyCashUpdate/>}/>
+          <Route path="/pettycash/view/:id" element={<PettyCashView/>}/>
+
           <Route path='/test' element={<TestFunctions/>} />
         </Route>
       </Routes>

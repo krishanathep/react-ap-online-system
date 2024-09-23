@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { DataTable } from "mantine-datatable";
 import axios from "axios";
@@ -7,9 +7,8 @@ import dayjs from "dayjs";
 const PAGE_SIZES = [5, 10, 20, 30];
 
 const Payments = () => {
-
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-  const [overtimes, setOvertimes] = useState([]);
+  const [pettycash, setPettyCash] = useState([]);
 
   useEffect(() => {
     setPage(1);
@@ -17,7 +16,7 @@ const Payments = () => {
 
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [records, setRecords] = useState(overtimes.slice(0, pageSize));
+  const [records, setRecords] = useState(pettycash.slice(0, pageSize));
 
   const getData = async () => {
     const from = (page - 1) * pageSize;
@@ -25,11 +24,11 @@ const Payments = () => {
 
     await axios
       .get(
-        "https://full-stack-app.com/laravel_auth_jwt_api/public/api/ksssystems"
+        "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash"
       )
       .then((res) => {
-        setOvertimes(res.data.ksssystems);
-        setRecords(res.data.ksssystems.slice(from, to));
+        setPettyCash(res.data.data);
+        setRecords(res.data.data.slice(from, to));
         setLoading(false);
       });
   };
@@ -38,7 +37,6 @@ const Payments = () => {
     getData();
   }, [page, pageSize]);
 
-
   return (
     <>
       <div className="content-wrapper">
@@ -46,14 +44,14 @@ const Payments = () => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0">Petty cash list</h1>
+                <h1 className="m-0">Petty Cash List</h1>
               </div>
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
                     <a href="#">Home</a>
                   </li>
-                  <li className="breadcrumb-item active">Petty cash</li>
+                  <li className="breadcrumb-item active">Petty Cash List</li>
                 </ol>
               </div>
             </div>
@@ -68,14 +66,14 @@ const Payments = () => {
                     <div className="row">
                       <div className="col-md-12">
                         <div className="float-right mb-2">
-                          <button
+                          {/* <button
                             onClick={() =>
                               alert("Export all data to excel file!")
                             }
                             className="btn btn-secondary"
                           >
                             <i className="fas fa-download"></i> EXPORT
-                          </button>{" "}
+                          </button>{" "} */}
                           <Link
                             to={"/pettycash/create"}
                             className="btn btn-success"
@@ -167,105 +165,108 @@ const Payments = () => {
                         </div>
                       </div>
                     </div>
-                   <DataTable
-                   style={{
-                    fontFamily: "Prompt",
-                  }}
-                  withBorder
-                  highlightOnHover
-                  fontSize={"md"}
-                  verticalSpacing="md"
-                  paginationSize="md"
-                  withColumnBorders
-                  fetching={loading}
-                  idAccessor="id"
-                  columns={[
-                    {
-                      accessor: "index",
-                      title: "#",
-                      textAlignment: "center",
-                      width: 80,
-                      render: (record) => records.indexOf(record) + 1,
-                    },
-                    {
-                      accessor: "title",
-                      title: "เลขที่ใบคำร้อง",
-                    },
-                    { accessor: "objective", title: "ผู้ควบคุมงาน" },
-                    {
-                      accessor: "suggest_type",
-                      title: "หน่วย / ส่วน / ฝ่าย",
-                    },
-                    // {
-                    //   accessor: "status",
-                    //   title: "สถานะการอนุมัติ",
-                    //   textAlignment: "center",
-                    //   render: ({ status }) => (
-                    //     <>
-                    //       <h5>
-                    //         {status === "Approved" ? (
-                    //           <Badge bg="success">{status}</Badge>
-                    //         ) : status === "Rejected" ? (
-                    //           <Badge bg="danger">{status}</Badge>
-                    //         ) : (
-                    //           <Badge bg="primary">{status}</Badge>
-                    //         )}
-                    //       </h5>
-                    //     </>
-                    //   ),
-                    // },
-                    // {
-                    //   accessor: "created_at",
-                    //   title: "วันที่เริ่มต้น",
-                    //   textAlignment: "center",
-                    //   render: ({ created_at }) =>
-                    //     dayjs(created_at).format("DD-MMM-YYYY"),
-                    // },
-                    {
-                      accessor: "created_at",
-                      title: "วันที่สิ้นสุด",
-                      textAlignment: "center",
-                      render: ({ updated_at }) =>
-                        dayjs(updated_at).format("DD-MMM-YYYY"),
-                    },
-                    {
-                      accessor: "actions",
-                      textAlignment: "center",
-                      title: "Actions",
-                      width: 300,
-                      render: (blogs) => (
-                        <>
-                          <Link
-                            to={"/overtime/view/" + blogs.id}
+                    <DataTable
+                      style={{
+                        fontFamily: "Prompt",
+                      }}
+                      withBorder
+                      highlightOnHover
+                      fontSize={"md"}
+                      verticalSpacing="md"
+                      paginationSize="md"
+                      withColumnBorders
+                      fetching={loading}
+                      idAccessor="id"
+                      columns={[
+                        {
+                          accessor: "index",
+                          title: "#",
+                          textAlignment: "center",
+                          width: 80,
+                          render: (record) => records.indexOf(record) + 1,
+                        },
+                        {
+                          accessor: "petty_cash_id",
+                          title: "petty_cash_id",
+                          textAlignment: "center",
+                        },
+                        { accessor: "emp_id", title: "emp_id", textAlignment: "center"},
+                        {
+                          accessor: "pay_to",
+                          title: "pay_to",
+                          textAlignment: "center",
+                        },
+                        {
+                          accessor: "status",
+                          title: "status",
+                          textAlignment: "center",
+                        },
+                        {
+                          accessor: "section",
+                          title: "section",
+                          textAlignment: "center",
+                        },
+                        {
+                          accessor: "division",
+                          title: "division",
+                          textAlignment: "center",
+                        },
+                        {
+                          accessor: "dept",
+                          title: "dept",
+                          textAlignment: "center",
+                        },
+                        {
+                          accessor: "company",
+                          title: "company",
+                          textAlignment: "center",
+                        },
+                        {
+                          accessor: "created_at",
+                          title: "created_at",
+                          textAlignment: "center",
+                          render: ({ updated_at }) =>
+                            dayjs(updated_at).format("DD-MMM-YYYY"),
+                        },
+                        {
+                          accessor: "actions",
+                          textAlignment: "center",
+                          title: "Actions",
+                          width: 250,
+                          render: (blogs) => (
+                            <>
+                              <Link
+                            to={"/pettycash/view/" + blogs.id}
                             className="btn btn-info"
                           >
-                            View
+                           <i className="fas fa-eye"></i>
                           </Link>{" "}
                           <Link
-                            to={"/overtime/edit/" + blogs.id}
+                            to={"/pettycash/update/" + blogs.id}
                             className="btn btn-primary"
                           >
-                            Edit
+                           <i className="fas fa-edit"></i>
                           </Link>{" "}
                           <button
                             className="btn btn-danger"
-                            onClick={() => hanldeDelete(blogs)}
+                            //onClick={() => hanldeDelete(blogs)}
+                            onClick={()=>alert("This Petty Cash Deleted!!!")}
                           >
-                            Delete
+                            <i className="fas fa-trash-alt"></i>
                           </button>
-                        </>
-                      ),
-                    },
-                  ]}
-                  records={records}
-                  minHeight={200}
-                  totalRecords={overtimes.length}
-                  recordsPerPage={pageSize}
-                  page={page}
-                  onPageChange={(p) => setPage(p)}
-                  recordsPerPageOptions={PAGE_SIZES}
-                  onRecordsPerPageChange={setPageSize}
-                />
+                            </>
+                          ),
+                        },
+                      ]}
+                      records={records}
+                      minHeight={200}
+                      totalRecords={pettycash.length}
+                      recordsPerPage={pageSize}
+                      page={page}
+                      onPageChange={(p) => setPage(p)}
+                      recordsPerPageOptions={PAGE_SIZES}
+                      onRecordsPerPageChange={setPageSize}
+                    />
                   </div>
                 </div>
               </div>
