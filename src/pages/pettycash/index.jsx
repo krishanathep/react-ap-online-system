@@ -197,11 +197,6 @@ const Payments = () => {
                           textAlignment: "center",
                         },
                         {
-                          accessor: "status",
-                          title: "status",
-                          textAlignment: "center",
-                        },
-                        {
                           accessor: "section",
                           title: "section",
                           textAlignment: "center",
@@ -219,6 +214,11 @@ const Payments = () => {
                         {
                           accessor: "company",
                           title: "company",
+                          textAlignment: "center",
+                        },
+                        {
+                          accessor: "status",
+                          title: "status",
                           textAlignment: "center",
                         },
                         {
