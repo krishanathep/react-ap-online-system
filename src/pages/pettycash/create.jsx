@@ -53,14 +53,14 @@ const Create = () => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0">Petty Cash Create</h1>
+                <h1 className="m-0">เพิ่มเอกสารเงินสดย่อย</h1>
               </div>
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
                     <a href="#">Home</a>
                   </li>
-                  <li className="breadcrumb-item active">Petty Cash List</li>
+                  <li className="breadcrumb-item active">Petty cash list</li>
                   <li className="breadcrumb-item active">Create</li>
                 </ol>
               </div>
@@ -78,11 +78,11 @@ const Create = () => {
                         <div className="row">
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">petty_cash_id</label>
+                              <label htmlFor="">รหัสเอกสาร</label>
                               <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Please Enter"
+                                placeholder="กรุณาเพิ่มข้อมูล"
                                 {...register("petty_cash_id", {
                                   required: true,
                                 })}
@@ -96,11 +96,11 @@ const Create = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">emp_id</label>
+                              <label htmlFor="">รหัสพนักงาน</label>
                               <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Please Enter"
+                                placeholder="กรุณาเพิ่มข้อมูล"
                                 {...register("emp_id", {
                                   required: true,
                                 })}
@@ -114,11 +114,11 @@ const Create = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">pay_to</label>
+                              <label htmlFor="">จ่ายเงินให้</label>
                               <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Please Enter"
+                                placeholder="กรุณาเพิ่มข้อมูล"
                                 {...register("pay_to", {
                                   required: true,
                                 })}
@@ -132,11 +132,11 @@ const Create = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">section</label>
+                              <label htmlFor="">หน่วยงาน</label>
                               <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Please Enter"
+                                placeholder="กรุณาเพิ่มข้อมูล"
                                 {...register("section", {
                                   required: true,
                                 })}
@@ -150,11 +150,11 @@ const Create = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">division</label>
+                              <label htmlFor="">ส่วนงาน</label>
                               <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Please Enter"
+                                placeholder="กรุณาเพิ่มข้อมูล"
                                 {...register("division", {
                                   required: true,
                                 })}
@@ -168,11 +168,11 @@ const Create = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">dept</label>
+                              <label htmlFor="">ฝ่ายงาน</label>
                               <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Please Enter"
+                                placeholder="กรุณาเพิ่มข้อมูล"
                                 {...register("dept", {
                                   required: true,
                                 })}
@@ -186,11 +186,11 @@ const Create = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">company</label>
+                              <label htmlFor="">ชื่อบริษัท</label>
                               <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Please Enter"
+                                placeholder="กรุณาเพิ่มข้อมูล"
                                 {...register("company", {
                                   required: true,
                                 })}
@@ -204,11 +204,11 @@ const Create = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">req_by</label>
+                              <label htmlFor="">จัดทำโดย</label>
                               <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Please Enter"
+                                placeholder="กรุณาเพิ่มข้อมูล"
                                 {...register("req_by", {
                                   required: true,
                                 })}
@@ -222,11 +222,11 @@ const Create = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">files</label>
+                              <label htmlFor="">อัพโหลด</label>
                               <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Please Enter"
+                                placeholder="กรุณาเพิ่มข้อมูล"
                                 {...register("files", {
                                   required: true,
                                 })}
@@ -240,19 +240,55 @@ const Create = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">credit_type</label><br/>
+                              <label htmlFor="">ประเภทวงเงิน</label><br/>
                               <select 
                               className="form-control"
                               {...register("credit_type", {
                                 required: true,
                               })}
                               >
-                                <option value="">Please Select</option>
+                                <option value="">กรุณาเลือกข้อมูล</option>
                                 <option value="1">ในวงเงินงบประมาณ</option>
                                 <option value="2">นอกวงเงินงบประมาณ</option>
                                 <option value="3">เกินเงินงบประมาณ</option>
                               </select>
                               {errors.credit_type && (
+                                <span className="text-danger">
+                                  This field is required
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-2">
+                            <div className="form-group">
+                              <label htmlFor="">ชื่อโครงการ</label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                placeholder="กรุณาเพิ่มข้อมูล"
+                                {...register("project", {
+                                  required: true,
+                                })}
+                              />
+                              {errors.project && (
+                                <span className="text-danger">
+                                  This field is required
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-2">
+                            <div className="form-group">
+                              <label htmlFor="">ชื่อสินค้า</label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                placeholder="กรุณาเพิ่มข้อมูล"
+                                {...register("product", {
+                                  required: true,
+                                })}
+                              />
+                              {errors.product && (
                                 <span className="text-danger">
                                   This field is required
                                 </span>
@@ -273,12 +309,12 @@ const Create = () => {
                             <div className="row">
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">Accout id</label>
+                                  <label htmlFor="">รหัสบัญชี</label>
                                   <input
                                     name="invoice"
                                     type="text"
                                     className="form-control"
-                                    placeholder="Please Enter"
+                                    placeholder="กรุณาเพิ่มข้อมูล"
                                     {...register(`test.${index}.acc_id`, {
                                       required: true,
                                     })}
@@ -292,11 +328,11 @@ const Create = () => {
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">Invoice id</label>
+                                  <label htmlFor="">รหัสใบแจ้งหนี้</label>
                                   <input
                                     type="text"
                                     className="form-control"
-                                    placeholder="Please Enter"
+                                    placeholder="กรุณาเพิ่มข้อมูล"
                                     {...register(`test.${index}.invoice_id`, {
                                       required: true,
                                     })}
@@ -310,11 +346,11 @@ const Create = () => {
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">VAT</label>
+                                  <label htmlFor="">จ่ายภาษี (%)</label>
                                   <input
                                     type="number"
                                     className="form-control"
-                                    placeholder="Please Enter"
+                                    placeholder="กรุณาเพิ่มข้อมูล"
                                     {...register(`test.${index}.pay_vat`, {
                                       required: true,
                                     })}
@@ -328,7 +364,7 @@ const Create = () => {
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">Pay type</label>
+                                  <label htmlFor="">ประเภทการจ่ายเงิน</label>
                                   <select 
                                   className="form-control"
                                   {...register(`test.${index}.pay_type`, {
@@ -354,11 +390,11 @@ const Create = () => {
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">Decription</label>
+                                  <label htmlFor="">รายละเอียด</label>
                                   <input
                                     type="text"
                                     className="form-control"
-                                    placeholder="Please Enter"
+                                    placeholder="กรุณาเพิ่มข้อมูล"
                                     {...register(`test.${index}.description`, {
                                       required: true,
                                     })}
@@ -372,12 +408,12 @@ const Create = () => {
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">Amount</label>
+                                  <label htmlFor="">จำนวนเงิน</label>
                                   <input
                                     name="amount"
                                     type="number"
                                     className="form-control"
-                                    placeholder="Please Enter"
+                                    placeholder="กรุณาเพิ่มข้อมูล"
                                     {...register(`test.${index}.amount`, {
                                       required: true,
                                     })}
@@ -396,26 +432,32 @@ const Create = () => {
                     })}
                     <div className="float-left">
                       <button
-                        className="btn btn-secondary btn-sm"
+                        className="btn btn-secondary btn-xs"
                         onClick={() =>
                           append({
-                            emp_name: "",
-                            cost_type: "",
-                            job_type: "",
-                            bus_stations: "",
+                            acc_id:"",
+                            invoice_id: "",
+                            pay_vat: "",
+                            pay_type: "",
+                            description: "",
+                            amount: "",
+                            total: "",
                           })
                         }
                       >
                         <i className="fa fa-plus"></i>
                       </button>{" "}
                       <button
-                        className="btn btn-secondary btn-sm"
+                        className="btn btn-secondary btn-xs"
                         onClick={() =>
                           remove({
-                            emp_name: "",
-                            cost_type: "",
-                            job_type: "",
-                            bus_stations: "",
+                            acc_id:"",
+                            invoice_id: "",
+                            pay_vat: "",
+                            pay_type: "",
+                            description: "",
+                            amount: "",
+                            total: "",
                           })
                         }
                       >
@@ -427,10 +469,10 @@ const Create = () => {
                         onClick={handleSubmit(handleCreateSubmit)}
                         className="btn btn-primary"
                       >
-                        <i className="fas fa-save"></i> SUBMIT
+                        <i className="fas fa-save"></i> ยืนยัน
                       </button>{" "}
                       <Link to={"/pettycash"} className="btn btn-danger">
-                        <i className="fas fa-arrow-circle-left"></i> CANCEL
+                        <i className="fas fa-arrow-circle-left"></i> ยกเลิก
                       </Link>{" "}
                     </div>
                   </div>

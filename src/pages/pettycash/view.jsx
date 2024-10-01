@@ -45,14 +45,14 @@ const View = () => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0">Petty Cash View</h1>
+                <h1 className="m-0">ปริ้นเอกสารเงินสดย่อย</h1>
               </div>
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
                     <a href="#">Home</a>
                   </li>
-                  <li className="breadcrumb-item active">Petty Cash List</li>
+                  <li className="breadcrumb-item active">Petty cash list</li>
                   <li className="breadcrumb-item active">View</li>
                 </ol>
               </div>
@@ -71,7 +71,7 @@ const View = () => {
                         <br />
                       </div>
                       <div className="col-md-12">
-                        <h5>ใบขอเบิกค่าใช้จ่าย / ใบเบิกงานสดย่อย</h5>
+                        <h5>ใบขอเบิกค่าใช้จ่าย / ใบเบิกเงินสดย่อย</h5>
                       </div>
                       <div className="col-md-12">
                         <id className="card shadow-none border">
@@ -83,18 +83,18 @@ const View = () => {
                                     <b>จ่ายให้แก่ :</b> {pettycash.pay_to}
                                   </td>
                                   <td>
-                                    <b>หน่วยงาน :</b> {pettycash.dept}
+                                    <b>หน่วยงาน :</b> {pettycash.section}
                                   </td>
                                   <td>
                                     <b>ส่วนงาน :</b> {pettycash.division}
                                   </td>
                                   <td>
-                                    <b>ฝ่ายงาน :</b> {pettycash.section}
+                                    <b>ฝ่ายงาน :</b> {pettycash.dept}
                                   </td>
                                 </tr>
                                 <tr>
                                   <td>
-                                    <b>Cash ID :</b> {pettycash.petty_cash_id}
+                                    <b>รหัสเอกสาร :</b> {pettycash.petty_cash_id}
                                   </td>
                                   <td>
                                     <b>วันที่ขอเบิก :</b>{" "}
@@ -106,7 +106,7 @@ const View = () => {
                                     <b>ผู้ที่ขอเบิก :</b> {pettycash.req_by}
                                   </td>
                                   <td>
-                                    <b>Company :</b> {pettycash.company}
+                                    <b>ชื่อบริษัท :</b> {pettycash.company}
                                   </td>
                                 </tr>
                               </thead>
@@ -118,12 +118,12 @@ const View = () => {
                         <table className="table table-bordered">
                           <thead>
                             <tr align="center">
-                              <th>NO</th>
-                              <th>ACCOUNT ID</th>
-                              <th>INVOICE ID</th>
-                              <th>DESCRIPTION</th>
-                              <th>VAT(%)</th>
-                              <th>AMOUNT</th>
+                              <th>#</th>
+                              <th>รหัสบัญชี</th>
+                              <th>รหัสใบแจ้งหนี้</th>
+                              <th>รายละเอียด</th>
+                              <th>จ่ายภาษี (%)</th>
+                              <th>จำนวนเงิน</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -143,7 +143,7 @@ const View = () => {
                           <tr align="center">
                             <td colSpan={4}>
                             </td>
-                            <td><b>TOTAL</b></td>
+                            <td><b>รวมทั้งหมด</b></td>
                             <td>
                               <span>
                                 {paytotal}
@@ -225,12 +225,11 @@ const View = () => {
                     <div className="col-md-12">
                       <div className="float-right mt-2">
                         <button className="btn btn-secondary" onClick={handlePrintOut}>
-                          <i className="fas fa-print"></i> Print Out
+                          <i className="fas fa-print"></i> ปริ้นเอกสาร
                         </button>{" "}
                         <Link to={"/pettycash"} className="btn btn-danger">
-                          <i className="fas fa-arrow-circle-left"></i> Cancel
+                          <i className="fas fa-arrow-circle-left"></i> ยกเลิก
                         </Link>{" "}
-                        
                       </div>
                     </div>
                   </div>

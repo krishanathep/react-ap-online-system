@@ -6,7 +6,7 @@ export default function Home() {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">Home</h1>
+              <h1 className="m-0">หน้าแรก</h1>
             </div>
             <div className="col-sm-6">
               <ol className="breadcrumb float-sm-right">
@@ -25,7 +25,7 @@ export default function Home() {
               <div className="small-box bg-info">
                 <div className="inner">
                   <h3>20</h3>
-                  <p>ใบเบิกเงินสดย่อย ทั้งหมด</p>
+                  <p>เงินสดย่อย ทั้งหมด</p>
                 </div>
                 <div className="icon">
                 <i className="fas fa-wallet"></i>

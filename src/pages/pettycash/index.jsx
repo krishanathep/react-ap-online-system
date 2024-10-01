@@ -42,14 +42,14 @@ const Payments = () => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0">Petty Cash List</h1>
+                <h1 className="m-0">รายการเอกสารเงินสดย่อย</h1>
               </div>
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
                     <a href="#">Home</a>
                   </li>
-                  <li className="breadcrumb-item active">Petty Cash List</li>
+                  <li className="breadcrumb-item active">Petty cash list</li>
                 </ol>
               </div>
             </div>
@@ -76,7 +76,7 @@ const Payments = () => {
                             to={"/pettycash/create"}
                             className="btn btn-success"
                           >
-                            <i className="fa fa-plus"></i> CREATE
+                            <i className="fa fa-plus"></i> เพิ่มเอกสาร
                           </Link>
                         </div>
                       </div>
@@ -88,21 +88,33 @@ const Payments = () => {
                             <div className="row">
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">Employee</label>
+                                  <label htmlFor="">รหัสเอกสาร</label>
                                   <select className="form-control" id="sel1">
-                                    <option>Please Select</option>
-                                    <option>Employee 1</option>
-                                    <option>Employee 2</option>
-                                    <option>Employee 3</option>
-                                    <option>Employee 4</option>
+                                    <option>กรุณาเลือกข้อมูล</option>
+                                    <option>Petty Cash ID 1</option>
+                                    <option>Petty Cash ID 2</option>
+                                    <option>Petty Cash ID 3</option>
+                                    <option>Petty Cash ID 4</option>
                                   </select>
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">Company</label>
+                                  <label htmlFor="">รหัสพนักงาน</label>
                                   <select className="form-control" id="sel1">
-                                    <option>Please Select</option>
+                                    <option>กรุณาเลือกข้อมูล</option>
+                                    <option>Employees 1</option>
+                                    <option>Employees 2</option>
+                                    <option>Employees 3</option>
+                                    <option>Employees 4</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div className="col-md-2">
+                                <div className="form-group">
+                                  <label htmlFor="">ชื่อบริษัท</label>
+                                  <select className="form-control" id="sel1">
+                                    <option>กรุณาเลือกข้อมูล</option>
                                     <option>Company 1</option>
                                     <option>Company 2</option>
                                     <option>Company 3</option>
@@ -112,9 +124,9 @@ const Payments = () => {
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">Department</label>
+                                  <label htmlFor="">ฝ่ายงาน</label>
                                   <select className="form-control" id="sel1">
-                                    <option>Please Select</option>
+                                    <option>กรุณาเลือกข้อมูล</option>
                                     <option>Department 1</option>
                                     <option>Department 2</option>
                                     <option>Department 3</option>
@@ -124,21 +136,9 @@ const Payments = () => {
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">Section</label>
+                                  <label htmlFor="">สถานะ</label>
                                   <select className="form-control" id="sel1">
-                                    <option>Please Select</option>
-                                    <option>Section 1</option>
-                                    <option>Section 2</option>
-                                    <option>Section 3</option>
-                                    <option>Section 4</option>
-                                  </select>
-                                </div>
-                              </div>
-                              <div className="col-md-2">
-                                <div className="form-group">
-                                  <label htmlFor="">Status</label>
-                                  <select className="form-control" id="sel1">
-                                    <option>Please Select</option>
+                                    <option>กรุณาเลือกข้อมูล</option>
                                     <option>Status 1</option>
                                     <option>Status 2</option>
                                     <option>Status 3</option>
@@ -148,9 +148,9 @@ const Payments = () => {
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">Created at</label>
+                                  <label htmlFor="">วันที่จัดทำ</label>
                                   <select className="form-control" id="sel1">
-                                    <option>Please Select</option>
+                                    <option>กรุณาเลือกข้อมูล</option>
                                     <option>Created at 1</option>
                                     <option>Created at 2</option>
                                     <option>Created at 3</option>
@@ -185,60 +185,68 @@ const Payments = () => {
                         },
                         {
                           accessor: "petty_cash_id",
-                          title: "petty_cash_id",
+                          title: "รหัสเอกสาร",
                           textAlignment: "center",
                         },
                         {
                           accessor: "emp_id",
-                          title: "emp_id",
+                          title: "รหัสพนักงาน",
                           textAlignment: "center",
                         },
                         {
                           accessor: "pay_to",
-                          title: "pay_to",
+                          title: "จ่ายเงินให้",
                           textAlignment: "center",
                         },
                         {
                           accessor: "section",
-                          title: "section",
+                          title: "หน่วยงาน",
                           textAlignment: "center",
                         },
                         {
                           accessor: "division",
-                          title: "division",
+                          title: "ส่วนงาน",
                           textAlignment: "center",
                         },
                         {
                           accessor: "dept",
-                          title: "dept",
+                          title: "ฝ่ายงาน",
                           textAlignment: "center",
                         },
                         {
                           accessor: "company",
-                          title: "company",
+                          title: "ชื่อบริษัท",
                           textAlignment: "center",
                         },
                         {
                           accessor: "status",
-                          title: "status",
+                          title: "สถานะเอกสาร",
                           textAlignment: "center",
                           render: ({ status }) => (
                             <>
-                              <h5>
-                                {status === "In progress" ? (
-                                  <span className="badge bg-primary">{status}</span>
-                                ) : status === "Approved" ? (
-                                  <span className="badge bg-success">{status}</span>
-                                ) : (
-                                  <span className="badge bg-danger">{status}</span>
-                                )}
-                              </h5>
+                              {status === "รอสั่งจ่ายเงิน" ? (
+                                <span className="badge rounded-pill bg-primary">
+                                  {status}
+                                </span>
+                              ) : status === "จ่ายเงินสำเร็จ" ? (
+                                <span className="badge rounded-pill bg-success">
+                                  {status}
+                                </span>
+                              ) : status === "จัดทำเอกสาร" ? (
+                                <span className="badge rounded-pill bg-secondary">
+                                  {status}
+                                </span>
+                              ) : (
+                                <span className="badge rounded-pill bg-danger">
+                                  {status}
+                                </span>
+                              )}
                             </>
                           ),
                         },
                         {
                           accessor: "created_at",
-                          title: "created_at",
+                          title: "วันที่จัดทำ",
                           textAlignment: "center",
                           render: ({ updated_at }) =>
                             dayjs(updated_at).format("DD-MMM-YYYY"),
@@ -246,15 +254,22 @@ const Payments = () => {
                         {
                           accessor: "actions",
                           textAlignment: "center",
-                          title: "Actions",
+                          title: "ดำเนินการ",
                           width: 250,
                           render: (blogs) => (
                             <>
+                              <button
+                                className="btn btn-warning text-white"
+                                //onClick={() => hanldeDelete(blogs)}
+                                onClick={() => alert("Send Petty Cash to AFD")}
+                              >
+                                <i className="fas fa-paper-plane"></i>
+                              </button>{" "}
                               <Link
                                 to={"/pettycash/view/" + blogs.id}
                                 className="btn btn-info"
                               >
-                                <i className="fas fa-eye"></i>
+                                <i className="fas fa-print"></i>
                               </Link>{" "}
                               <Link
                                 to={"/pettycash/update/" + blogs.id}

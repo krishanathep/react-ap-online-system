@@ -43,6 +43,8 @@ const Update = () => {
           req_by: res.data.data.req_by,
           files: res.data.data.files,
           credit_type: res.data.data.credit_type,
+          project: res.data.data.project,
+          product: res.data.data.product,
           test: res.data.data.pay_list.map((pay)=>({
             id: pay.id,
             acc_id: pay.acc_id,
@@ -89,14 +91,14 @@ const Update = () => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0">Petty Cash Update</h1>
+                <h1 className="m-0">แก้ไขเอกสารเงินสดย่อย</h1>
               </div>
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
                     <a href="#">Home</a>
                   </li>
-                  <li className="breadcrumb-item active">Petty Cash List</li>
+                  <li className="breadcrumb-item active">Petty cash list</li>
                   <li className="breadcrumb-item active">Update</li>
                 </ol>
               </div>
@@ -114,7 +116,7 @@ const Update = () => {
                         <div className="row">
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">petty_cash_id</label>
+                              <label htmlFor="">รหัสเอกสาร</label>
                               <input
                                 type="text"
                                 className="form-control"
@@ -132,7 +134,7 @@ const Update = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">emp_id</label>
+                              <label htmlFor="">รหัสพนักงาน</label>
                               <input
                                 type="text"
                                 className="form-control"
@@ -150,7 +152,7 @@ const Update = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">pay_to</label>
+                              <label htmlFor="">จ่ายเงินให้</label>
                               <input
                                 type="text"
                                 className="form-control"
@@ -168,7 +170,7 @@ const Update = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">section</label>
+                              <label htmlFor="">หน่วยงาน</label>
                               <input
                                 type="text"
                                 className="form-control"
@@ -186,7 +188,7 @@ const Update = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">division</label>
+                              <label htmlFor="">ส่วนงาน</label>
                               <input
                                 type="text"
                                 className="form-control"
@@ -204,7 +206,7 @@ const Update = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">dept</label>
+                              <label htmlFor="">ฝ่ายงาน</label>
                               <input
                                 type="text"
                                 className="form-control"
@@ -222,7 +224,7 @@ const Update = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">company</label>
+                              <label htmlFor="">ชื่อบริษัท</label>
                               <input
                                 type="text"
                                 className="form-control"
@@ -240,7 +242,7 @@ const Update = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">req_by</label>
+                              <label htmlFor="">จัดทำโดย</label>
                               <input
                                 type="text"
                                 className="form-control"
@@ -258,7 +260,7 @@ const Update = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">files</label>
+                              <label htmlFor="">อัพโหลด</label>
                               <input
                                 type="text"
                                 className="form-control"
@@ -276,7 +278,7 @@ const Update = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">credit_type</label><br/>
+                              <label htmlFor="">ประเภทวงเงิน</label><br/>
                               <select 
                               className="form-control"
                               {...register("credit_type", {
@@ -289,6 +291,42 @@ const Update = () => {
                                 <option value="3">เกินเงินงบประมาณ</option>
                               </select>
                               {errors.credit_type && (
+                                <span className="text-danger">
+                                  This field is required
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-2">
+                            <div className="form-group">
+                              <label htmlFor="">ชื่อโครงการ</label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                placeholder="กรุณาเพิ่มข้อมูล"
+                                {...register("project", {
+                                  required: true,
+                                })}
+                              />
+                              {errors.project && (
+                                <span className="text-danger">
+                                  This field is required
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-2">
+                            <div className="form-group">
+                              <label htmlFor="">ชื่อสินค้า</label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                placeholder="กรุณาเพิ่มข้อมูล"
+                                {...register("product", {
+                                  required: true,
+                                })}
+                              />
+                              {errors.product && (
                                 <span className="text-danger">
                                   This field is required
                                 </span>
@@ -309,7 +347,7 @@ const Update = () => {
                             <div className="row">
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">Accout id</label>
+                                  <label htmlFor="">รหัสบัญชี</label>
                                   <input
                                     name="invoice"
                                     type="text"
@@ -328,7 +366,7 @@ const Update = () => {
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">Invoice id</label>
+                                  <label htmlFor="">รหัสใบแจ้งหนี้</label>
                                   <input
                                     type="text"
                                     className="form-control"
@@ -346,7 +384,7 @@ const Update = () => {
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">VAT</label>
+                                  <label htmlFor="">จ่ายภาษี (%)</label>
                                   <input
                                     type="number"
                                     className="form-control"
@@ -364,7 +402,7 @@ const Update = () => {
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">Pay type</label>
+                                  <label htmlFor="">ประเภทการจ่ายเงิน</label>
                                   <select 
                                   className="form-control"
                                   {...register(`test.${index}.pay_type`, {
@@ -390,7 +428,7 @@ const Update = () => {
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">Decription</label>
+                                  <label htmlFor="">รายละเอียด</label>
                                   <input
                                     type="text"
                                     className="form-control"
@@ -408,7 +446,7 @@ const Update = () => {
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">Amount</label>
+                                  <label htmlFor="">จำนวนเงิน</label>
                                   <input
                                     name="amount"
                                     type="number"
@@ -435,10 +473,10 @@ const Update = () => {
                         onClick={handleSubmit(handlUpdateSubmit)}
                         className="btn btn-primary"
                       >
-                        <i className="fas fa-save"></i> SUBMIT
+                        <i className="fas fa-save"></i> ยืนยัน
                       </button>{" "}
                       <Link to={"/pettycash"} className="btn btn-danger">
-                        <i className="fas fa-arrow-circle-left"></i> CANCEL
+                        <i className="fas fa-arrow-circle-left"></i> ยกเลิก
                       </Link>{" "}
                     </div>
                   </div>
