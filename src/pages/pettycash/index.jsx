@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { DataTable } from "mantine-datatable";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import dayjs from "dayjs";
 
@@ -30,6 +32,91 @@ const Payments = () => {
         setLoading(false);
       });
   };
+
+  const numberFilter = async(key) => {
+    const from = (page - 1) * pageSize;
+    const to = from + pageSize;
+
+    await axios
+      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .then((res) => {
+        const number = res.data.data.filter((p)=>p.petty_cash_id.includes(key))
+        setPettyCash(number);
+        setRecords(number.slice(from, to));
+        setLoading(false);
+      });
+  }
+
+  const employeeFilter = async(key) => {
+    const from = (page - 1) * pageSize;
+    const to = from + pageSize;
+
+    await axios
+      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .then((res) => {
+        const employee = res.data.data.filter((p)=>p.emp_id.includes(key))
+        setPettyCash(employee);
+        setRecords(employee.slice(from, to));
+        setLoading(false);
+      });
+  }
+
+  const companyFilter = async(key) => {
+    const from = (page - 1) * pageSize;
+    const to = from + pageSize;
+
+    await axios
+      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .then((res) => {
+        const company = res.data.data.filter((p)=>p.company===key)
+        setPettyCash(company);
+        setRecords(company.slice(from, to));
+        setLoading(false);
+      });
+  }
+
+  const deptFilter = async(key) => {
+    const from = (page - 1) * pageSize;
+    const to = from + pageSize;
+
+    await axios
+      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .then((res) => {
+        const dept = res.data.data.filter((p)=>p.dept===key)
+        setPettyCash(dept);
+        setRecords(dept.slice(from, to));
+        setLoading(false);
+      });
+  }
+
+  const statusFilter = async(key) => {
+    const from = (page - 1) * pageSize;
+    const to = from + pageSize;
+
+    await axios
+      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .then((res) => {
+        const status = res.data.data.filter((p)=>p.status===key)
+        setPettyCash(status);
+        setRecords(status.slice(from, to));
+        setLoading(false);
+      });
+  }
+
+  const dateFilter = async(key) => {
+    const from = (page - 1) * pageSize;
+    const to = from + pageSize;
+
+    await axios
+      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .then((res) => {
+        const date = res.data.data.filter((p)=>p.created_at.includes(key))
+        setPettyCash(date);
+        setRecords(date.slice(from, to));
+        console.log(key)
+        setLoading(false);
+      });
+  }
 
   useEffect(() => {
     getData();
@@ -88,74 +175,90 @@ const Payments = () => {
                             <div className="row">
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">รหัสเอกสาร</label>
-                                  <select className="form-control" id="sel1">
-                                    <option>กรุณาเลือกข้อมูล</option>
-                                    <option>Petty Cash ID 1</option>
-                                    <option>Petty Cash ID 2</option>
-                                    <option>Petty Cash ID 3</option>
-                                    <option>Petty Cash ID 4</option>
-                                  </select>
+                                  <label htmlFor="">หมายเลขเอกสาร</label>
+                                  <input 
+                                  className="form-control"
+                                  placeholder="กรุณาเพิ่มข้อมูล"
+                                  onChange={(event) =>
+                                    numberFilter(event.target.value)
+                                  }
+                                  />
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">รหัสพนักงาน</label>
-                                  <select className="form-control" id="sel1">
+                                  <input 
+                                  className="form-control"
+                                  placeholder="กรุณาเพิ่มข้อมูล"
+                                  onChange={(event) =>
+                                    employeeFilter(event.target.value)
+                                  }
+                                  />
+                                </div>
+                              </div>
+                              <div className="col-md-2">
+                                <div className="form-group">
+                                  <label htmlFor="">ฝ่ายงาน</label>
+                                  <select className="form-control"
+                                   onChange={(event) =>
+                                    deptFilter(event.target.value)
+                                  }
+                                  >
                                     <option>กรุณาเลือกข้อมูล</option>
-                                    <option>Employees 1</option>
-                                    <option>Employees 2</option>
-                                    <option>Employees 3</option>
-                                    <option>Employees 4</option>
+                                    <option value={'ITD'}>ITD</option>
+                                    <option value={'HRD'}>HRD</option>
+                                    <option value={'AFD'}>AFD</option>
+                                    <option value={'PED'}>PED</option>
                                   </select>
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">ชื่อบริษัท</label>
-                                  <select className="form-control" id="sel1">
+                                  <select 
+                                  className="form-control" 
+                                  onChange={(event) =>
+                                    companyFilter(event.target.value)
+                                  }
+                                  >
                                     <option>กรุณาเลือกข้อมูล</option>
-                                    <option>Company 1</option>
-                                    <option>Company 2</option>
-                                    <option>Company 3</option>
-                                    <option>Company 4</option>
-                                  </select>
-                                </div>
-                              </div>
-                              <div className="col-md-2">
-                                <div className="form-group">
-                                  <label htmlFor="">ฝ่ายงาน</label>
-                                  <select className="form-control" id="sel1">
-                                    <option>กรุณาเลือกข้อมูล</option>
-                                    <option>Department 1</option>
-                                    <option>Department 2</option>
-                                    <option>Department 3</option>
-                                    <option>Department 4</option>
+                                    <option value={'TRU'}>TRU</option>
+                                    <option value={'TRT'}>TRT</option>
+                                    <option value={'TUC'}>TUC</option>
                                   </select>
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">สถานะ</label>
-                                  <select className="form-control" id="sel1">
+                                  <select className="form-control"
+                                   onChange={(event) =>
+                                    statusFilter(event.target.value)
+                                  }
+                                  >
                                     <option>กรุณาเลือกข้อมูล</option>
-                                    <option>Status 1</option>
-                                    <option>Status 2</option>
-                                    <option>Status 3</option>
-                                    <option>Status 4</option>
+                                    <option value={'จัดทำเอกสาร'}>จัดทำเอกสาร</option>
+                                    <option value={'รอสั่งจ่ายเงิน'}>รอสั่งจ่ายเงิน</option>
+                                    <option value={'จ่ายเงินสำเร็จ'}>จ่ายเงินสำเร็จ</option>
+                                    <option value={'จ่ายเงินไม่สำเร็จ'}>จ่ายเงินไม่สำเร็จ</option>
                                   </select>
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">วันที่จัดทำ</label>
-                                  <select className="form-control" id="sel1">
-                                    <option>กรุณาเลือกข้อมูล</option>
-                                    <option>Created at 1</option>
-                                    <option>Created at 2</option>
-                                    <option>Created at 3</option>
-                                    <option>Created at 4</option>
-                                  </select>
+                                  <input
+                                  type="date"
+                                  className="form-control"
+                                  onChange={(event) =>
+                                    dateFilter(
+                                      dayjs(event.target.value).format(
+                                        "YYYY-MM-DD"
+                                      )
+                                    )
+                                  } 
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -185,7 +288,7 @@ const Payments = () => {
                         },
                         {
                           accessor: "petty_cash_id",
-                          title: "รหัสเอกสาร",
+                          title: "หมายเลขเอกสาร",
                           textAlignment: "center",
                         },
                         {
@@ -223,33 +326,33 @@ const Payments = () => {
                           title: "สถานะเอกสาร",
                           textAlignment: "center",
                           render: ({ status }) => (
-                            <>
+                            <h5>
                               {status === "รอสั่งจ่ายเงิน" ? (
-                                <span className="badge rounded-pill bg-primary">
+                                <span className="badge bg-primary">
                                   {status}
                                 </span>
                               ) : status === "จ่ายเงินสำเร็จ" ? (
-                                <span className="badge rounded-pill bg-success">
+                                <span className="badge bg-success">
                                   {status}
                                 </span>
                               ) : status === "จัดทำเอกสาร" ? (
-                                <span className="badge rounded-pill bg-secondary">
+                                <span className="badge bg-warning">
                                   {status}
                                 </span>
                               ) : (
-                                <span className="badge rounded-pill bg-danger">
+                                <span className="badge bg-danger">
                                   {status}
                                 </span>
                               )}
-                            </>
+                            </h5>
                           ),
                         },
                         {
                           accessor: "created_at",
                           title: "วันที่จัดทำ",
                           textAlignment: "center",
-                          render: ({ updated_at }) =>
-                            dayjs(updated_at).format("DD-MMM-YYYY"),
+                          render: ({ created_at }) =>
+                            dayjs(created_at).format("DD-MMM-YYYY"),
                         },
                         {
                           accessor: "actions",
@@ -259,7 +362,7 @@ const Payments = () => {
                           render: (blogs) => (
                             <>
                               <button
-                                className="btn btn-warning text-white"
+                                className="btn btn-info"
                                 //onClick={() => hanldeDelete(blogs)}
                                 onClick={() => alert("Send Petty Cash to AFD")}
                               >
@@ -267,7 +370,7 @@ const Payments = () => {
                               </button>{" "}
                               <Link
                                 to={"/pettycash/view/" + blogs.id}
-                                className="btn btn-info"
+                                className="btn btn-secondary"
                               >
                                 <i className="fas fa-print"></i>
                               </Link>{" "}

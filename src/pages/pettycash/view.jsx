@@ -67,20 +67,27 @@ const View = () => {
                   <div className="card-body">
                     <div className="col-md-12" ref={componentRef}>
                       <div className="col-md-12 mt-3">
-                        <h4>บริษัท ไทยรุ่งยูเนี่ยนคาร์ จำกัด (หมาชน)</h4>
+                        <h4><b>บริษัท ไทยรุ่งยูเนี่ยนคาร์ จำกัด (หมาชน)</b></h4>
                         <br />
                       </div>
                       <div className="col-md-12">
-                        <h5>ใบขอเบิกค่าใช้จ่าย / ใบเบิกเงินสดย่อย</h5>
+                        <h5><b>ใบขอเบิกค่าใช้จ่าย / ใบเบิกเงินสดย่อย</b></h5>
                       </div>
                       <div className="col-md-12">
+                        {pettycash.status === "จ่ายเงินไม่สำเร็จ" ? (
+                          <>
+                            <div class="ribbon-wrapper ribbon-xl">
+                              <div class="ribbon bg-danger text-xl">ยกเลิก</div>
+                            </div>
+                          </>
+                        ) : null}
                         <id className="card shadow-none border">
                           <div className="card-body">
                             <table className="table table-borderless">
                               <thead>
                                 <tr key={pettycash.id}>
                                   <td>
-                                    <b>จ่ายให้แก่ :</b> {pettycash.pay_to}
+                                    <b>จ่ายเงินให้ :</b> {pettycash.pay_to}
                                   </td>
                                   <td>
                                     <b>หน่วยงาน :</b> {pettycash.section}
@@ -94,7 +101,8 @@ const View = () => {
                                 </tr>
                                 <tr>
                                   <td>
-                                    <b>รหัสเอกสาร :</b> {pettycash.petty_cash_id}
+                                    <b>หมายเลขเอกสาร :</b>{" "}
+                                    {pettycash.petty_cash_id}
                                   </td>
                                   <td>
                                     <b>วันที่ขอเบิก :</b>{" "}
@@ -119,8 +127,8 @@ const View = () => {
                           <thead>
                             <tr align="center">
                               <th>#</th>
-                              <th>รหัสบัญชี</th>
-                              <th>รหัสใบแจ้งหนี้</th>
+                              <th>หมายเลขบัญชี</th>
+                              <th>หมายเลขใบแจ้งหนี้</th>
                               <th>รายละเอียด</th>
                               <th>จ่ายภาษี (%)</th>
                               <th>จำนวนเงิน</th>
@@ -141,13 +149,12 @@ const View = () => {
                             })}
                           </tbody>
                           <tr align="center">
-                            <td colSpan={4}>
-                            </td>
-                            <td><b>รวมทั้งหมด</b></td>
+                            <td colSpan={4}></td>
                             <td>
-                              <span>
-                                {paytotal}
-                              </span>
+                              <b>รวมเงินทั้งหมด</b>
+                            </td>
+                            <td>
+                              <span>{paytotal}</span>
                             </td>
                           </tr>
                         </table>
@@ -224,7 +231,10 @@ const View = () => {
                     </div>
                     <div className="col-md-12">
                       <div className="float-right mt-2">
-                        <button className="btn btn-secondary" onClick={handlePrintOut}>
+                        <button
+                          className="btn btn-secondary"
+                          onClick={handlePrintOut}
+                        >
                           <i className="fas fa-print"></i> ปริ้นเอกสาร
                         </button>{" "}
                         <Link to={"/pettycash"} className="btn btn-danger">

@@ -78,7 +78,7 @@ const Create = () => {
                         <div className="row">
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">รหัสเอกสาร</label>
+                              <label htmlFor="">หมายเลขเอกสาร</label>
                               <input
                                 type="text"
                                 className="form-control"
@@ -204,7 +204,7 @@ const Create = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">จัดทำโดย</label>
+                              <label htmlFor="">ผู้ที่ขอเบิก</label>
                               <input
                                 type="text"
                                 className="form-control"
@@ -309,7 +309,7 @@ const Create = () => {
                             <div className="row">
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">รหัสบัญชี</label>
+                                  <label htmlFor="">หมายเลขบัญชี</label>
                                   <input
                                     name="invoice"
                                     type="text"
@@ -328,7 +328,7 @@ const Create = () => {
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">รหัสใบแจ้งหนี้</label>
+                                  <label htmlFor="">หมายเลขใบแจ้งหนี้</label>
                                   <input
                                     type="text"
                                     className="form-control"
