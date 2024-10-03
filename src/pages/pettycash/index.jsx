@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { DataTable } from "mantine-datatable";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import Swal from "sweetalert2";
 import axios from "axios";
 import dayjs from "dayjs";
 
-const PAGE_SIZES = [5, 10, 20, 30];
+const PAGE_SIZES = [10, 20, 30];
 
 const Payments = () => {
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
@@ -33,90 +32,128 @@ const Payments = () => {
       });
   };
 
-  const numberFilter = async(key) => {
+  const numberFilter = async (key) => {
     const from = (page - 1) * pageSize;
     const to = from + pageSize;
 
     await axios
       .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
       .then((res) => {
-        const number = res.data.data.filter((p)=>p.petty_cash_id.includes(key))
+        const number = res.data.data.filter((p) =>
+          p.petty_cash_id.includes(key)
+        );
         setPettyCash(number);
         setRecords(number.slice(from, to));
         setLoading(false);
       });
-  }
+  };
 
-  const employeeFilter = async(key) => {
+  const employeeFilter = async (key) => {
     const from = (page - 1) * pageSize;
     const to = from + pageSize;
 
     await axios
       .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
       .then((res) => {
-        const employee = res.data.data.filter((p)=>p.emp_id.includes(key))
+        const employee = res.data.data.filter((p) => p.emp_id.includes(key));
         setPettyCash(employee);
         setRecords(employee.slice(from, to));
         setLoading(false);
       });
-  }
+  };
 
-  const companyFilter = async(key) => {
+  const companyFilter = async (key) => {
     const from = (page - 1) * pageSize;
     const to = from + pageSize;
 
     await axios
       .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
       .then((res) => {
-        const company = res.data.data.filter((p)=>p.company===key)
+        const company = res.data.data.filter((p) => p.company === key);
         setPettyCash(company);
         setRecords(company.slice(from, to));
         setLoading(false);
       });
-  }
+  };
 
-  const deptFilter = async(key) => {
+  const deptFilter = async (key) => {
     const from = (page - 1) * pageSize;
     const to = from + pageSize;
 
     await axios
       .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
       .then((res) => {
-        const dept = res.data.data.filter((p)=>p.dept===key)
+        const dept = res.data.data.filter((p) => p.dept === key);
         setPettyCash(dept);
         setRecords(dept.slice(from, to));
         setLoading(false);
       });
-  }
+  };
 
-  const statusFilter = async(key) => {
+  const statusFilter = async (key) => {
     const from = (page - 1) * pageSize;
     const to = from + pageSize;
 
     await axios
       .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
       .then((res) => {
-        const status = res.data.data.filter((p)=>p.status===key)
+        const status = res.data.data.filter((p) => p.status === key);
         setPettyCash(status);
         setRecords(status.slice(from, to));
         setLoading(false);
       });
-  }
+  };
 
-  const dateFilter = async(key) => {
+  const dateFilter = async (key) => {
     const from = (page - 1) * pageSize;
     const to = from + pageSize;
 
     await axios
       .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
       .then((res) => {
-        const date = res.data.data.filter((p)=>p.created_at.includes(key))
+        const date = res.data.data.filter((p) => p.created_at.includes(key));
         setPettyCash(date);
         setRecords(date.slice(from, to));
-        console.log(key)
+        console.log(key);
         setLoading(false);
       });
-  }
+  };
+
+  const handleStatusUpdateSubmit = (blogs) => {
+    Swal.fire({
+      title: "ยืนยันการส่งเอกสาร",
+      text: "คุณต้องการส่งเอกสารให้แผนกบัญชีใช่ไหม",
+      icon: "success",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "ยกเลิก",
+      confirmButtonText: "ยืนยัน",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "success",
+          title: "ระบบได้ทำการส่งเอกสารเรียบร้อยแล้ว",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        setLoading(true);
+        axios
+          .put(
+            "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-status-update/" +
+              blogs.id
+          )
+          .then((res) => {
+            console.log(res);
+            getData();
+            setLoading(false);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    });
+  };
 
   useEffect(() => {
     getData();
@@ -146,7 +183,7 @@ const Payments = () => {
           <div className="container-fluid">
             <div className="row">
               <div className="col-lg-12">
-                <div className="card card-outline card-primary">
+                <div className="card">
                   <div className="card-body">
                     <div className="row">
                       <div className="col-md-12">
@@ -176,72 +213,82 @@ const Payments = () => {
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">หมายเลขเอกสาร</label>
-                                  <input 
-                                  className="form-control"
-                                  placeholder="กรุณาเพิ่มข้อมูล"
-                                  onChange={(event) =>
-                                    numberFilter(event.target.value)
-                                  }
+                                  <input
+                                    className="form-control"
+                                    placeholder="กรุณาเพิ่มข้อมูล"
+                                    onChange={(event) =>
+                                      numberFilter(event.target.value)
+                                    }
                                   />
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">รหัสพนักงาน</label>
-                                  <input 
-                                  className="form-control"
-                                  placeholder="กรุณาเพิ่มข้อมูล"
-                                  onChange={(event) =>
-                                    employeeFilter(event.target.value)
-                                  }
+                                  <input
+                                    className="form-control"
+                                    placeholder="กรุณาเพิ่มข้อมูล"
+                                    onChange={(event) =>
+                                      employeeFilter(event.target.value)
+                                    }
                                   />
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">ฝ่ายงาน</label>
-                                  <select className="form-control"
-                                   onChange={(event) =>
-                                    deptFilter(event.target.value)
-                                  }
+                                  <select
+                                    className="form-control"
+                                    onChange={(event) =>
+                                      deptFilter(event.target.value)
+                                    }
                                   >
                                     <option>กรุณาเลือกข้อมูล</option>
-                                    <option value={'ITD'}>ITD</option>
-                                    <option value={'HRD'}>HRD</option>
-                                    <option value={'AFD'}>AFD</option>
-                                    <option value={'PED'}>PED</option>
+                                    <option value={"ITD"}>ITD</option>
+                                    <option value={"HRD"}>HRD</option>
+                                    <option value={"AFD"}>AFD</option>
+                                    <option value={"PED"}>PED</option>
                                   </select>
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">ชื่อบริษัท</label>
-                                  <select 
-                                  className="form-control" 
-                                  onChange={(event) =>
-                                    companyFilter(event.target.value)
-                                  }
+                                  <select
+                                    className="form-control"
+                                    onChange={(event) =>
+                                      companyFilter(event.target.value)
+                                    }
                                   >
                                     <option>กรุณาเลือกข้อมูล</option>
-                                    <option value={'TRU'}>TRU</option>
-                                    <option value={'TRT'}>TRT</option>
-                                    <option value={'TUC'}>TUC</option>
+                                    <option value={"TRU"}>TRU</option>
+                                    <option value={"TRT"}>TRT</option>
+                                    <option value={"TUC"}>TUC</option>
                                   </select>
                                 </div>
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">สถานะ</label>
-                                  <select className="form-control"
-                                   onChange={(event) =>
-                                    statusFilter(event.target.value)
-                                  }
+                                  <select
+                                    className="form-control"
+                                    onChange={(event) =>
+                                      statusFilter(event.target.value)
+                                    }
                                   >
                                     <option>กรุณาเลือกข้อมูล</option>
-                                    <option value={'จัดทำเอกสาร'}>จัดทำเอกสาร</option>
-                                    <option value={'รอสั่งจ่ายเงิน'}>รอสั่งจ่ายเงิน</option>
-                                    <option value={'จ่ายเงินสำเร็จ'}>จ่ายเงินสำเร็จ</option>
-                                    <option value={'จ่ายเงินไม่สำเร็จ'}>จ่ายเงินไม่สำเร็จ</option>
+                                    <option value={"จัดทำเอกสาร"}>
+                                      จัดทำเอกสาร
+                                    </option>
+                                    <option value={"รอสั่งจ่ายเงิน"}>
+                                      รอสั่งจ่ายเงิน
+                                    </option>
+                                    <option value={"จ่ายเงินสำเร็จ"}>
+                                      จ่ายเงินสำเร็จ
+                                    </option>
+                                    <option value={"จ่ายเงินไม่สำเร็จ"}>
+                                      จ่ายเงินไม่สำเร็จ
+                                    </option>
                                   </select>
                                 </div>
                               </div>
@@ -249,15 +296,15 @@ const Payments = () => {
                                 <div className="form-group">
                                   <label htmlFor="">วันที่จัดทำ</label>
                                   <input
-                                  type="date"
-                                  className="form-control"
-                                  onChange={(event) =>
-                                    dateFilter(
-                                      dayjs(event.target.value).format(
-                                        "YYYY-MM-DD"
+                                    type="date"
+                                    className="form-control"
+                                    onChange={(event) =>
+                                      dateFilter(
+                                        dayjs(event.target.value).format(
+                                          "YYYY-MM-DD"
+                                        )
                                       )
-                                    )
-                                  } 
+                                    }
                                   />
                                 </div>
                               </div>
@@ -317,6 +364,25 @@ const Payments = () => {
                           textAlignment: "center",
                         },
                         {
+                          accessor: "files",
+                          title: "ไฟล์แนบ",
+                          textAlignment: "center",
+                          render: ({ files }) => (
+                            <>
+                              <a
+                                href={
+                                  "http://localhost/laravel_auth_jwt_api_afd/public/uploads/" +
+                                  files
+                                }
+                                target="_blank"
+                              >
+                                {/* <i className="fas fa-download"></i> */}
+                                <i className="fas fa-paperclip"></i>
+                              </a>
+                            </>
+                          ),
+                        },
+                        {
                           accessor: "company",
                           title: "ชื่อบริษัท",
                           textAlignment: "center",
@@ -336,7 +402,7 @@ const Payments = () => {
                                   {status}
                                 </span>
                               ) : status === "จัดทำเอกสาร" ? (
-                                <span className="badge bg-warning">
+                                <span className="badge bg-secondary">
                                   {status}
                                 </span>
                               ) : (
@@ -363,10 +429,12 @@ const Payments = () => {
                             <>
                               <button
                                 className="btn btn-info"
-                                //onClick={() => hanldeDelete(blogs)}
-                                onClick={() => alert("Send Petty Cash to AFD")}
+                                onClick={() => handleStatusUpdateSubmit(blogs)}
+                                disabled={
+                                  blogs.status != "จัดทำเอกสาร" ? true : false
+                                }
                               >
-                                <i className="fas fa-paper-plane"></i>
+                                <i className="fas fa-file-import"></i>
                               </button>{" "}
                               <Link
                                 to={"/pettycash/view/" + blogs.id}

@@ -63,7 +63,7 @@ const View = () => {
           <div className="container-fluid">
             <div className="row">
               <div className="col-lg-12">
-                <div className="card card-outline card-primary">
+                <div className="card">
                   <div className="card-body">
                     <div className="col-md-12" ref={componentRef}>
                       <div className="col-md-12 mt-3">
@@ -123,7 +123,7 @@ const View = () => {
                         </id>
                       </div>
                       <div className="col-md-12">
-                        <table className="table table-bordered">
+                        <table className="table table-bordered mt-5">
                           <thead>
                             <tr align="center">
                               <th>#</th>

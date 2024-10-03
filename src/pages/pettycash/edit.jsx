@@ -109,7 +109,7 @@ const Update = () => {
           <div className="container-fluid">
             <div className="row">
               <div className="col-lg-12">
-                <div className="card card-outline card-primary">
+                <div className="card">
                   <div className="card-body">
                     <div className="card shadow-none border">
                       <div className="card-body">
@@ -260,24 +260,6 @@ const Update = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">อัพโหลด</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Please Enter"
-                                {...register("files", {
-                                  required: true,
-                                })}
-                              />
-                              {errors.files && (
-                                <span className="text-danger">
-                                  This field is required
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                          <div className="col-md-2">
-                            <div className="form-group">
                               <label htmlFor="">ประเภทวงเงิน</label><br/>
                               <select 
                               className="form-control"
@@ -327,6 +309,24 @@ const Update = () => {
                                 })}
                               />
                               {errors.product && (
+                                <span className="text-danger">
+                                  This field is required
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-2">
+                            <div className="form-group">
+                              <label htmlFor="">อัพโหลด</label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Please Enter"
+                                {...register("files", {
+                                  required: true,
+                                })}
+                              />
+                              {errors.files && (
                                 <span className="text-danger">
                                   This field is required
                                 </span>
