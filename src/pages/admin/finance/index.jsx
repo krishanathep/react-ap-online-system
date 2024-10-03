@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 
 const PAGE_SIZES = [10, 20, 30];
 
-const Payments = () => {
+const Finance = () => {
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
   const [pettycash, setPettyCash] = useState([]);
 
@@ -119,10 +119,11 @@ const Payments = () => {
       });
   };
 
-  const handleStatusUpdateSubmit = (blogs) => {
+  const handleApprovedSubmit = (blogs) => {
+
     Swal.fire({
-      title: "ยืนยันการส่งเอกสาร",
-      text: "คุณต้องการส่งเอกสารให้แผนกบัญชีใช่ไหม",
+      title: "ยืนยันการจ่ายเงิน",
+      text: "คุณต้องการสั่งจ่ายเงินใช่ไหม",
       icon: "success",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -141,7 +142,43 @@ const Payments = () => {
         axios
           .put(
             "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-status-update/" +
-              blogs.id,{status: "รอสั่งจ่ายเงิน"}
+              blogs.id, {status: "จ่ายเงินสำเร็จ"}
+          )
+          .then((res) => {
+            console.log(res);
+            getData();
+            setLoading(false);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    });
+  };
+
+  const handleRejectedSubmit = (blogs) => {
+    Swal.fire({
+      title: "ยืนยันการยกเลิกเอกสาร",
+      text: "คุณต้องการยกเลิกเอกสารฉบับนี้ใช่ไหม",
+      icon: "success",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "ยกเลิก",
+      confirmButtonText: "ยืนยัน",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "success",
+          title: "ระบบได้ทำการยกเลิกเอกสารเรียบร้อยแล้ว",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        setLoading(true);
+        axios
+          .put(
+            "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-status-update/" +
+              blogs.id, {status: "ยกเลิกเอกสาร"}
           )
           .then((res) => {
             console.log(res);
@@ -185,26 +222,6 @@ const Payments = () => {
               <div className="col-lg-12">
                 <div className="card">
                   <div className="card-body">
-                    <div className="row">
-                      <div className="col-md-12">
-                        <div className="float-right mb-2">
-                          {/* <button
-                            onClick={() =>
-                              alert("Export all data to excel file!")
-                            }
-                            className="btn btn-secondary"
-                          >
-                            <i className="fas fa-download"></i> EXPORT
-                          </button>{" "} */}
-                          <Link
-                            to={"/pettycash/create"}
-                            className="btn btn-success"
-                          >
-                            <i className="fa fa-plus"></i> เพิ่มเอกสาร
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
                     <div className="row">
                       <div className="col-lg-12">
                         <div className="card shadow-none border">
@@ -364,25 +381,6 @@ const Payments = () => {
                           textAlignment: "center",
                         },
                         {
-                          accessor: "files",
-                          title: "ไฟล์แนบ",
-                          textAlignment: "center",
-                          render: ({ files }) => (
-                            <>
-                              <a
-                                href={
-                                  "http://localhost/laravel_auth_jwt_api_afd/public/uploads/" +
-                                  files
-                                }
-                                target="_blank"
-                              >
-                                {/* <i className="fas fa-download"></i> */}
-                                <i className="fas fa-paperclip"></i>
-                              </a>
-                            </>
-                          ),
-                        },
-                        {
                           accessor: "company",
                           title: "ชื่อบริษัท",
                           textAlignment: "center",
@@ -424,38 +422,30 @@ const Payments = () => {
                           accessor: "actions",
                           textAlignment: "center",
                           title: "ดำเนินการ",
-                          width: 250,
+                          width: 200,
                           render: (blogs) => (
                             <>
-                              <button
-                                className="btn btn-info"
-                                onClick={() => handleStatusUpdateSubmit(blogs)}
-                                disabled={
-                                  blogs.status != "จัดทำเอกสาร" ? true : false
+                              <a
+                                href={
+                                  "http://localhost/laravel_auth_jwt_api_afd/public/uploads/" +
+                                  blogs.files
                                 }
-                              >
-                                <i className="fas fa-file-import"></i>
-                              </button>{" "}
-                              <Link
-                                to={"/pettycash/view/" + blogs.id}
-                                className="btn btn-secondary"
-                              >
-                                <i className="fas fa-print"></i>
-                              </Link>{" "}
-                              <Link
-                                to={"/pettycash/update/" + blogs.id}
+                                target="_blank"
                                 className="btn btn-primary"
                               >
-                                <i className="fas fa-edit"></i>
-                              </Link>{" "}
+                                <i className="fas fa-paperclip"></i>
+                              </a>{" "}
+                              <button
+                                className="btn btn-success"
+                                onClick={() => handleApprovedSubmit(blogs)}
+                              >
+                                <i className="fas fa-check-circle"></i>
+                              </button>{" "}
                               <button
                                 className="btn btn-danger"
-                                //onClick={() => hanldeDelete(blogs)}
-                                onClick={() =>
-                                  alert("This Petty Cash Deleted!!!")
-                                }
+                                onClick={() => handleRejectedSubmit(blogs)}
                               >
-                                <i className="fas fa-trash-alt"></i>
+                                <i className="fas fa-times-circle"></i>
                               </button>
                             </>
                           ),
@@ -481,4 +471,4 @@ const Payments = () => {
   );
 };
 
-export default Payments;
+export default Finance;

@@ -1,4 +1,39 @@
+import React, { useState, useEffect } from "react";
+import axios from 'axios'
+
 export default function Home() {
+  
+  const [pettycashs, setPettyCash]  = useState(0)
+  const [inprogress, setInprogress]  = useState(0)
+  const [approverd, setApproved]  = useState(0)
+  const [rejected, setRejected]  = useState(0)
+
+  const getData = async () => {
+    await axios.get('http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash')
+      .then((res)=>{
+
+        const status1 = res.data.data.filter(
+          (ap) => ap.status === "รอสั่งจ่ายเงิน"
+        );
+
+        const status2 = res.data.data.filter(
+          (ap) => ap.status === "จ่ายเงินสำเร็จ"
+        );
+
+        const status3 = res.data.data.filter(
+          (ap) => ap.status === "จ่ายเงินไม่สำเร็จ"
+        );
+
+        setPettyCash(res.data.data.length)
+        setInprogress(status1.length)
+        setApproved(status2.length)
+        setRejected(status3.length)
+      })
+  }
+
+  useEffect(()=>{
+    getData()
+  },[])
 
   return (
     <div className="content-wrapper">
@@ -24,7 +59,7 @@ export default function Home() {
             <div className="col-lg-3">
               <div className="small-box bg-info">
                 <div className="inner">
-                  <h3>20</h3>
+                  <h3>{pettycashs}</h3>
                   <p>เงินสดย่อย ทั้งหมด</p>
                 </div>
                 <div className="icon">
@@ -36,7 +71,7 @@ export default function Home() {
             <div className="col-lg-3">
               <div className="small-box bg-primary">
                 <div className="inner">
-                  <h3>7</h3>
+                  <h3>{inprogress}</h3>
                   <p>รอสั่งจ่ายเงิน</p>
                 </div>
                 <div className="icon">
@@ -48,7 +83,7 @@ export default function Home() {
             <div className="col-lg-3">
               <div className="small-box bg-success">
                 <div className="inner">
-                  <h3>8</h3>
+                  <h3>{approverd}</h3>
                   <p>จ่ายเงินสำเร็จ</p>
                 </div>
                 <div className="icon">
@@ -60,7 +95,7 @@ export default function Home() {
             <div className="col-lg-3">
               <div className="small-box bg-danger">
                 <div className="inner">
-                  <h3>5</h3>
+                  <h3>{rejected}</h3>
                   <p>จ่ายเงินไม่สำเร็จ</p>
                 </div>
                 <div className="icon">

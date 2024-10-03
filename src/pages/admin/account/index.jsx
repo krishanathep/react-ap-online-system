@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 
 const PAGE_SIZES = [10, 20, 30];
 
-const Payments = () => {
+const Account = () => {
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
   const [pettycash, setPettyCash] = useState([]);
 
@@ -121,8 +121,8 @@ const Payments = () => {
 
   const handleStatusUpdateSubmit = (blogs) => {
     Swal.fire({
-      title: "ยืนยันการส่งเอกสาร",
-      text: "คุณต้องการส่งเอกสารให้แผนกบัญชีใช่ไหม",
+      title: "ยืนยันการปิดรายการ",
+      text: "คุณต้องการปิดรายการเอกสารใช่ไหม",
       icon: "success",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -141,7 +141,7 @@ const Payments = () => {
         axios
           .put(
             "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-status-update/" +
-              blogs.id,{status: "รอสั่งจ่ายเงิน"}
+              blogs.id,{status: "ปิดรายการ"}
           )
           .then((res) => {
             console.log(res);
@@ -188,20 +188,14 @@ const Payments = () => {
                     <div className="row">
                       <div className="col-md-12">
                         <div className="float-right mb-2">
-                          {/* <button
+                          <button
                             onClick={() =>
                               alert("Export all data to excel file!")
                             }
                             className="btn btn-secondary"
                           >
                             <i className="fas fa-download"></i> EXPORT
-                          </button>{" "} */}
-                          <Link
-                            to={"/pettycash/create"}
-                            className="btn btn-success"
-                          >
-                            <i className="fa fa-plus"></i> เพิ่มเอกสาร
-                          </Link>
+                          </button>{" "}
                         </div>
                       </div>
                     </div>
@@ -363,25 +357,25 @@ const Payments = () => {
                           title: "ฝ่ายงาน",
                           textAlignment: "center",
                         },
-                        {
-                          accessor: "files",
-                          title: "ไฟล์แนบ",
-                          textAlignment: "center",
-                          render: ({ files }) => (
-                            <>
-                              <a
-                                href={
-                                  "http://localhost/laravel_auth_jwt_api_afd/public/uploads/" +
-                                  files
-                                }
-                                target="_blank"
-                              >
-                                {/* <i className="fas fa-download"></i> */}
-                                <i className="fas fa-paperclip"></i>
-                              </a>
-                            </>
-                          ),
-                        },
+                        // {
+                        //   accessor: "files",
+                        //   title: "ไฟล์แนบ",
+                        //   textAlignment: "center",
+                        //   render: ({ files }) => (
+                        //     <>
+                        //       <a
+                        //         href={
+                        //           "http://localhost/laravel_auth_jwt_api_afd/public/uploads/" +
+                        //           files
+                        //         }
+                        //         target="_blank"
+                        //       >
+                        //         {/* <i className="fas fa-download"></i> */}
+                        //         <i className="fas fa-paperclip"></i>
+                        //       </a>
+                        //     </>
+                        //   ),
+                        // },
                         {
                           accessor: "company",
                           title: "ชื่อบริษัท",
@@ -427,7 +421,7 @@ const Payments = () => {
                           width: 250,
                           render: (blogs) => (
                             <>
-                              <button
+                              {/* <button
                                 className="btn btn-info"
                                 onClick={() => handleStatusUpdateSubmit(blogs)}
                                 disabled={
@@ -435,13 +429,19 @@ const Payments = () => {
                                 }
                               >
                                 <i className="fas fa-file-import"></i>
-                              </button>{" "}
-                              <Link
+                              </button>{" "} */}
+                              {/* <Link
                                 to={"/pettycash/view/" + blogs.id}
                                 className="btn btn-secondary"
                               >
                                 <i className="fas fa-print"></i>
-                              </Link>{" "}
+                              </Link>{" "} */}
+                              <button
+                                className="btn btn-info"
+                                onClick={() => handleStatusUpdateSubmit(blogs)}
+                              >
+                                <i className="fas fa-stamp"></i>
+                              </button>{" "}
                               <Link
                                 to={"/pettycash/update/" + blogs.id}
                                 className="btn btn-primary"
@@ -481,4 +481,4 @@ const Payments = () => {
   );
 };
 
-export default Payments;
+export default Account;

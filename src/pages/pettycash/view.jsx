@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 import { Link, useParams } from "react-router-dom";
+import { convertThai } from "convert-thai";
 import dayjs from "dayjs";
 import axios from "axios";
 
@@ -149,7 +150,9 @@ const View = () => {
                             })}
                           </tbody>
                           <tr align="center">
-                            <td colSpan={4}></td>
+                            <td colSpan={4}>
+                         {convertThai.bathText(paytotal)}
+                            </td>
                             <td>
                               <b>รวมเงินทั้งหมด</b>
                             </td>

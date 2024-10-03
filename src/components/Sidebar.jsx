@@ -35,6 +35,19 @@ export default function Sidebar() {
                   <p>เงินสดย่อย</p>
                 </Link>
               </li>
+              <li className="nav-header">ADMIN MENU</li>
+              <li className="nav-item">
+                <Link to="/finance" className="nav-link">
+                  <i className="nav-icon fas fa-hand-holding-usd"></i>
+                  <p>เจ้าหน้าที่การเงิน</p>
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/account" className="nav-link">
+                  <i className="nav-icon fas fa-calculator"></i>
+                  <p>เจ้าหน้าที่บัญชี</p>
+                </Link>
+              </li>
               {/* <li className="nav-header">TEST MENU</li>
               <li className="nav-item">
                 <Link to="/test" className="nav-link">
