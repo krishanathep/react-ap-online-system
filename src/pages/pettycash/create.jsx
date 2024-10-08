@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -10,6 +10,7 @@ const Create = () => {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
       test: [{}],
@@ -23,16 +24,58 @@ const Create = () => {
     name: "test",
   });
 
-  const handleCreateSubmit = async (data) => {
+  const dataFilter = async (key) => {
+    await axios
+      .get("http://localhost/laravel_auth_jwt_api_hrd/public/api/employees")
+      .then((res) => {
+        const data = res.data.employees.filter((e)=>e.emp_id.includes(key))
+        console.log(data)
+        reset({
+          pay_to: data.map((d)=>(d.emp_name)),
+          section: data.map((d)=>(d.agency)),
+          division:data.map((d)=>(d.department)),
+          dept:data.map((d)=>(d.dept)),
+          company: data.map((d)=>(d.company)),
+        })
+      });
+      
+  };
 
+  useEffect(() => {
+    //getData();
+  }, []);
+
+  const handleCreateSubmit = async (data) => {
     const formData = new FormData();
+
     formData.append("files", data.files[0]);
-    
+    formData.append("petty_cash_id", data.petty_cash_id);
+    formData.append("emp_id", data.emp_id);
+    formData.append("pay_to", data.pay_to);
+    formData.append("status", data.status);
+    formData.append("section", data.section);
+    formData.append("division", data.division);
+    formData.append("dept", data.dept);
+    formData.append("company", data.company);
+    formData.append("req_by", data.req_by);
+    formData.append("credit_type", data.credit_type);
+    formData.append("project", data.project);
+    formData.append("product", data.product);
+
+    data.test.forEach((item, index) => {
+      formData.append(`test[${index}][acc_id]`, item.acc_id);
+      formData.append(`test[${index}][invoice_id]`, item.invoice_id);
+      formData.append(`test[${index}][pay_vat]`, item.pay_vat);
+      formData.append(`test[${index}][pay_type]`, item.pay_type);
+      formData.append(`test[${index}][description]`, item.description);
+      formData.append(`test[${index}][amount]`, item.amount);
+    });
+
     try {
       await axios
         .post(
           "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-create",
-          data
+          formData
         )
         .then((res) => {
           Swal.fire({
@@ -41,9 +84,9 @@ const Create = () => {
             showConfirmButton: false,
             timer: 2000,
           });
-          
+
           navigate("/pettycash");
-          console.log(res)
+          console.log(res);
         });
     } catch (error) {
       console.log(error);
@@ -82,32 +125,17 @@ const Create = () => {
                         <div className="row">
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">หมายเลขเอกสาร</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="กรุณาเพิ่มข้อมูล"
-                                {...register("petty_cash_id", {
-                                  required: true,
-                                })}
-                              />
-                              {errors.petty_cash_id && (
-                                <span className="text-danger">
-                                  This field is required
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                          <div className="col-md-2">
-                            <div className="form-group">
                               <label htmlFor="">รหัสพนักงาน</label>
                               <input
+                               onChange={(event) =>
+                                dataFilter(event.target.value)
+                              }
                                 type="text"
                                 className="form-control"
                                 placeholder="กรุณาเพิ่มข้อมูล"
-                                {...register("emp_id", {
-                                  required: true,
-                                })}
+                                // {...register("emp_id", {
+                                //   required: true,
+                                // })}
                               />
                               {errors.emp_id && (
                                 <span className="text-danger">
@@ -118,7 +146,7 @@ const Create = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">จ่ายเงินให้</label>
+                              <label htmlFor="">ชื่อพนักงาน</label>
                               <input
                                 type="text"
                                 className="form-control"
@@ -208,6 +236,24 @@ const Create = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
+                              <label htmlFor="">หมายเลขเอกสาร</label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                placeholder="กรุณาเพิ่มข้อมูล"
+                                {...register("petty_cash_id", {
+                                  required: true,
+                                })}
+                              />
+                              {errors.petty_cash_id && (
+                                <span className="text-danger">
+                                  This field is required
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-2">
+                            <div className="form-group">
                               <label htmlFor="">ผู้ที่ขอเบิก</label>
                               <input
                                 type="text"
@@ -226,12 +272,13 @@ const Create = () => {
                           </div>
                           <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">ประเภทวงเงิน</label><br/>
-                              <select 
-                              className="form-control"
-                              {...register("credit_type", {
-                                required: true,
-                              })}
+                              <label htmlFor="">ประเภทวงเงิน</label>
+                              <br />
+                              <select
+                                className="form-control"
+                                {...register("credit_type", {
+                                  required: true,
+                                })}
                               >
                                 <option value="">กรุณาเลือกข้อมูล</option>
                                 <option value="1">ในวงเงินงบประมาณ</option>
@@ -284,13 +331,32 @@ const Create = () => {
                           <div className="col-md-2">
                             <div className="form-group">
                               <label htmlFor="">อัพโหลด</label>
-                              <input
-                                type="file"
-                                placeholder="กรุณาเพิ่มข้อมูล"
-                                {...register("files", {
-                                  required: true,
-                                })}
-                              />
+                              <br />
+                              <div
+                                className="file btn btn-secondary"
+                                style={{
+                                  position: "relative",
+                                  overflow: "hidden",
+                                }}
+                              >
+                                <i className="fas fa-file-upload"></i> เลือกไฟล์
+                                <input
+                                  style={{
+                                    position: "absolute",
+                                    fontSize: 50,
+                                    opacity: 0,
+                                    right: 0,
+                                    top: 0,
+                                  }}
+                                  type="file"
+                                  name="file"
+                                  accept=".pdf"
+                                  {...register("files", {
+                                    required: true,
+                                  })}
+                                />
+                              </div>
+                              <br />
                               {errors.files && (
                                 <span className="text-danger">
                                   This field is required
@@ -368,20 +434,30 @@ const Create = () => {
                               <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">ประเภทการจ่ายเงิน</label>
-                                  <select 
-                                  className="form-control"
-                                  {...register(`test.${index}.pay_type`, {
-                                    required: true,
-                                  })}
+                                  <select
+                                    className="form-control"
+                                    {...register(`test.${index}.pay_type`, {
+                                      required: true,
+                                    })}
                                   >
                                     <option value="">Please Select</option>
-                                    <option value="ค่าเดินทาง">ค่าเดินทาง</option>
-                                    <option value="ค่าทางด่วน">ค่าทางด่วน</option>
-                                    <option value="ค่าเบี้ยเลี้ยง">ค่าเบี้ยเลี้ยง</option>
+                                    <option value="ค่าเดินทาง">
+                                      ค่าเดินทาง
+                                    </option>
+                                    <option value="ค่าทางด่วน">
+                                      ค่าทางด่วน
+                                    </option>
+                                    <option value="ค่าเบี้ยเลี้ยง">
+                                      ค่าเบี้ยเลี้ยง
+                                    </option>
                                     <option value="ค่าปรับ">ค่าปรับ</option>
                                     <option value="ค่ารับรอง">ค่ารับรอง</option>
-                                    <option value="วัสดุสิ้นเปลือง">วัสดุสิ้นเปลือง</option>
-                                    <option value="ค่าโทรศัพท์">ค่าโทรศัพท์</option>
+                                    <option value="วัสดุสิ้นเปลือง">
+                                      วัสดุสิ้นเปลือง
+                                    </option>
+                                    <option value="ค่าโทรศัพท์">
+                                      ค่าโทรศัพท์
+                                    </option>
                                     <option value="เบ็ดเตล็ด">เบ็ดเตล็ด</option>
                                   </select>
                                   {errors.test && (
@@ -435,10 +511,10 @@ const Create = () => {
                     })}
                     <div className="float-left">
                       <button
-                        className="btn btn-secondary btn-xs"
+                        className="btn btn-success btn-sm"
                         onClick={() =>
                           append({
-                            acc_id:"",
+                            acc_id: "",
                             invoice_id: "",
                             pay_vat: "",
                             pay_type: "",
@@ -451,10 +527,10 @@ const Create = () => {
                         <i className="fa fa-plus"></i>
                       </button>{" "}
                       <button
-                        className="btn btn-secondary btn-xs"
+                        className="btn btn-danger btn-sm"
                         onClick={() =>
                           remove({
-                            acc_id:"",
+                            acc_id: "",
                             invoice_id: "",
                             pay_vat: "",
                             pay_type: "",

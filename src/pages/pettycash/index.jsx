@@ -286,8 +286,8 @@ const Payments = () => {
                                     <option value={"จ่ายเงินสำเร็จ"}>
                                       จ่ายเงินสำเร็จ
                                     </option>
-                                    <option value={"จ่ายเงินไม่สำเร็จ"}>
-                                      จ่ายเงินไม่สำเร็จ
+                                    <option value={"ยกเลิกเอกสาร"}>
+                                      ยกเลิกเอกสาร
                                     </option>
                                   </select>
                                 </div>
@@ -402,6 +402,10 @@ const Payments = () => {
                                   {status}
                                 </span>
                               ) : status === "จัดทำเอกสาร" ? (
+                                <span className="badge bg-warning">
+                                  <span className="text-white">{status}</span>
+                                </span>
+                              ) : status === "ปิดรายการ" ? (
                                 <span className="badge bg-secondary">
                                   {status}
                                 </span>
@@ -434,7 +438,7 @@ const Payments = () => {
                                   blogs.status != "จัดทำเอกสาร" ? true : false
                                 }
                               >
-                                <i className="fas fa-file-import"></i>
+                                <i className="fas fa-envelope"></i>
                               </button>{" "}
                               <Link
                                 to={"/pettycash/view/" + blogs.id}

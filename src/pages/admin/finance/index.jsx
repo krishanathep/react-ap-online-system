@@ -303,8 +303,8 @@ const Finance = () => {
                                     <option value={"จ่ายเงินสำเร็จ"}>
                                       จ่ายเงินสำเร็จ
                                     </option>
-                                    <option value={"จ่ายเงินไม่สำเร็จ"}>
-                                      จ่ายเงินไม่สำเร็จ
+                                    <option value={"ยกเลิกเอกสาร"}>
+                                    ยกเลิกเอกสาร
                                     </option>
                                   </select>
                                 </div>
@@ -400,9 +400,13 @@ const Finance = () => {
                                   {status}
                                 </span>
                               ) : status === "จัดทำเอกสาร" ? (
-                                <span className="badge bg-secondary">
-                                  {status}
+                                <span className="badge bg-warning">
+                                  <span className="text-white">{status}</span>
                                 </span>
+                                 ) : status === "ปิดรายการ" ? (
+                                  <span className="badge bg-secondary">
+                                    {status}
+                                  </span>
                               ) : (
                                 <span className="badge bg-danger">
                                   {status}

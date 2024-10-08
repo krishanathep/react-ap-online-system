@@ -75,7 +75,7 @@ const View = () => {
                         <h5><b>ใบขอเบิกค่าใช้จ่าย / ใบเบิกเงินสดย่อย</b></h5>
                       </div>
                       <div className="col-md-12">
-                        {pettycash.status === "จ่ายเงินไม่สำเร็จ" ? (
+                        {pettycash.status === "ยกเลิกเอกสาร" ? (
                           <>
                             <div class="ribbon-wrapper ribbon-xl">
                               <div class="ribbon bg-danger text-xl">ยกเลิก</div>
@@ -88,13 +88,13 @@ const View = () => {
                               <thead>
                                 <tr key={pettycash.id}>
                                   <td>
-                                    <b>จ่ายเงินให้ :</b> {pettycash.pay_to}
+                                    จ่ายเงินให้ : {pettycash.pay_to}
                                   </td>
                                   <td>
-                                    <b>หน่วยงาน :</b> {pettycash.section}
+                                    หน่วยงาน : {pettycash.section}
                                   </td>
                                   <td>
-                                    <b>ส่วนงาน :</b> {pettycash.division}
+                                    ส่วนงาน : {pettycash.division}
                                   </td>
                                   <td>
                                     <b>ฝ่ายงาน :</b> {pettycash.dept}
@@ -161,7 +161,7 @@ const View = () => {
                             </td>
                           </tr>
                         </table>
-                        <div className="col-md-12 mt-3">
+                        <div className="col-md-12 mt-5">
                           <input
                             type="checkbox"
                             checked={creddit === 1 ? true : false}
@@ -181,8 +181,7 @@ const View = () => {
                         <div className="mt-5">
                           <div className="row">
                             <div className="col-sm-3 text-center">
-                              <div className="card shadow-none border">
-                                <div className="card-body">
+                             
                                   <br />
                                   ...............................................................
                                   <br />
@@ -190,43 +189,36 @@ const View = () => {
                                   <br />
                                   วันที่..................................................
                                 </div>
-                              </div>
-                            </div>
+                           
                             <div className="col-sm-3 text-center">
-                              <div className="card shadow-none border">
-                                <div className="card-body">
+                              
                                   <br />
                                   ...............................................................
                                   <br />
                                   <b>ผู้อนุมัติ</b> <br />
                                   <br />
                                   วันที่..................................................
-                                </div>
-                              </div>
+                               
                             </div>
                             <div className="col-sm-3 text-center">
-                              <div className="card shadow-none border">
-                                <div className="card-body">
+                              
                                   <br />
                                   ...............................................................
                                   <br />
                                   <b>ผู้รับเงิน</b> <br />
                                   <br />
                                   วันที่..................................................
-                                </div>
-                              </div>
+                               
                             </div>
                             <div className="col-sm-3 text-center">
-                              <div className="card shadow-none border">
-                                <div className="card-body">
+                              
                                   <br />
                                   ...............................................................
                                   <br />
                                   <b>ผู้จ่ายเงิน</b> <br />
                                   <br />
                                   วันที่..................................................
-                                </div>
-                              </div>
+                              
                             </div>
                           </div>
                         </div>

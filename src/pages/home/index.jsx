@@ -21,7 +21,7 @@ export default function Home() {
         );
 
         const status3 = res.data.data.filter(
-          (ap) => ap.status === "จ่ายเงินไม่สำเร็จ"
+          (ap) => ap.status === "ยกเลิกเอกสาร"
         );
 
         setPettyCash(res.data.data.length)
@@ -96,7 +96,7 @@ export default function Home() {
               <div className="small-box bg-danger">
                 <div className="inner">
                   <h3>{rejected}</h3>
-                  <p>จ่ายเงินไม่สำเร็จ</p>
+                  <p>ยกเลิกเอกสาร</p>
                 </div>
                 <div className="icon">
                 <i className="fas fa-exclamation-circle"></i>
