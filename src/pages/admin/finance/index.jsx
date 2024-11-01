@@ -26,8 +26,8 @@ const Finance = () => {
     await axios
       .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
       .then((res) => {
-        setPettyCash(res.data.data);
-        setRecords(res.data.data.slice(from, to));
+        setPettyCash(res.data.data.filter((p)=>p.status!=='จัดทำเอกสาร'));
+        setRecords(res.data.data.filter((p)=>p.status!=='จัดทำเอกสาร').slice(from, to));
         setLoading(false);
       });
   };
@@ -440,7 +440,7 @@ const Finance = () => {
                                 <i className="fas fa-paperclip"></i>
                               </a>{" "}
                               <button
-                                className="btn btn-success"
+                                className="btn btn-info"
                                 onClick={() => handleApprovedSubmit(blogs)}
                               >
                                 <i className="fas fa-check-circle"></i>

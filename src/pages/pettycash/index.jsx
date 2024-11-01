@@ -441,16 +441,16 @@ const Payments = () => {
                                 <i className="fas fa-envelope"></i>
                               </button>{" "}
                               <Link
-                                to={"/pettycash/view/" + blogs.id}
-                                className="btn btn-secondary"
-                              >
-                                <i className="fas fa-print"></i>
-                              </Link>{" "}
-                              <Link
                                 to={"/pettycash/update/" + blogs.id}
                                 className="btn btn-primary"
                               >
                                 <i className="fas fa-edit"></i>
+                              </Link>{" "}
+                              <Link
+                                to={"/pettycash/view/" + blogs.id}
+                                className="btn btn-secondary"
+                              >
+                                <i className="fas fa-print"></i>
                               </Link>{" "}
                               <button
                                 className="btn btn-danger"

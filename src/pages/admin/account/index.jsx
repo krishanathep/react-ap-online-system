@@ -26,8 +26,18 @@ const Account = () => {
     await axios
       .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
       .then((res) => {
-        setPettyCash(res.data.data);
-        setRecords(res.data.data.slice(from, to));
+        setPettyCash(
+          res.data.data.filter(
+            (p) => p.status === "จ่ายเงินสำเร็จ" || p.status === "ปิดรายการ"
+          )
+        );
+        setRecords(
+          res.data.data
+            .filter(
+              (p) => p.status === "จ่ายเงินสำเร็จ" || p.status === "ปิดรายการ"
+            )
+            .slice(from, to)
+        );
         setLoading(false);
       });
   };
@@ -141,7 +151,8 @@ const Account = () => {
         axios
           .put(
             "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-status-update/" +
-              blogs.id,{status: "ปิดรายการ"}
+              blogs.id,
+            { status: "ปิดรายการ" }
           )
           .then((res) => {
             console.log(res);
@@ -153,6 +164,42 @@ const Account = () => {
           });
       }
     });
+  };
+
+  const today = new Date();
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
+  const date = today.getDate();
+  const currentDate = "_" + month + "_" + date + "_" + year;
+
+  // text export function
+  const handleFileExport = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-export",
+        { responseType: "blob" }
+      );
+
+      // Create a blob from the response data
+      const blob = new Blob([response.data], { type: "text/plain" });
+
+      // Create a temporary URL for the blob
+      const url = window.URL.createObjectURL(blob);
+
+      // Create a link element and trigger the download
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "petty_cash_" + currentDate + ".xlsx");
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Export failed:", error);
+      //alert('Failed to export data. Please try again.');
+    }
   };
 
   useEffect(() => {
@@ -189,9 +236,7 @@ const Account = () => {
                       <div className="col-md-12">
                         <div className="float-right mb-2">
                           <button
-                            onClick={() =>
-                              alert("Export all data to excel file!")
-                            }
+                            onClick={handleFileExport}
                             className="btn btn-secondary"
                           >
                             <i className="fas fa-download"></i> EXPORT
@@ -281,7 +326,7 @@ const Account = () => {
                                       จ่ายเงินสำเร็จ
                                     </option>
                                     <option value={"ยกเลิกเอกสาร"}>
-                                    ยกเลิกเอกสาร
+                                      ยกเลิกเอกสาร
                                     </option>
                                   </select>
                                 </div>
@@ -399,7 +444,7 @@ const Account = () => {
                                 <span className="badge bg-warning">
                                   <span className="text-white">{status}</span>
                                 </span>
-                               ) : status === "ปิดรายการ" ? (
+                              ) : status === "ปิดรายการ" ? (
                                 <span className="badge bg-secondary">
                                   {status}
                                 </span>
@@ -425,33 +470,18 @@ const Account = () => {
                           width: 250,
                           render: (blogs) => (
                             <>
-                              {/* <button
-                                className="btn btn-info"
-                                onClick={() => handleStatusUpdateSubmit(blogs)}
-                                disabled={
-                                  blogs.status != "จัดทำเอกสาร" ? true : false
-                                }
-                              >
-                                <i className="fas fa-file-import"></i>
-                              </button>{" "} */}
-                              {/* <Link
-                                to={"/pettycash/view/" + blogs.id}
-                                className="btn btn-secondary"
-                              >
-                                <i className="fas fa-print"></i>
-                              </Link>{" "} */}
-                              <button
-                                className="btn btn-info"
-                                onClick={() => handleStatusUpdateSubmit(blogs)}
-                              >
-                                <i className="fas fa-search-dollar"></i>
-                              </button>{" "}
                               <Link
-                                to={"/pettycash/update/" + blogs.id}
+                                to={"/account/update/" + blogs.id}
                                 className="btn btn-primary"
                               >
                                 <i className="fas fa-edit"></i>
                               </Link>{" "}
+                              <button
+                                className="btn btn-info"
+                                onClick={() => handleStatusUpdateSubmit(blogs)}
+                              >
+                                <i className="fas fa-check-circle"></i>
+                              </button>{" "}
                               <button
                                 className="btn btn-danger"
                                 //onClick={() => hanldeDelete(blogs)}

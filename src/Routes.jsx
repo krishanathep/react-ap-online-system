@@ -18,6 +18,7 @@ import PettyCashView from './pages/pettycash/view'
 import FinanceList from './pages/admin/finance'
 
 import AccountList from './pages/admin/account'
+import AccountUpdate from './pages/admin/account/edit'
 
 import TestFunctions from "./pages/test";
 
@@ -44,6 +45,8 @@ const RoutesPage = () => {
 
           <Route path="/finance" element={<FinanceList />} />
           <Route path="/account" element={<AccountList />} />
+          <Route path="/account/update/:id" element={<AccountUpdate />} />
+          
 
           <Route path='/test' element={<TestFunctions/>} />
         </Route>
