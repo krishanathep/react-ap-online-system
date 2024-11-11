@@ -368,7 +368,7 @@ const Payments = () => {
                           title: "ไฟล์แนบ",
                           textAlignment: "center",
                           render: ({ files }) => (
-                            <>
+                            <h5>
                               <a
                                 href={
                                   "http://localhost/laravel_auth_jwt_api_afd/public/uploads/" +
@@ -379,7 +379,7 @@ const Payments = () => {
                                 {/* <i className="fas fa-download"></i> */}
                                 <i className="fas fa-paperclip"></i>
                               </a>
-                            </>
+                            </h5>
                           ),
                         },
                         {

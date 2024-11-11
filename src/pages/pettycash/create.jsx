@@ -38,6 +38,15 @@ const Create = () => {
 
   const [id_1, setID_1] = useState('000')
   const [id_2, setID_2] = useState('00')
+  const [id_3, setID_3] = useState('0000000')
+  const [id_4, setID_4] = useState('0000000')
+  const [id_5, setID_5] = useState('000000000000')
+  const [id_6, setID_6] = useState('0000')
+  const [id_7, setID_7] = useState('0000')
+  const [id_8, setID_8] = useState('0000')
+  const [id_9, setID_9] = useState('00')
+
+  const acc_id = id_1 +"-"+ id_2 +"-"+ id_3 +"-"+ id_4 +"-"+ id_5 +"-"+ id_6 +"-"+ id_7 +"-"+ id_8 +"-"+ id_9 
 
   const companyFilter = (key) => {
     setID_1(key)
@@ -47,10 +56,38 @@ const Create = () => {
     setID_2(key)
   }
 
+  const accountFilter = (key) => {
+    setID_3(key)
+  }
+
+  const costCenterFilter = (key) => {
+    setID_4(key)
+  }
+
+  const projectFilter = (key) => {
+    setID_5(key)
+  }
+
+  const productFilter = (key) => {
+    setID_6(key)
+  }
+
+  const boiFilter = (key) => {
+    setID_7(key)
+  }
+
+  const interCompanyFilter = (key) => {
+    setID_8(key)
+  }
+
+  const reserveFilter = (key) => {
+    setID_9(key)
+  }
+
   const handleChange = async (selectedOption) => {
     await axios
       .get(
-        "https://full-stack-app.com/laravel_auth_jwt_api_hrd/public/api/employees"
+        "http://localhost/laravel_auth_jwt_api_hrd/public/api/employees"
       )
       .then((res) => {
         res.data.employees
@@ -425,7 +462,7 @@ const Create = () => {
                         <div className="row">
                           <div className="col-md-4">
                             <div className="form-group">
-                              <label htmlFor="">COMPANY : {id_1}-{id_2}</label>
+                              <label htmlFor="">COMPANY</label>
                               <select 
                                 className="form-control"
                                 onChange={(event) =>
@@ -462,7 +499,12 @@ const Create = () => {
                           <div className="col-md-4">
                             <div className="form-group">
                               <label htmlFor="">ACCOUNT</label>
-                              <select className="form-control">
+                              <select 
+                                className="form-control"
+                                onChange={(event) =>
+                                  accountFilter(event.target.value)
+                                }
+                                >
                                 <option value="">Please Select</option>
                                 {account.map((item) => (
                                   <option key={item.ACCOUNT_NO} value={item.ACCOUNT_NO}>
@@ -475,7 +517,12 @@ const Create = () => {
                           <div className="col-md-4">
                             <div className="form-group">
                               <label htmlFor="">COST CENTER</label>
-                              <select className="form-control">
+                              <select 
+                                className="form-control"
+                                onChange={(event) =>
+                                  costCenterFilter(event.target.value)
+                                }
+                                >
                                 <option value="">Please Select</option>
                                 {costCenter.map((item) => (
                                   <option key={item.COST_CENTER_NO} value={item.COST_CENTER_NO}>
@@ -488,7 +535,12 @@ const Create = () => {
                           <div className="col-md-4">
                             <div className="form-group">
                               <label htmlFor="">PROJECT</label>
-                              <select className="form-control">
+                              <select 
+                                className="form-control"
+                                onChange={(event) =>
+                                  projectFilter(event.target.value)
+                                }
+                                >
                                 <option value="">Please Select</option>
                                 {project.map((item) => (
                                   <option key={item.PROJECT_NO} value={item.PROJECT_NO}>
@@ -501,7 +553,12 @@ const Create = () => {
                           <div className="col-md-4">
                             <div className="form-group">
                               <label htmlFor="">PRODUCT</label>
-                              <select className="form-control">
+                              <select 
+                                className="form-control"
+                                onChange={(event) =>
+                                  productFilter(event.target.value)
+                                }
+                                >
                                 <option value="">Please Select</option>
                                 {product.map((item) => (
                                   <option key={item.PRODUCT_NO} value={item.PRODUCT_NO}>
@@ -514,7 +571,12 @@ const Create = () => {
                           <div className="col-md-4">
                             <div className="form-group">
                               <label htmlFor="">BOI</label>
-                              <select className="form-control">
+                              <select 
+                                className="form-control"
+                                onChange={(event) =>
+                                  boiFilter(event.target.value)
+                                }
+                                >
                                 <option value="">Please Select</option>
                                 {boi.map((item) => (
                                   <option key={item.BOI_NO} value={item.BOI_NO}>
@@ -527,7 +589,12 @@ const Create = () => {
                           <div className="col-md-4">
                             <div className="form-group">
                               <label htmlFor="">INTER COMPANY</label>
-                              <select className="form-control">
+                              <select 
+                                className="form-control"
+                                onChange={(event) =>
+                                  interCompanyFilter(event.target.value)
+                                }
+                                >
                                 <option value="">Please Select</option>
                                 {interCompany.map((item) => (
                                   <option key={item.INTER_COMPANY_NO} value={item.INTER_COMPANY_NO}>
@@ -540,7 +607,12 @@ const Create = () => {
                           <div className="col-md-4">
                             <div className="form-group">
                               <label htmlFor="">RESERVE</label>
-                              <select className="form-control">
+                              <select 
+                                className="form-control"
+                                onChange={(event) =>
+                                  reserveFilter(event.target.value)
+                                }
+                                >
                                 <option value="">Please Select</option>
                                 {reserve.map((item) => (
                                   <option key={item.RESERVE_NO} value={item.RESERVE_NO}>
@@ -566,10 +638,13 @@ const Create = () => {
                                 <div className="form-group">
                                   <label htmlFor="">ACCOUNT ID</label>
                                   <input
+                                    //style={{ border: 0 }}
                                     name="invoice"
                                     type="text"
+                                    value={
+                                      acc_id
+                                    }
                                     className="form-control"
-                                    placeholder="000-00-0000000-0000000-000000000000-0000-0000-000-00"
                                     {...register(`test.${index}.acc_id`, {
                                       required: true,
                                     })}
@@ -700,7 +775,7 @@ const Create = () => {
                         className="btn btn-secondary btn-sm"
                         onClick={() =>
                           append({
-                            acc_id: "",
+                            acc_id: acc_id,
                             invoice_id: "",
                             pay_vat: "",
                             pay_type: "",
