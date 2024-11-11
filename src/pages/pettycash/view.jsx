@@ -97,25 +97,25 @@ const View = () => {
                                     ส่วนงาน : {pettycash.division}
                                   </td>
                                   <td>
-                                    <b>ฝ่ายงาน :</b> {pettycash.dept}
+                                    ฝ่ายงาน : {pettycash.dept}
                                   </td>
                                 </tr>
                                 <tr>
                                   <td>
-                                    <b>หมายเลขเอกสาร :</b>{" "}
+                                    หมายเลขเอกสาร :{" "}
                                     {pettycash.petty_cash_id}
                                   </td>
                                   <td>
-                                    <b>วันที่ขอเบิก :</b>{" "}
+                                    วันที่ขอเบิก :{" "}
                                     {dayjs(pettycash.created_at).format(
                                       "DD-MMM-YYYY"
                                     )}
                                   </td>
                                   <td>
-                                    <b>ผู้ที่ขอเบิก :</b> {pettycash.req_by}
+                                    ผู้ที่ขอเบิก : {pettycash.req_by}
                                   </td>
                                   <td>
-                                    <b>ชื่อบริษัท :</b> {pettycash.company}
+                                    ชื่อบริษัท : {pettycash.company}
                                   </td>
                                 </tr>
                               </thead>
@@ -128,29 +128,27 @@ const View = () => {
                           <thead>
                             <tr align="center">
                               <th>#</th>
-                              <th>หมายเลขบัญชี</th>
+                              <th>รายละเอียดการเบิก</th>
                               <th>หมายเลขใบแจ้งหนี้</th>
-                              <th>รายละเอียด</th>
-                              <th>จ่ายภาษี (%)</th>
+                              <th>ภาษี {'(%)'}</th>
                               <th>จำนวนเงิน</th>
                             </tr>
                           </thead>
                           <tbody>
                             {paylists.map((pay, index) => {
                               return (
-                                <tr align="center" key={pay.id}>
-                                  <td>{index + 1}</td>
-                                  <td>{pay.acc_id}</td>
-                                  <td>{pay.invoice_id}</td>
-                                  <td>{pay.description}</td>
-                                  <td>{pay.pay_vat}</td>
-                                  <td>{pay.amount}</td>
+                                <tr key={pay.id}>
+                                  <td align="center">{index + 1}</td>
+                                  <td>{pay.acc_id} : {pettycash.pay_to} {'->'} {pay.pay_type} {'->'} {pay.description}</td>
+                                  <td align="center">{pay.invoice_id}</td>
+                                  <td align="center">{pay.pay_vat}</td>
+                                  <td align="center">{pay.amount}</td>
                                 </tr>
                               );
                             })}
                           </tbody>
                           <tr align="center">
-                            <td colSpan={4}>
+                            <td colSpan={3}>
                          {convertThai.bathText(paytotal)}
                             </td>
                             <td>
@@ -187,7 +185,7 @@ const View = () => {
                                   <br />
                                   <b>ผู้เบิกเงิน</b> <br />
                                   <br />
-                                  วันที่..................................................
+                                  วันที่...........................................................
                                 </div>
                            
                             <div className="col-sm-3 text-center">
@@ -197,7 +195,7 @@ const View = () => {
                                   <br />
                                   <b>ผู้อนุมัติ</b> <br />
                                   <br />
-                                  วันที่..................................................
+                                  วันที่...........................................................
                                
                             </div>
                             <div className="col-sm-3 text-center">
@@ -207,7 +205,7 @@ const View = () => {
                                   <br />
                                   <b>ผู้รับเงิน</b> <br />
                                   <br />
-                                  วันที่..................................................
+                                  วันที่............................................................
                                
                             </div>
                             <div className="col-sm-3 text-center">
@@ -217,7 +215,7 @@ const View = () => {
                                   <br />
                                   <b>ผู้จ่ายเงิน</b> <br />
                                   <br />
-                                  วันที่..................................................
+                                  วันที่............................................................
                               
                             </div>
                           </div>

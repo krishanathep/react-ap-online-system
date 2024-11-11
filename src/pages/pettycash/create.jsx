@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import axios from "axios";
+import { useAuthUser } from "react-auth-kit";
 import Swal from "sweetalert2";
 import Select from "react-select";
 import { Link, useNavigate } from "react-router-dom";
 
-const Create = () => {
+const Create = ({ prefix = "AC" }) => {
   const {
     register,
     control,
@@ -19,6 +20,7 @@ const Create = () => {
   });
 
   const navigate = useNavigate();
+  const userdetail = useAuthUser();
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -36,6 +38,8 @@ const Create = () => {
   const [interCompany, setInterCompany] = useState([]);
   const [reserve, setReserve] = useState([]);
 
+  const [id, setId] = useState([])
+
   const [id_1, setID_1] = useState('000')
   const [id_2, setID_2] = useState('00')
   const [id_3, setID_3] = useState('0000000')
@@ -47,7 +51,7 @@ const Create = () => {
   const [id_9, setID_9] = useState('00')
 
   const acc_id = id_1 +"-"+ id_2 +"-"+ id_3 +"-"+ id_4 +"-"+ id_5 +"-"+ id_6 +"-"+ id_7 +"-"+ id_8 +"-"+ id_9 
-
+  
   const companyFilter = (key) => {
     setID_1(key)
   }
@@ -205,6 +209,17 @@ const Create = () => {
       });
   };
 
+  const generateId = () => {
+    const date = new Date();
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear().toString().slice(-2);
+    const randomNum = Math.floor(Math.random() * 1000)
+      .toString()
+      .padStart(5, "0");
+    return `${prefix}-${day}${month}${year}-${randomNum}`;
+  }
+
   useEffect(() => {
     getData();
     getCompany();
@@ -216,7 +231,9 @@ const Create = () => {
     getBoi()
     getInterComPany()
     getReserve()
-  }, []);
+    generateId()
+    setId(generateId());
+  }, [prefix, acc_id]);
 
   const handleCreateSubmit = async (data) => {
     const formData = new FormData();
@@ -296,6 +313,25 @@ const Create = () => {
                     <div className="card shadow-none border">
                       <div className="card-body">
                         <div className="row">
+                        <div className="col-md-2">
+                            <div className="form-group">
+                              <label htmlFor="">หมายเลขเอกสาร</label>
+                              <input
+                                value={id}
+                                type="text"
+                                className="form-control"
+                                placeholder="กรุณาเพิ่มข้อมูล"
+                                {...register("petty_cash_id", {
+                                  required: true,
+                                })}
+                              />
+                              {errors.petty_cash_id && (
+                                <span className="text-danger">
+                                  This field is required
+                                </span>
+                              )}
+                            </div>
+                          </div>
                           <div className="col-md-2">
                             <div className="form-group">
                               <label htmlFor="">รหัสพนักงาน</label>
@@ -418,6 +454,7 @@ const Create = () => {
                             <div className="form-group">
                               <label htmlFor="">ผู้ที่ขอเบิก</label>
                               <input
+                                value={userdetail().name}
                                 type="text"
                                 className="form-control"
                                 placeholder="กรุณาเพิ่มข้อมูล"
@@ -442,7 +479,7 @@ const Create = () => {
                                   name="file"
                                   accept=".pdf"
                                   {...register("files", {
-                                    required: true,
+                                    required: false,
                                   })}
                                 />
                               </div>
@@ -622,6 +659,10 @@ const Create = () => {
                               </select>
                             </div>
                           </div>
+                          <div className="col-md-12">
+                            <label htmlFor="">GENERATE ID</label><br/>
+                            {acc_id}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -641,10 +682,8 @@ const Create = () => {
                                     //style={{ border: 0 }}
                                     name="invoice"
                                     type="text"
-                                    value={
-                                      acc_id
-                                    }
                                     className="form-control"
+                                    placeholder="PLEASE COPPY FROM GENERATE ID"
                                     {...register(`test.${index}.acc_id`, {
                                       required: true,
                                     })}
@@ -775,7 +814,7 @@ const Create = () => {
                         className="btn btn-secondary btn-sm"
                         onClick={() =>
                           append({
-                            acc_id: acc_id,
+                            acc_id: "",
                             invoice_id: "",
                             pay_vat: "",
                             pay_type: "",
