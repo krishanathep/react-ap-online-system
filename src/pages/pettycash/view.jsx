@@ -23,7 +23,7 @@ const View = () => {
   const getData = async () => {
     await axios
       .get(
-        "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash/" + id
+        import.meta.env.VITE_API_KEY +"/api/petty-cash/" + id
       )
       .then((res) => {
         setPettyCash(res.data.data);

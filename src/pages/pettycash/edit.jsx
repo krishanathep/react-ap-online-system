@@ -39,7 +39,7 @@ const Update = () => {
   const getData = async () => {
     await axios
       .get(
-        "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash/" + id
+        import.meta.env.VITE_API_KEY +"/api/petty-cash/" + id
       )
       .then((res) => {
         reset({
@@ -135,7 +135,7 @@ const Update = () => {
 
   const getCompany = async () => {
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/company")
+      .get(import.meta.env.VITE_API_KEY +"/api/company")
       .then((res) => {
         const data = res.data.company;
         setCompany(data);
@@ -144,7 +144,7 @@ const Update = () => {
 
   const getBranch = async () => {
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/branch")
+      .get(import.meta.env.VITE_API_KEY +"/api/branch")
       .then((res) => {
         const data = res.data.branch;
         setBranch(data);
@@ -154,7 +154,7 @@ const Update = () => {
 
   const getAccount = async () => {
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/account")
+      .get(import.meta.env.VITE_API_KEY +"/api/account")
       .then((res) => {
         const data = res.data.account;
         setAccount(data);
@@ -163,7 +163,7 @@ const Update = () => {
 
   const getCostCenter = async () => {
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/cost-center")
+      .get(import.meta.env.VITE_API_KEY +"/api/cost-center")
       .then((res) => {
         const data = res.data.cost_center;
         setCostCenter(data);
@@ -172,7 +172,7 @@ const Update = () => {
 
   const getProject = async () => {
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/project")
+      .get(import.meta.env.VITE_API_KEY +"/api/project")
       .then((res) => {
         const data = res.data.project;
         setProject(data);
@@ -181,7 +181,7 @@ const Update = () => {
 
   const getProduct = async () => {
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/product")
+      .get(import.meta.env.VITE_API_KEY +"/api/product")
       .then((res) => {
         const data = res.data.product;
         setProduct(data);
@@ -190,7 +190,7 @@ const Update = () => {
 
   const getBoi = async () => {
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/boi")
+      .get(import.meta.env.VITE_API_KEY +"/api/boi")
       .then((res) => {
         const data = res.data.boi;
         setBoi(data);
@@ -199,7 +199,7 @@ const Update = () => {
 
   const getInterComPany = async () => {
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/inter-company")
+      .get(import.meta.env.VITE_API_KEY +"/api/inter-company")
       .then((res) => {
         const data = res.data.inter_company;
         setInterCompany(data);
@@ -208,7 +208,7 @@ const Update = () => {
 
   const getReserve = async () => {
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/reserve")
+      .get(import.meta.env.VITE_API_KEY +"/api/reserve")
       .then((res) => {
         const data = res.data.reserve;
         setReserve(data);
@@ -247,7 +247,7 @@ const Update = () => {
     try {
       await axios
         .post(
-          "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-update/" +
+          import.meta.env.VITE_API_KEY +"/api/petty-cash-update/" +
             id,
             formData
         )

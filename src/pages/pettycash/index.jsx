@@ -24,7 +24,7 @@ const Payments = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         setPettyCash(res.data.data);
         setRecords(res.data.data.slice(from, to));
@@ -37,7 +37,7 @@ const Payments = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         const number = res.data.data.filter((p) =>
           p.petty_cash_id.includes(key)
@@ -53,7 +53,7 @@ const Payments = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         const employee = res.data.data.filter((p) => p.emp_id.includes(key));
         setPettyCash(employee);
@@ -67,7 +67,7 @@ const Payments = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         const company = res.data.data.filter((p) => p.company === key);
         setPettyCash(company);
@@ -81,7 +81,7 @@ const Payments = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         const dept = res.data.data.filter((p) => p.dept === key);
         setPettyCash(dept);
@@ -95,7 +95,7 @@ const Payments = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         const status = res.data.data.filter((p) => p.status === key);
         setPettyCash(status);
@@ -109,7 +109,7 @@ const Payments = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         const date = res.data.data.filter((p) => p.created_at.includes(key));
         setPettyCash(date);
@@ -140,7 +140,7 @@ const Payments = () => {
         setLoading(true);
         axios
           .put(
-            "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-status-update/" +
+            import.meta.env.VITE_API_KEY +"/api/petty-cash-status-update/" +
               blogs.id,
             { status: "รอสั่งจ่ายเงิน" }
           )
@@ -176,7 +176,7 @@ const Payments = () => {
         });
         axios
           .delete(
-            "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-delete/" +
+            import.meta.env.VITE_API_KEY +"/api/petty-cash-delete/" +
               blogs.id,
             data
           )
@@ -224,14 +224,6 @@ const Payments = () => {
                     <div className="row">
                       <div className="col-md-12">
                         <div className="float-right mb-2">
-                          {/* <button
-                            onClick={() =>
-                              alert("Export all data to excel file!")
-                            }
-                            className="btn btn-secondary"
-                          >
-                            <i className="fas fa-download"></i> EXPORT
-                          </button>{" "} */}
                           <Link
                             to={"/pettycash/create"}
                             className="btn btn-success"
@@ -410,7 +402,7 @@ const Payments = () => {
                               ) : (
                                 <a
                                   href={
-                                    "http://localhost/laravel_auth_jwt_api_afd/public/uploads/" +
+                                    import.meta.env.VITE_API_KEY +"/uploads/" +
                                     files
                                   }
                                   target="_blank"

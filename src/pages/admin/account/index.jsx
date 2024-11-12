@@ -24,7 +24,7 @@ const Account = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         setPettyCash(
           res.data.data.filter(
@@ -47,7 +47,7 @@ const Account = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         const number = res.data.data.filter((p) =>
           p.petty_cash_id.includes(key)
@@ -63,7 +63,7 @@ const Account = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         const employee = res.data.data.filter((p) => p.emp_id.includes(key));
         setPettyCash(employee);
@@ -77,7 +77,7 @@ const Account = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         const company = res.data.data.filter((p) => p.company === key);
         setPettyCash(company);
@@ -91,7 +91,7 @@ const Account = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         const dept = res.data.data.filter((p) => p.dept === key);
         setPettyCash(dept);
@@ -105,7 +105,7 @@ const Account = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         const status = res.data.data.filter((p) => p.status === key);
         setPettyCash(status);
@@ -119,7 +119,7 @@ const Account = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         const date = res.data.data.filter((p) => p.created_at.includes(key));
         setPettyCash(date);
@@ -150,7 +150,7 @@ const Account = () => {
         setLoading(true);
         axios
           .put(
-            "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-status-update/" +
+            import.meta.env.VITE_API_KEY +"/api/petty-cash-status-update/" +
               blogs.id,
             { status: "ปิดรายการ" }
           )
@@ -187,7 +187,7 @@ const Account = () => {
         setLoading(true);
         axios
           .put(
-            "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-status-update/" +
+            import.meta.env.VITE_API_KEY +"/api/petty-cash-status-update/" +
               blogs.id, {status: "ยกเลิกเอกสาร"}
           )
           .then((res) => {
@@ -212,7 +212,7 @@ const Account = () => {
   const handleFileExport = async () => {
     try {
       const response = await axios.get(
-        "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-export",
+        import.meta.env.VITE_API_KEY +"/api/petty-cash-export",
         { responseType: "blob" }
       );
 
@@ -438,25 +438,6 @@ const Account = () => {
                           title: "ฝ่ายงาน",
                           textAlignment: "center",
                         },
-                        // {
-                        //   accessor: "files",
-                        //   title: "ไฟล์แนบ",
-                        //   textAlignment: "center",
-                        //   render: ({ files }) => (
-                        //     <>
-                        //       <a
-                        //         href={
-                        //           "http://localhost/laravel_auth_jwt_api_afd/public/uploads/" +
-                        //           files
-                        //         }
-                        //         target="_blank"
-                        //       >
-                        //         {/* <i className="fas fa-download"></i> */}
-                        //         <i className="fas fa-paperclip"></i>
-                        //       </a>
-                        //     </>
-                        //   ),
-                        // },
                         {
                           accessor: "company",
                           title: "ชื่อบริษัท",

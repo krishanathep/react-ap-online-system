@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { DataTable } from "mantine-datatable";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -24,7 +23,7 @@ const Finance = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         setPettyCash(res.data.data.filter((p)=>p.status=='จัดทำเอกสาร'));
         setRecords(res.data.data.filter((p)=>p.status!=='จัดทำเอกสาร').slice(from, to));
@@ -37,7 +36,7 @@ const Finance = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         const number = res.data.data.filter((p) =>
           p.petty_cash_id.includes(key)
@@ -53,7 +52,7 @@ const Finance = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         const employee = res.data.data.filter((p) => p.emp_id.includes(key));
         setPettyCash(employee);
@@ -67,7 +66,7 @@ const Finance = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         const company = res.data.data.filter((p) => p.company === key);
         setPettyCash(company);
@@ -81,7 +80,7 @@ const Finance = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         const dept = res.data.data.filter((p) => p.dept === key);
         setPettyCash(dept);
@@ -95,7 +94,7 @@ const Finance = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         const status = res.data.data.filter((p) => p.status === key);
         setPettyCash(status);
@@ -109,7 +108,7 @@ const Finance = () => {
     const to = from + pageSize;
 
     await axios
-      .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
+      .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
         const date = res.data.data.filter((p) => p.created_at.includes(key));
         setPettyCash(date);
@@ -141,7 +140,7 @@ const Finance = () => {
         setLoading(true);
         axios
           .put(
-            "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-status-update/" +
+            import.meta.env.VITE_API_KEY +"/api/petty-cash-status-update/" +
               blogs.id, {status: "จ่ายเงินสำเร็จ"}
           )
           .then((res) => {
@@ -177,7 +176,7 @@ const Finance = () => {
         setLoading(true);
         axios
           .put(
-            "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-status-update/" +
+            import.meta.env.VITE_API_KEY +"/api/petty-cash-status-update/" +
               blogs.id, {status: "ยกเลิกเอกสาร"}
           )
           .then((res) => {
@@ -391,7 +390,7 @@ const Finance = () => {
                               ) : (
                                 <a
                                   href={
-                                    "http://localhost/laravel_auth_jwt_api_afd/public/uploads/" +
+                                    import.meta.env.VITE_API_KEY +"/uploads/" +
                                     files
                                   }
                                   target="_blank"
@@ -452,16 +451,6 @@ const Finance = () => {
                           width: 150,
                           render: (blogs) => (
                             <>
-                              {/* <a
-                                href={
-                                  "http://localhost/laravel_auth_jwt_api_afd/public/uploads/" +
-                                  blogs.files
-                                }
-                                target="_blank"
-                                className="btn btn-primary"
-                              >
-                                <i className="fas fa-paperclip"></i>
-                              </a>{" "} */}
                               <button
                                 className="btn btn-info"
                                 onClick={() => handleApprovedSubmit(blogs)}

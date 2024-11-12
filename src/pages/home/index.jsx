@@ -9,7 +9,7 @@ export default function Home() {
   const [rejected, setRejected]  = useState(0)
 
   const getData = async () => {
-    await axios.get('http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash')
+    await axios.get(import.meta.env.VITE_API_KEY +'/api/petty-cash')
       .then((res)=>{
 
         const status1 = res.data.data.filter(
