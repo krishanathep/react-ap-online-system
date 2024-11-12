@@ -459,6 +459,27 @@ const Update = () => {
                                 </div>
                               </div>
                               <div className="col-md-2">
+                            <div className="form-group">
+                              <label htmlFor="">ประเภทงบประมาณ</label>
+                              <select 
+                                className="form-control"
+                                {...register("credit_type", {
+                                  required: true,
+                                })}
+                                >
+                                <option value="">Please Select</option>
+                                <option value="1">ในวงเงินงบประมาณ</option>
+                                <option value="2">นอกงบประมาณ</option>
+                                <option value="3">เกินงบประมาณ</option>
+                              </select>
+                              {errors.credit_type && (
+                                <span className="text-danger">
+                                  This field is required
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                              <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">อัพโหลด</label>
                                   <br />

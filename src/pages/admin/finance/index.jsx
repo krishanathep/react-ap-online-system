@@ -26,7 +26,7 @@ const Finance = () => {
     await axios
       .get("http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash")
       .then((res) => {
-        setPettyCash(res.data.data.filter((p)=>p.status!=='จัดทำเอกสาร'));
+        setPettyCash(res.data.data.filter((p)=>p.status=='จัดทำเอกสาร'));
         setRecords(res.data.data.filter((p)=>p.status!=='จัดทำเอกสาร').slice(from, to));
         setLoading(false);
       });
@@ -381,6 +381,29 @@ const Finance = () => {
                           textAlignment: "center",
                         },
                         {
+                          accessor: "files",
+                          title: "ไฟล์แนบ",
+                          textAlignment: "center",
+                          render: ({ files }) => (
+                            <h5>
+                              {files === "0" ? (
+                                <i className="fas fa-ban text-danger"></i>
+                              ) : (
+                                <a
+                                  href={
+                                    "http://localhost/laravel_auth_jwt_api_afd/public/uploads/" +
+                                    files
+                                  }
+                                  target="_blank"
+                                >
+                                  {/* <i className="fas fa-download"></i> */}
+                                  <i className="fas fa-paperclip"></i>
+                                </a>
+                              )}
+                            </h5>
+                          ),
+                        },
+                        {
                           accessor: "company",
                           title: "ชื่อบริษัท",
                           textAlignment: "center",
@@ -426,10 +449,10 @@ const Finance = () => {
                           accessor: "actions",
                           textAlignment: "center",
                           title: "ดำเนินการ",
-                          width: 200,
+                          width: 150,
                           render: (blogs) => (
                             <>
-                              <a
+                              {/* <a
                                 href={
                                   "http://localhost/laravel_auth_jwt_api_afd/public/uploads/" +
                                   blogs.files
@@ -438,10 +461,11 @@ const Finance = () => {
                                 className="btn btn-primary"
                               >
                                 <i className="fas fa-paperclip"></i>
-                              </a>{" "}
+                              </a>{" "} */}
                               <button
                                 className="btn btn-info"
                                 onClick={() => handleApprovedSubmit(blogs)}
+                                disabled={blogs.status==="ยกเลิกเอกสาร" ? true : false}
                               >
                                 <i className="fas fa-check-circle"></i>
                               </button>{" "}

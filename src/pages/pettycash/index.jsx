@@ -141,12 +141,48 @@ const Payments = () => {
         axios
           .put(
             "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-status-update/" +
-              blogs.id,{status: "รอสั่งจ่ายเงิน"}
+              blogs.id,
+            { status: "รอสั่งจ่ายเงิน" }
           )
           .then((res) => {
             console.log(res);
             getData();
             setLoading(false);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    });
+  };
+
+  const hanldeDelete = (blogs,data) => {
+    Swal.fire({
+      title: "ยืนยันการลบเอกสาร",
+      text: "คุณต้องการลบเอกสารเงินสดย่อยใช่ไหม",
+      icon: "success",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "ยกเลิก",
+      confirmButtonText: "ยืนยัน",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "success",
+          title: "ระบบได้ทำการลบเอกสารเรียบร้อยแล้ว",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        axios
+          .delete(
+            "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-delete/" +
+              blogs.id,
+            data
+          )
+          .then((res) => {
+            console.log(res);
+            getData();
           })
           .catch((error) => {
             console.log(error);
@@ -253,7 +289,7 @@ const Payments = () => {
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">ชื่อบริษัท</label>
+                                  <label htmlFor="">บริษัท</label>
                                   <select
                                     className="form-control"
                                     onChange={(event) =>
@@ -369,22 +405,26 @@ const Payments = () => {
                           textAlignment: "center",
                           render: ({ files }) => (
                             <h5>
-                              <a
-                                href={
-                                  "http://localhost/laravel_auth_jwt_api_afd/public/uploads/" +
-                                  files
-                                }
-                                target="_blank"
-                              >
-                                {/* <i className="fas fa-download"></i> */}
-                                <i className="fas fa-paperclip"></i>
-                              </a>
+                              {files === "0" ? (
+                                <i className="fas fa-ban text-danger"></i>
+                              ) : (
+                                <a
+                                  href={
+                                    "http://localhost/laravel_auth_jwt_api_afd/public/uploads/" +
+                                    files
+                                  }
+                                  target="_blank"
+                                >
+                                  {/* <i className="fas fa-download"></i> */}
+                                  <i className="fas fa-paperclip"></i>
+                                </a>
+                              )}
                             </h5>
                           ),
                         },
                         {
                           accessor: "company",
-                          title: "ชื่อบริษัท",
+                          title: "บริษัท",
                           textAlignment: "center",
                         },
                         {
@@ -454,10 +494,7 @@ const Payments = () => {
                               </Link>{" "}
                               <button
                                 className="btn btn-danger"
-                                //onClick={() => hanldeDelete(blogs)}
-                                onClick={() =>
-                                  alert("This Petty Cash Deleted!!!")
-                                }
+                                onClick={() => hanldeDelete(blogs)}
                               >
                                 <i className="fas fa-trash-alt"></i>
                               </button>

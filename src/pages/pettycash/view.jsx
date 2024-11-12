@@ -128,7 +128,7 @@ const View = () => {
                           <thead>
                             <tr align="center">
                               <th>#</th>
-                              <th>รายละเอียดการเบิก</th>
+                              <th>รายละเอียดการเบิกเงิน</th>
                               <th>หมายเลขใบแจ้งหนี้</th>
                               <th>ภาษี {'(%)'}</th>
                               <th>จำนวนเงิน</th>
@@ -139,7 +139,7 @@ const View = () => {
                               return (
                                 <tr key={pay.id}>
                                   <td align="center">{index + 1}</td>
-                                  <td>{pay.acc_id} : {pettycash.pay_to} {'->'} {pay.pay_type} {'->'} {pay.description}</td>
+                                  <td>{pay.acc_id} <br/> {pettycash.pay_to} {'->'} {pay.pay_type} {'->'} {pay.description}</td>
                                   <td align="center">{pay.invoice_id}</td>
                                   <td align="center">{pay.pay_vat}</td>
                                   <td align="center">{pay.amount}</td>
@@ -152,7 +152,7 @@ const View = () => {
                          {convertThai.bathText(paytotal)}
                             </td>
                             <td>
-                              <b>รวมเงินทั้งหมด</b>
+                              <b>TOTAL</b>
                             </td>
                             <td>
                               <span>{paytotal}</span>
@@ -162,12 +162,12 @@ const View = () => {
                         <div className="col-md-12 mt-5">
                           <input
                             type="checkbox"
-                            checked={creddit === 1 ? true : false}
+                            checked={creddit === '1' ? true : false}
                           />{" "}
                           ในวงเงินงบประมาณ{" "}
                           <input
                             type="checkbox"
-                            checked={creddit === 2 ? true : false}
+                            checked={creddit === '2' ? true : false}
                           />{" "}
                           นอกงบประมาณ{" "}
                           <input

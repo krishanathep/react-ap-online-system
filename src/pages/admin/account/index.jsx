@@ -28,13 +28,13 @@ const Account = () => {
       .then((res) => {
         setPettyCash(
           res.data.data.filter(
-            (p) => p.status === "จ่ายเงินสำเร็จ" || p.status === "ปิดรายการ"
+            (p) => p.status === "จ่ายเงินสำเร็จ" || p.status === "ปิดรายการ" || p.status === "ยกเลิกเอกสาร"
           )
         );
         setRecords(
           res.data.data
             .filter(
-              (p) => p.status === "จ่ายเงินสำเร็จ" || p.status === "ปิดรายการ"
+              (p) => p.status === "จ่ายเงินสำเร็จ" || p.status === "ปิดรายการ" || p.status === "ยกเลิกเอกสาร"
             )
             .slice(from, to)
         );
@@ -153,6 +153,42 @@ const Account = () => {
             "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-status-update/" +
               blogs.id,
             { status: "ปิดรายการ" }
+          )
+          .then((res) => {
+            console.log(res);
+            getData();
+            setLoading(false);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    });
+  };
+
+  const handleRejectedSubmit = (blogs) => {
+    Swal.fire({
+      title: "ยืนยันการยกเลิกเอกสาร",
+      text: "คุณต้องการยกเลิกเอกสารฉบับนี้ใช่ไหม",
+      icon: "success",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "ยกเลิก",
+      confirmButtonText: "ยืนยัน",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "success",
+          title: "ระบบได้ทำการยกเลิกเอกสารเรียบร้อยแล้ว",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        setLoading(true);
+        axios
+          .put(
+            "http://localhost/laravel_auth_jwt_api_afd/public/api/petty-cash-status-update/" +
+              blogs.id, {status: "ยกเลิกเอกสาร"}
           )
           .then((res) => {
             console.log(res);
@@ -479,17 +515,15 @@ const Account = () => {
                               <button
                                 className="btn btn-info"
                                 onClick={() => handleStatusUpdateSubmit(blogs)}
+                                disabled={blogs.status==="ยกเลิกเอกสาร" ? true : false}
                               >
                                 <i className="fas fa-check-circle"></i>
                               </button>{" "}
                               <button
                                 className="btn btn-danger"
-                                //onClick={() => hanldeDelete(blogs)}
-                                onClick={() =>
-                                  alert("This Petty Cash Deleted!!!")
-                                }
+                                onClick={() => handleRejectedSubmit(blogs)}
                               >
-                                <i className="fas fa-trash-alt"></i>
+                                <i className="fas fa-times-circle"></i>
                               </button>
                             </>
                           ),
