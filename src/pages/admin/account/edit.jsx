@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Select from "react-select";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 const ACCUpdate = () => {
@@ -97,123 +98,160 @@ const ACCUpdate = () => {
     "-" +
     id_9;
 
-  const companyFilter = (key) => {
-    setID_1(key);
-  };
+    const companyFilter = (key) => {
+      setID_1(key.value)
+    }
+  
+    const branchFilter = (key) => {
+      setID_2(key.value)
+    }
+  
+    const accountFilter = (key) => {
+      setID_3(key.value)
+    }
+  
+    const costCenterFilter = (key) => {
+      setID_4(key.value)
+    }
+  
+    const projectFilter = (key) => {
+      setID_5(key.value)
+    }
+  
+    const productFilter = (key) => {
+      setID_6(key.value)
+    }
+  
+    const boiFilter = (key) => {
+      setID_7(key.value)
+    }
+  
+    const interCompanyFilter = (key) => {
+      setID_8(key.value)
+    }
+  
+    const reserveFilter = (key) => {
+      setID_9(key.value)
+    }
 
-  const branchFilter = (key) => {
-    setID_2(key);
-  };
-
-  const accountFilter = (key) => {
-    setID_3(key);
-  };
-
-  const costCenterFilter = (key) => {
-    setID_4(key);
-  };
-
-  const projectFilter = (key) => {
-    setID_5(key);
-  };
-
-  const productFilter = (key) => {
-    setID_6(key);
-  };
-
-  const boiFilter = (key) => {
-    setID_7(key);
-  };
-
-  const interCompanyFilter = (key) => {
-    setID_8(key);
-  };
-
-  const reserveFilter = (key) => {
-    setID_9(key);
-  };
-
-  const getCompany = async () => {
-    await axios
-      .get(import.meta.env.VITE_API_KEY +"/api/company")
-      .then((res) => {
-        const data = res.data.company;
-        setCompany(data);
-      });
-  };
-
-  const getBranch = async () => {
-    await axios
-      .get(import.meta.env.VITE_API_KEY +"/api/branch")
-      .then((res) => {
-        const data = res.data.branch;
-        setBranch(data);
-        //console.log(res)
-      });
-  };
-
-  const getAccount = async () => {
-    await axios
-      .get(import.meta.env.VITE_API_KEY +"/api/account")
-      .then((res) => {
-        const data = res.data.account;
-        setAccount(data);
-      });
-  };
-
-  const getCostCenter = async () => {
-    await axios
-      .get(import.meta.env.VITE_API_KEY +"/api/cost-center")
-      .then((res) => {
-        const data = res.data.cost_center;
-        setCostCenter(data);
-      });
-  };
-
-  const getProject = async () => {
-    await axios
-      .get(import.meta.env.VITE_API_KEY +"/api/project")
-      .then((res) => {
-        const data = res.data.project;
-        setProject(data);
-      });
-  };
-
-  const getProduct = async () => {
-    await axios
-      .get(import.meta.env.VITE_API_KEY +"/api/product")
-      .then((res) => {
-        const data = res.data.product;
-        setProduct(data);
-      });
-  };
-
-  const getBoi = async () => {
-    await axios
-      .get(import.meta.env.VITE_API_KEY +"/api/boi")
-      .then((res) => {
-        const data = res.data.boi;
-        setBoi(data);
-      });
-  };
-
-  const getInterComPany = async () => {
-    await axios
-      .get(import.meta.env.VITE_API_KEY +"/api/inter-company")
-      .then((res) => {
-        const data = res.data.inter_company;
-        setInterCompany(data);
-      });
-  };
-
-  const getReserve = async () => {
-    await axios
-      .get(import.meta.env.VITE_API_KEY +"/api/reserve")
-      .then((res) => {
-        const data = res.data.reserve;
-        setReserve(data);
-      });
-  };
+    const getCompany = async () => {
+      await axios
+        .get(import.meta.env.VITE_API_KEY +"/api/company")
+        .then((res) => {
+          const data = res.data.company;
+          const formattedOptions = data.map((item) => ({
+            value: item.COMPANY_NO, // กำหนด value ที่จะเก็บใน selectedOption
+            label: item.COMPANY_NO+" : "+item.COMPANY_NAME, // กำหนด label ที่จะแสดงใน dropdown
+          }));
+          setCompany(formattedOptions);
+        });
+    };
+  
+    const getBranch = async () => {
+      await axios
+        .get(import.meta.env.VITE_API_KEY +"/api/branch")
+        .then((res) => {
+          const data = res.data.branch;
+          const formattedOptions = data.map((item) => ({
+            value: item.COMPANY_NO, // กำหนด value ที่จะเก็บใน selectedOption
+            label: item.COMPANY_NO+ " : "+item.COMPANY_NAME, // กำหนด label ที่จะแสดงใน dropdown
+          }));
+          setBranch(formattedOptions);
+        });
+    };
+  
+    const getAccount = async () => {
+      await axios
+        .get(import.meta.env.VITE_API_KEY +"/api/account")
+        .then((res) => {
+          const data = res.data.account;
+          const formattedOptions = data.map((item) => ({
+            value: item.ACCOUNT_NO, // กำหนด value ที่จะเก็บใน selectedOption
+            label: item.ACCOUNT_NO+" : "+item.ACCOUNT_NAME, // กำหนด label ที่จะแสดงใน dropdown
+          }));
+          setAccount(formattedOptions);
+        });
+    };
+  
+    const getCostCenter = async () => {
+      await axios
+        .get(import.meta.env.VITE_API_KEY +"/api/cost-center")
+        .then((res) => {
+          const data = res.data.cost_center;
+          const formattedOptions = data.map((item) => ({
+            value: item.COST_CENTER_NO, // กำหนด value ที่จะเก็บใน selectedOption
+            label: item.COST_CENTER_NO+" : "+item.COST_CENTER_NAME, // กำหนด label ที่จะแสดงใน dropdown
+          }));
+          setCostCenter(formattedOptions);
+        });
+    };
+  
+    const getProject = async () => {
+      await axios
+        .get(import.meta.env.VITE_API_KEY +"/api/project")
+        .then((res) => {
+          const data = res.data.project;
+          const formattedOptions = data.map((item) => ({
+            value: item.PROJECT_NO, // กำหนด value ที่จะเก็บใน selectedOption
+            label: item.PROJECT_NO+" : "+item.PROJECT_NAME, // กำหนด label ที่จะแสดงใน dropdown
+          }));
+          setProject(formattedOptions);
+        });
+    };
+  
+    const getProduct = async () => {
+      await axios
+        .get(import.meta.env.VITE_API_KEY +"/api/product")
+        .then((res) => {
+          const data = res.data.product;
+          const formattedOptions = data.map((item) => ({
+            value: item.PRODUCT_NO, // กำหนด value ที่จะเก็บใน selectedOption
+            label: item.PRODUCT_NO+" : "+item.PRODUCT_NAME, // กำหนด label ที่จะแสดงใน dropdown
+          }));
+          setProduct(formattedOptions);
+        });
+    };
+  
+    const getBoi = async () => {
+      await axios
+        .get(import.meta.env.VITE_API_KEY +"/api/boi")
+        .then((res) => {
+          const data = res.data.boi;
+          const formattedOptions = data.map((item) => ({
+            value: item.BOI_NO, // กำหนด value ที่จะเก็บใน selectedOption
+            label: item.BOI_NO+" : "+item.BOI_NAME, // กำหนด label ที่จะแสดงใน dropdown
+          }));
+          setBoi(formattedOptions);
+        });
+    };
+  
+  
+    const getInterComPany = async () => {
+      await axios
+        .get(import.meta.env.VITE_API_KEY +"/api/inter-company")
+        .then((res) => {
+          const data = res.data.inter_company;
+          const formattedOptions = data.map((item) => ({
+            value: item.INTER_COMPANY_NO, // กำหนด value ที่จะเก็บใน selectedOption
+            label: item.INTER_COMPANY_NO+" : "+item.INTER_COMPANY_NAME, // กำหนด label ที่จะแสดงใน dropdown
+          }));
+          setInterCompany(formattedOptions);
+        });
+    };
+  
+  
+    const getReserve = async () => {
+      await axios
+        .get(import.meta.env.VITE_API_KEY +"/api/reserve")
+        .then((res) => {
+          const data = res.data.reserve;
+          const formattedOptions = data.map((item) => ({
+            value: item.RESERVE_NO, // กำหนด value ที่จะเก็บใน selectedOption
+            label: item.RESERVE_NO+" : "+item.RESERVE_NAME, // กำหนด label ที่จะแสดงใน dropdown
+          }));
+          setReserve(formattedOptions);
+        });
+    };
 
   const handlUpdateSubmit = async (data) => {
     //alert(JSON.stringify(data));
@@ -259,7 +297,7 @@ const ACCUpdate = () => {
             timer: 2000,
           });
           console.log(res)
-          navigate("/account");
+          navigate("/admin/account");
         });
     } catch (error) {
       console.log(error);
@@ -286,15 +324,15 @@ const ACCUpdate = () => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0">แก้ไขเอกสารเงินสดย่อย</h1>
+                <h1 className="m-0">PETTY CASH UPDATE</h1>
               </div>
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
-                    <a href="#">Home</a>
+                    <a href="#">DASHBOARD</a>
                   </li>
-                  <li className="breadcrumb-item active">Petty cash list</li>
-                  <li className="breadcrumb-item active">Update</li>
+                  <li className="breadcrumb-item active">PETTY CASH LIST</li>
+                  <li className="breadcrumb-item active">UPDATE</li>
                 </ol>
               </div>
             </div>
@@ -313,7 +351,7 @@ const ACCUpdate = () => {
                             <div className="row">
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">หมายเลขเอกสาร</label>
+                                  <label htmlFor="">เลขที่เอกสาร</label>
                                   <input
                                     type="text"
                                     className="form-control"
@@ -506,204 +544,111 @@ const ACCUpdate = () => {
                         </div>
                         <div className="card shadow-none border">
                           <div className="card-body">
-                            <div className="row">
-                              <div className="col-md-4">
-                                <div className="form-group">
-                                  <label htmlFor="">COMPANY</label>
-                                  <select
-                                    className="form-control"
-                                    onChange={(event) =>
-                                      companyFilter(event.target.value)
-                                    }
-                                  >
-                                    <option value="">Please Select</option>
-                                    {company.map((item) => (
-                                      <option
-                                        key={item.COMPANY_NO}
-                                        value={item.COMPANY_NO}
-                                      >
-                                        {item.COMPANY_NO} : {item.COMPANY_NAME}
-                                      </option>
-                                    ))}
-                                  </select>
-                                </div>
-                              </div>
-                              <div className="col-md-4">
-                                <div className="form-group">
-                                  <label htmlFor="">BRANCH</label>
-                                  <select
-                                    className="form-control"
-                                    onChange={(event) =>
-                                      branchFilter(event.target.value)
-                                    }
-                                  >
-                                    <option value="">Please Select</option>
-                                    {branch.map((item) => (
-                                      <option
-                                        key={item.COMPANY_NO}
-                                        value={item.COMPANY_NO}
-                                      >
-                                        {item.COMPANY_NO} : {item.COMPANY_NAME}
-                                      </option>
-                                    ))}
-                                  </select>
-                                </div>
-                              </div>
-                              <div className="col-md-4">
-                                <div className="form-group">
-                                  <label htmlFor="">ACCOUNT</label>
-                                  <select
-                                    className="form-control"
-                                    onChange={(event) =>
-                                      accountFilter(event.target.value)
-                                    }
-                                  >
-                                    <option value="">Please Select</option>
-                                    {account.map((item) => (
-                                      <option
-                                        key={item.ACCOUNT_NO}
-                                        value={item.ACCOUNT_NO}
-                                      >
-                                        {item.ACCOUNT_NO} : {item.ACCOUNT_NAME}
-                                      </option>
-                                    ))}
-                                  </select>
-                                </div>
-                              </div>
-                              <div className="col-md-4">
-                                <div className="form-group">
-                                  <label htmlFor="">COST CENTER</label>
-                                  <select
-                                    className="form-control"
-                                    onChange={(event) =>
-                                      costCenterFilter(event.target.value)
-                                    }
-                                  >
-                                    <option value="">Please Select</option>
-                                    {costCenter.map((item) => (
-                                      <option
-                                        key={item.COST_CENTER_NO}
-                                        value={item.COST_CENTER_NO}
-                                      >
-                                        {item.COST_CENTER_NO} :{" "}
-                                        {item.COST_CENTER_NAME}
-                                      </option>
-                                    ))}
-                                  </select>
-                                </div>
-                              </div>
-                              <div className="col-md-4">
-                                <div className="form-group">
-                                  <label htmlFor="">PROJECT</label>
-                                  <select
-                                    className="form-control"
-                                    onChange={(event) =>
-                                      projectFilter(event.target.value)
-                                    }
-                                  >
-                                    <option value="">Please Select</option>
-                                    {project.map((item) => (
-                                      <option
-                                        key={item.PROJECT_NO}
-                                        value={item.PROJECT_NO}
-                                      >
-                                        {item.PROJECT_NO} : {item.PROJECT_NAME}
-                                      </option>
-                                    ))}
-                                  </select>
-                                </div>
-                              </div>
-                              <div className="col-md-4">
-                                <div className="form-group">
-                                  <label htmlFor="">PRODUCT</label>
-                                  <select
-                                    className="form-control"
-                                    onChange={(event) =>
-                                      productFilter(event.target.value)
-                                    }
-                                  >
-                                    <option value="">Please Select</option>
-                                    {product.map((item) => (
-                                      <option
-                                        key={item.PRODUCT_NO}
-                                        value={item.PRODUCT_NO}
-                                      >
-                                        {item.PRODUCT_NO} : {item.PRODUCT_NAME}
-                                      </option>
-                                    ))}
-                                  </select>
-                                </div>
-                              </div>
-                              <div className="col-md-4">
-                                <div className="form-group">
-                                  <label htmlFor="">BOI</label>
-                                  <select
-                                    className="form-control"
-                                    onChange={(event) =>
-                                      boiFilter(event.target.value)
-                                    }
-                                  >
-                                    <option value="">Please Select</option>
-                                    {boi.map((item) => (
-                                      <option
-                                        key={item.BOI_NO}
-                                        value={item.BOI_NO}
-                                      >
-                                        {item.BOI_NO} : {item.BOI_NAME}
-                                      </option>
-                                    ))}
-                                  </select>
-                                </div>
-                              </div>
-                              <div className="col-md-4">
-                                <div className="form-group">
-                                  <label htmlFor="">INTER COMPANY</label>
-                                  <select
-                                    className="form-control"
-                                    onChange={(event) =>
-                                      interCompanyFilter(event.target.value)
-                                    }
-                                  >
-                                    <option value="">Please Select</option>
-                                    {interCompany.map((item) => (
-                                      <option
-                                        key={item.INTER_COMPANY_NO}
-                                        value={item.INTER_COMPANY_NO}
-                                      >
-                                        {item.INTER_COMPANY_NO} :{" "}
-                                        {item.INTER_COMPANY_NAME}
-                                      </option>
-                                    ))}
-                                  </select>
-                                </div>
-                              </div>
-                              <div className="col-md-4">
-                                <div className="form-group">
-                                  <label htmlFor="">RESERVE</label>
-                                  <select
-                                    className="form-control"
-                                    onChange={(event) =>
-                                      reserveFilter(event.target.value)
-                                    }
-                                  >
-                                    <option value="">Please Select</option>
-                                    {reserve.map((item) => (
-                                      <option
-                                        key={item.RESERVE_NO}
-                                        value={item.RESERVE_NO}
-                                      >
-                                        {item.RESERVE_NO} : {item.RESERVE_NAME}
-                                      </option>
-                                    ))}
-                                  </select>
-                                </div>
-                              </div>
-                              <div className="col-md-12">
-                                <label htmlFor="">GENERATE ID</label>
-                                <br />
-                                {acc_id}
-                              </div>
+                          <div className="row">
+                          <div className="col-md-4">
+                            <div className="form-group">
+                              <label htmlFor="">COMPANY</label>
+                              <Select
+                                options={company}
+                                onChange={companyFilter}
+                                placeholder="กรุณาเลือกข้อมูล"
+                                isClearable={true}
+                              />  
                             </div>
+                          </div>
+                          <div className="col-md-4">
+                            <div className="form-group">
+                              <label htmlFor="">BRANCH</label>
+                              <Select
+                                options={branch}
+                                onChange={branchFilter}
+                                placeholder="กรุณาเลือกข้อมูล"
+                                isClearable={true}
+                              />
+                            </div>
+                          </div>
+                          <div className="col-md-4">
+                            <div className="form-group">
+                              <label htmlFor="">ACCOUNT</label>
+                              <Select
+                                options={account}
+                                onChange={accountFilter}
+                                placeholder="กรุณาเลือกข้อมูล"
+                                isClearable={true}
+                              />
+                            </div>
+                          </div>
+                          <div className="col-md-4">
+                            <div className="form-group">
+                              <label htmlFor="">COSTCENTER</label>
+                              <Select
+                                options={costCenter}
+                                onChange={costCenterFilter}
+                                placeholder="กรุณาเลือกข้อมูล"
+                                isClearable={true}
+                              />
+                            </div>
+                          </div>
+                          <div className="col-md-4">
+                            <div className="form-group">
+                              <label htmlFor="">PROJECT</label>
+                              <Select
+                                options={project}
+                                onChange={projectFilter}
+                                placeholder="กรุณาเลือกข้อมูล"
+                                isClearable={true}
+                              />
+                            </div>
+                          </div>
+                          <div className="col-md-4">
+                            <div className="form-group">
+                              <label htmlFor="">PRODUCT</label>
+                              <Select
+                                options={product}
+                                onChange={productFilter}
+                                placeholder="กรุณาเลือกข้อมูล"
+                                isClearable={true}
+                              />
+                            </div>
+                          </div>
+                          <div className="col-md-4">
+                            <div className="form-group">
+                              <label htmlFor="">BOI</label>
+                              <Select
+                                options={boi}
+                                onChange={boiFilter}
+                                placeholder="กรุณาเลือกข้อมูล"
+                                isClearable={true}
+                              />
+                            </div>
+                          </div>
+                          <div className="col-md-4">
+                            <div className="form-group">
+                              <label htmlFor="">INTER COMPANY</label>
+                              <Select
+                                options={interCompany}
+                                onChange={interCompanyFilter}
+                                placeholder="กรุณาเลือกข้อมูล"
+                                isClearable={true}
+                              />
+                            </div>
+                          </div>
+                          <div className="col-md-4">
+                            <div className="form-group">
+                              <label htmlFor="">RESERVE</label>
+                              <Select
+                                options={reserve}
+                                onChange={reserveFilter}
+                                placeholder="กรุณาเลือกข้อมูล"
+                                isClearable={true}
+                              />
+                            </div>
+                          </div>
+                          <div className="col-md-12">
+                            <label htmlFor="">GENERATE ID</label><br/>
+                            <span className="text-success">{acc_id}</span>
+                          </div>
+                        </div>
                           </div>
                         </div>
                       </div>
@@ -857,7 +802,7 @@ const ACCUpdate = () => {
                       >
                         <i className="fas fa-save"></i> ยืนยัน
                       </button>{" "}
-                      <Link to={"/account"} className="btn btn-danger">
+                      <Link to={"/admin/account"} className="btn btn-danger">
                         <i className="fas fa-arrow-circle-left"></i> ยกเลิก
                       </Link>{" "}
                     </div>

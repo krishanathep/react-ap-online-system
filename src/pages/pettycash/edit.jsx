@@ -286,15 +286,15 @@ const Update = () => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0">แก้ไขเอกสารเงินสดย่อย</h1>
+                <h1 className="m-0">PETTY CASH UPDATE</h1>
               </div>
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
                     <a href="#">Home</a>
                   </li>
-                  <li className="breadcrumb-item active">Petty cash list</li>
-                  <li className="breadcrumb-item active">Update</li>
+                  <li className="breadcrumb-item active">PETTY CASH LIST</li>
+                  <li className="breadcrumb-item active">UPDATE</li>
                 </ol>
               </div>
             </div>
@@ -305,8 +305,6 @@ const Update = () => {
             <div className="row">
               <div className="col-lg-12">
                 <div className="card">
-                  <div className="card-body">
-                    <div className="card shadow-none border">
                       <div className="card-body">
                         <div className="card shadow-none border">
                           <div className="card-body">
@@ -701,15 +699,13 @@ const Update = () => {
                               <div className="col-md-12">
                                 <label htmlFor="">GENERATE ID</label>
                                 <br />
-                                {acc_id}
+                                <span className="text-success">{acc_id}</span>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
                 <div className="card">
                   <div className="card-body">
                     {fields.map((item, index) => {
@@ -757,14 +753,18 @@ const Update = () => {
                               <div className="col-md-1">
                                 <div className="form-group">
                                   <label htmlFor="">ภาษี (%)</label>
-                                  <input
+                                  <select
                                     type="number"
                                     className="form-control"
                                     placeholder="Please Enter"
                                     {...register(`test.${index}.pay_vat`, {
                                       required: true,
                                     })}
-                                  />
+                                  >
+                                    <option value="">เลือกข้อมูล</option>
+                                    <option value="0">ไม่มีการจ่าย</option>
+                                    <option value="7">มีการจ่าย</option>
+                                  </select>
                                   {errors.test && (
                                     <span className="text-danger">
                                       This field is required

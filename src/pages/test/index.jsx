@@ -1,25 +1,51 @@
 import React from "react";
-import { Link } from 'react-router-dom'
-import { useForm, useFieldArray, Controller } from "react-hook-form";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
+
+// นำเข้าฟอนต์ไทยสำหรับ PDF
+// import { THSarabunNew } from "../../assets/fonts/THSarabunNew-normal.jsx";
+// import { THSarabunNewBold } from "../../assets/fonts/THSarabunNew-bold.jsx";
+import { KanitNomal } from "../../assets/fonts/Kanit-nomal.jsx";
+import { KanitBold } from "../../assets/fonts/Kanit-bold.jsx";
 
 const TestFunctions = () => {
-  const { register, control, handleSubmit, reset, trigger, setError } = useForm(
-    {
-      // defaultValues: {}; you can populate the fields by this attribute
-      defaultValues: {
-        test: [
-          {
-            firstName: "",
-            lastName: "",
-          },
-        ],
-      },
-    }
-  );
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "test",
-  });
+  const generatePDF = () => {
+    // สร้างเอกสาร PDF ใหม่ในแนวนอน
+    const doc = new jsPDF({
+      //orientation: "landscape", // ตั้งค่าเป็นแนวนอน
+    });
+
+    // เพิ่มฟอนต์ไทยให้กับ PDF
+    doc.addFileToVFS("Kanit-Regular.ttf", KanitNomal);
+    doc.addFileToVFS("Kanit-Bold.ttf", KanitBold);
+    doc.addFont("Kanit-Regular.ttf", "Kanit", "normal");
+    doc.addFont("Kanit-Bold.ttf", "Kanit", "bold");
+
+    // ตั้งค่าฟอนต์เริ่มต้นเป็นฟอนต์ไทย
+    doc.setFont("Kanit", "normal");
+    doc.setFontSize(16);
+
+    // ข้อมูลตัวอย่างสำหรับตาราง
+    const tableColumn = ["ID", "Name", "Email", "Country"];
+    const tableRows = [
+      [1, "John Doe", "johndoe@example.com", "USA"],
+      [2, "Jane Smith", "janesmith@example.com", "UK"],
+      [3, "Sam Brown", "sambrown@example.com", "Canada"],
+    ];
+
+    // เพิ่มชื่อหัวข้อใน PDF
+    doc.text("บริษัท ไทยรุ่ง ยูเนี่ยนคาร์ จำกัด", 14, 15);
+
+    // สร้างตาราง
+    doc.autoTable({
+      head: [tableColumn], // หัวตาราง
+      body: tableRows, // ข้อมูลในตาราง
+      startY: 20, // ตำแหน่งเริ่มต้น Y
+    });
+
+    // บันทึกไฟล์ PDF
+    doc.save("table.pdf");
+  };
 
   return (
     <>
@@ -49,69 +75,7 @@ const TestFunctions = () => {
                   <div className="card-body">
                     <div className="row">
                       <div className="col-md-12">
-                        <form
-                          onSubmit={handleSubmit((data) =>
-                            alert(JSON.stringify(data))
-                          )}
-                        >
-                          {fields.map((item, index) => (
-                            <div
-                              className="card shadow-none border"
-                              key={item.index}
-                            >
-                              <div className="card-body">
-                                <div className="group-form">
-                                  <label htmlFor="">Fist Name :</label>
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    {...register(`test.${index}.firstName`)}
-                                    placeholder="Please Enter First Name"
-                                  />
-                                </div>
-                                <div className="group-form">
-                                  <label htmlFor="">Last Name :</label>
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    {...register(`test.${index}.lastName`)}
-                                    placeholder="Please Enter Last Name"
-                                  />
-                                </div>
-                               <div className="col-md-12">
-                                <div className="float-right mt-2">
-                                <button
-                                  className="btn btn-secondary btn-sm"
-                                  type="button"
-                                  onClick={() =>
-                                    append({ firstName: "", lastName: "" })
-                                  }
-                                >
-                                  <i className="fas fa-plus"></i>
-                                </button> {' '}
-                                <button
-                                  className="btn btn-secondary btn-sm"
-                                  type="button"
-                                  onClick={() => remove(index)}
-                                >
-                                  <i className="fas fa-minus"></i>
-                                </button>
-                                </div>
-                               </div>
-                              </div>
-                            </div>
-                          ))}
-                          <div className="col-md-12">
-                            <div className="float-right">
-                              <input
-                                className="btn btn-primary"
-                                type="submit"
-                                value={"SUBMIT"}
-                              />{' '}
-                              <Link className="btn btn-danger">CANCEL</Link>
-                            </div>
-                          </div>
-                        </form>
+                        <button className="btn btn-success" onClick={generatePDF}>Export to PDF</button>
                       </div>
                     </div>
                   </div>

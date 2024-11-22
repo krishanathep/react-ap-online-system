@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useForm, useFieldArray, Controller } from "react-hook-form";
+import { useForm, useFieldArray} from "react-hook-form";
 import axios from "axios";
 import { useAuthUser } from "react-auth-kit";
 import Swal from "sweetalert2";
 import Select from "react-select";
 import { Link, useNavigate } from "react-router-dom";
 
-const Create = ({ prefix = "AC" }) => {
+const Create = () => {
   const {
     register,
     control,
@@ -27,6 +27,9 @@ const Create = ({ prefix = "AC" }) => {
     name: "test",
   });
 
+  const [latestId, setLatestId] = useState(null);
+  const [generatedCode, setGeneratedCode] = useState("");
+
   const [options, setOptions] = useState([]);
   const [company, setCompany] = useState([]);
   const [branch, setBranch] = useState([]);
@@ -37,8 +40,6 @@ const Create = ({ prefix = "AC" }) => {
   const [boi, setBoi] = useState([]);
   const [interCompany, setInterCompany] = useState([]);
   const [reserve, setReserve] = useState([]);
-
-  const [id, setId] = useState([])
 
   const [id_1, setID_1] = useState('000')
   const [id_2, setID_2] = useState('00')
@@ -53,45 +54,45 @@ const Create = ({ prefix = "AC" }) => {
   const acc_id = id_1 +"-"+ id_2 +"-"+ id_3 +"-"+ id_4 +"-"+ id_5 +"-"+ id_6 +"-"+ id_7 +"-"+ id_8 +"-"+ id_9 
   
   const companyFilter = (key) => {
-    setID_1(key)
+    setID_1(key.value)
   }
 
   const branchFilter = (key) => {
-    setID_2(key)
+    setID_2(key.value)
   }
 
   const accountFilter = (key) => {
-    setID_3(key)
+    setID_3(key.value)
   }
 
   const costCenterFilter = (key) => {
-    setID_4(key)
+    setID_4(key.value)
   }
 
   const projectFilter = (key) => {
-    setID_5(key)
+    setID_5(key.value)
   }
 
   const productFilter = (key) => {
-    setID_6(key)
+    setID_6(key.value)
   }
 
   const boiFilter = (key) => {
-    setID_7(key)
+    setID_7(key.value)
   }
 
   const interCompanyFilter = (key) => {
-    setID_8(key)
+    setID_8(key.value)
   }
 
   const reserveFilter = (key) => {
-    setID_9(key)
+    setID_9(key.value)
   }
 
   const handleChange = async (selectedOption) => {
     await axios
       .get(
-        "https://full-stack-app.com/laravel_auth_jwt_api_hrd/public/api/employees"
+        "http://129.200.6.52/laravel_auth_jwt_api_hrd/public/api/employees"
       )
       .then((res) => {
         res.data.employees
@@ -114,7 +115,11 @@ const Create = ({ prefix = "AC" }) => {
       .get(import.meta.env.VITE_API_KEY +"/api/company")
       .then((res) => {
         const data = res.data.company;
-        setCompany(data);
+        const formattedOptions = data.map((item) => ({
+          value: item.COMPANY_NO, // กำหนด value ที่จะเก็บใน selectedOption
+          label: item.COMPANY_NO+" : "+item.COMPANY_NAME, // กำหนด label ที่จะแสดงใน dropdown
+        }));
+        setCompany(formattedOptions);
       });
   };
 
@@ -123,8 +128,11 @@ const Create = ({ prefix = "AC" }) => {
       .get(import.meta.env.VITE_API_KEY +"/api/branch")
       .then((res) => {
         const data = res.data.branch;
-        setBranch(data);
-        //console.log(res)
+        const formattedOptions = data.map((item) => ({
+          value: item.COMPANY_NO, // กำหนด value ที่จะเก็บใน selectedOption
+          label: item.COMPANY_NO+ " : "+item.COMPANY_NAME, // กำหนด label ที่จะแสดงใน dropdown
+        }));
+        setBranch(formattedOptions);
       });
   };
 
@@ -133,7 +141,11 @@ const Create = ({ prefix = "AC" }) => {
       .get(import.meta.env.VITE_API_KEY +"/api/account")
       .then((res) => {
         const data = res.data.account;
-        setAccount(data);
+        const formattedOptions = data.map((item) => ({
+          value: item.ACCOUNT_NO, // กำหนด value ที่จะเก็บใน selectedOption
+          label: item.ACCOUNT_NO+" : "+item.ACCOUNT_NAME, // กำหนด label ที่จะแสดงใน dropdown
+        }));
+        setAccount(formattedOptions);
       });
   };
 
@@ -142,7 +154,11 @@ const Create = ({ prefix = "AC" }) => {
       .get(import.meta.env.VITE_API_KEY +"/api/cost-center")
       .then((res) => {
         const data = res.data.cost_center;
-        setCostCenter(data);
+        const formattedOptions = data.map((item) => ({
+          value: item.COST_CENTER_NO, // กำหนด value ที่จะเก็บใน selectedOption
+          label: item.COST_CENTER_NO+" : "+item.COST_CENTER_NAME, // กำหนด label ที่จะแสดงใน dropdown
+        }));
+        setCostCenter(formattedOptions);
       });
   };
 
@@ -151,7 +167,11 @@ const Create = ({ prefix = "AC" }) => {
       .get(import.meta.env.VITE_API_KEY +"/api/project")
       .then((res) => {
         const data = res.data.project;
-        setProject(data);
+        const formattedOptions = data.map((item) => ({
+          value: item.PROJECT_NO, // กำหนด value ที่จะเก็บใน selectedOption
+          label: item.PROJECT_NO+" : "+item.PROJECT_NAME, // กำหนด label ที่จะแสดงใน dropdown
+        }));
+        setProject(formattedOptions);
       });
   };
 
@@ -160,7 +180,11 @@ const Create = ({ prefix = "AC" }) => {
       .get(import.meta.env.VITE_API_KEY +"/api/product")
       .then((res) => {
         const data = res.data.product;
-        setProduct(data);
+        const formattedOptions = data.map((item) => ({
+          value: item.PRODUCT_NO, // กำหนด value ที่จะเก็บใน selectedOption
+          label: item.PRODUCT_NO+" : "+item.PRODUCT_NAME, // กำหนด label ที่จะแสดงใน dropdown
+        }));
+        setProduct(formattedOptions);
       });
   };
 
@@ -169,7 +193,11 @@ const Create = ({ prefix = "AC" }) => {
       .get(import.meta.env.VITE_API_KEY +"/api/boi")
       .then((res) => {
         const data = res.data.boi;
-        setBoi(data);
+        const formattedOptions = data.map((item) => ({
+          value: item.BOI_NO, // กำหนด value ที่จะเก็บใน selectedOption
+          label: item.BOI_NO+" : "+item.BOI_NAME, // กำหนด label ที่จะแสดงใน dropdown
+        }));
+        setBoi(formattedOptions);
       });
   };
 
@@ -179,7 +207,11 @@ const Create = ({ prefix = "AC" }) => {
       .get(import.meta.env.VITE_API_KEY +"/api/inter-company")
       .then((res) => {
         const data = res.data.inter_company;
-        setInterCompany(data);
+        const formattedOptions = data.map((item) => ({
+          value: item.INTER_COMPANY_NO, // กำหนด value ที่จะเก็บใน selectedOption
+          label: item.INTER_COMPANY_NO+" : "+item.INTER_COMPANY_NAME, // กำหนด label ที่จะแสดงใน dropdown
+        }));
+        setInterCompany(formattedOptions);
       });
   };
 
@@ -189,18 +221,21 @@ const Create = ({ prefix = "AC" }) => {
       .get(import.meta.env.VITE_API_KEY +"/api/reserve")
       .then((res) => {
         const data = res.data.reserve;
-        setReserve(data);
+        const formattedOptions = data.map((item) => ({
+          value: item.RESERVE_NO, // กำหนด value ที่จะเก็บใน selectedOption
+          label: item.RESERVE_NO+" : "+item.RESERVE_NAME, // กำหนด label ที่จะแสดงใน dropdown
+        }));
+        setReserve(formattedOptions);
       });
   };
-
 
   const getData = async () => {
     await axios
       .get(
-        "https://full-stack-app.com/laravel_auth_jwt_api_hrd/public/api/employees"
+        "http://129.200.6.52/laravel_auth_jwt_api_hrd/public/api/employees"
       )
       .then((res) => {
-        const data = res.data.employees;
+        const data = res.data.employees.filter((e)=>e.dept===userdetail().dept);
         const formattedOptions = data.map((item) => ({
           value: item.emp_id, // กำหนด value ที่จะเก็บใน selectedOption
           label: item.emp_id, // กำหนด label ที่จะแสดงใน dropdown
@@ -209,19 +244,29 @@ const Create = ({ prefix = "AC" }) => {
       });
   };
 
-  const generateId = () => {
-    const date = new Date();
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const year = date.getFullYear().toString().slice(-2);
-    const randomNum = Math.floor(Math.random() * 1000)
-      .toString()
-      .padStart(5, "0");
-    return `${prefix}-${day}${month}${year}-${randomNum}`;
+  const getLastId = () => {
+    axios.get(import.meta.env.VITE_API_KEY +'/api/get-last-id')
+      .then((res)=>{
+        res.data.last_id
+        console.log(res.data.last_id)
+        setLatestId(res.data.last_id);
+      })
   }
 
   useEffect(() => {
-    getData();
+    if (latestId !== null) {
+      // ดึงปีปัจจุบัน
+      const currentYear = new Date().getFullYear();
+      
+      const formattedId = latestId.toString().padStart(3, '0');
+
+      // สร้างรหัสโดยมีโครงสร้าง ปี + "00" + ID ล่าสุด
+      const code = `${currentYear}00${formattedId}`;
+      setGeneratedCode(code);
+    }
+  }, [latestId]);
+
+  const getAllSections =()=>{
     getCompany();
     getBranch()
     getAccount()
@@ -231,9 +276,13 @@ const Create = ({ prefix = "AC" }) => {
     getBoi()
     getInterComPany()
     getReserve()
-    generateId()
-    setId(generateId());
-  }, [prefix, acc_id]);
+  }
+
+  useEffect(() => {
+    getData();
+    getAllSections()
+    getLastId()
+  }, []);
 
   const handleCreateSubmit = async (data) => {
     const formData = new FormData();
@@ -290,15 +339,15 @@ const Create = ({ prefix = "AC" }) => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0">เพิ่มเอกสารเงินสดย่อย</h1>
+                <h1 className="m-0">PETTY CASH CREATE</h1>
               </div>
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
                     <a href="#">Home</a>
                   </li>
-                  <li className="breadcrumb-item active">Petty cash list</li>
-                  <li className="breadcrumb-item active">Create</li>
+                  <li className="breadcrumb-item">PETTY CASH LIST</li>
+                  <li className="breadcrumb-item active">CREATE</li>
                 </ol>
               </div>
             </div>
@@ -315,12 +364,11 @@ const Create = ({ prefix = "AC" }) => {
                         <div className="row">
                         <div className="col-md-2">
                             <div className="form-group">
-                              <label htmlFor="">หมายเลขเอกสาร</label>
+                              <label htmlFor="">เลขที่เอกสาร</label>
                               <input
-                                value={id}
+                                value={generatedCode}
                                 type="text"
                                 className="form-control"
-                                placeholder="กรุณาเพิ่มข้อมูล"
                                 {...register("petty_cash_id", {
                                   required: true,
                                 })}
@@ -457,7 +505,6 @@ const Create = ({ prefix = "AC" }) => {
                                 value={userdetail().name}
                                 type="text"
                                 className="form-control"
-                                placeholder="กรุณาเพิ่มข้อมูล"
                                 {...register("req_by", {
                                   required: true,
                                 })}
@@ -478,7 +525,7 @@ const Create = ({ prefix = "AC" }) => {
                                   required: true,
                                 })}
                                 >
-                                <option value="">Please Select</option>
+                                <option value="">กรุณาเลือกข้อมูล</option>
                                 <option value="1">ในวงเงินงบประมาณ</option>
                                 <option value="2">นอกงบประมาณ</option>
                                 <option value="3">เกินงบประมาณ</option>
@@ -521,168 +568,105 @@ const Create = ({ prefix = "AC" }) => {
                           <div className="col-md-4">
                             <div className="form-group">
                               <label htmlFor="">COMPANY</label>
-                              <select 
-                                className="form-control"
-                                onChange={(event) =>
-                                  companyFilter(event.target.value)
-                                }
-                                >
-                                <option value="">Please Select</option>
-                                {company.map((item) => (
-                                  <option key={item.COMPANY_NO} value={item.COMPANY_NO}>
-                                    {item.COMPANY_NO} : {item.COMPANY_NAME}
-                                  </option>
-                                ))}
-                              </select>
+                              <Select
+                                options={company}
+                                onChange={companyFilter}
+                                placeholder="กรุณาเลือกข้อมูล"
+                                isClearable={true}
+                              />  
                             </div>
                           </div>
                           <div className="col-md-4">
                             <div className="form-group">
                               <label htmlFor="">BRANCH</label>
-                              <select 
-                              className="form-control"
-                              onChange={(event) =>
-                                branchFilter(event.target.value)
-                              }
-                              >
-                                <option value="">Please Select</option>
-                                {branch.map((item) => (
-                                  <option key={item.COMPANY_NO} value={item.COMPANY_NO}>
-                                    {item.COMPANY_NO} : {item.COMPANY_NAME}
-                                  </option>
-                                ))}
-                              </select>
+                              <Select
+                                options={branch}
+                                onChange={branchFilter}
+                                placeholder="กรุณาเลือกข้อมูล"
+                                isClearable={true}
+                              />
                             </div>
                           </div>
                           <div className="col-md-4">
                             <div className="form-group">
                               <label htmlFor="">ACCOUNT</label>
-                              <select 
-                                className="form-control"
-                                onChange={(event) =>
-                                  accountFilter(event.target.value)
-                                }
-                                >
-                                <option value="">Please Select</option>
-                                {account.map((item) => (
-                                  <option key={item.ACCOUNT_NO} value={item.ACCOUNT_NO}>
-                                    {item.ACCOUNT_NO} : {item.ACCOUNT_NAME}
-                                  </option>
-                                ))}
-                              </select>
+                              <Select
+                                options={account}
+                                onChange={accountFilter}
+                                placeholder="กรุณาเลือกข้อมูล"
+                                isClearable={true}
+                              />
                             </div>
                           </div>
                           <div className="col-md-4">
                             <div className="form-group">
-                              <label htmlFor="">COST CENTER</label>
-                              <select 
-                                className="form-control"
-                                onChange={(event) =>
-                                  costCenterFilter(event.target.value)
-                                }
-                                >
-                                <option value="">Please Select</option>
-                                {costCenter.map((item) => (
-                                  <option key={item.COST_CENTER_NO} value={item.COST_CENTER_NO}>
-                                    {item.COST_CENTER_NO} : {item.COST_CENTER_NAME}
-                                  </option>
-                                ))}
-                              </select>
+                              <label htmlFor="">COSTCENTER</label>
+                              <Select
+                                options={costCenter}
+                                onChange={costCenterFilter}
+                                placeholder="กรุณาเลือกข้อมูล"
+                                isClearable={true}
+                              />
                             </div>
                           </div>
                           <div className="col-md-4">
                             <div className="form-group">
                               <label htmlFor="">PROJECT</label>
-                              <select 
-                                className="form-control"
-                                onChange={(event) =>
-                                  projectFilter(event.target.value)
-                                }
-                                >
-                                <option value="">Please Select</option>
-                                {project.map((item) => (
-                                  <option key={item.PROJECT_NO} value={item.PROJECT_NO}>
-                                    {item.PROJECT_NO} : {item.PROJECT_NAME}
-                                  </option>
-                                ))}
-                              </select>
+                              <Select
+                                options={project}
+                                onChange={projectFilter}
+                                placeholder="กรุณาเลือกข้อมูล"
+                                isClearable={true}
+                              />
                             </div>
                           </div>
                           <div className="col-md-4">
                             <div className="form-group">
                               <label htmlFor="">PRODUCT</label>
-                              <select 
-                                className="form-control"
-                                onChange={(event) =>
-                                  productFilter(event.target.value)
-                                }
-                                >
-                                <option value="">Please Select</option>
-                                {product.map((item) => (
-                                  <option key={item.PRODUCT_NO} value={item.PRODUCT_NO}>
-                                    {item.PRODUCT_NO} : {item.PRODUCT_NAME}
-                                  </option>
-                                ))}
-                              </select>
+                              <Select
+                                options={product}
+                                onChange={productFilter}
+                                placeholder="กรุณาเลือกข้อมูล"
+                                isClearable={true}
+                              />
                             </div>
                           </div>
                           <div className="col-md-4">
                             <div className="form-group">
                               <label htmlFor="">BOI</label>
-                              <select 
-                                className="form-control"
-                                onChange={(event) =>
-                                  boiFilter(event.target.value)
-                                }
-                                >
-                                <option value="">Please Select</option>
-                                {boi.map((item) => (
-                                  <option key={item.BOI_NO} value={item.BOI_NO}>
-                                    {item.BOI_NO} : {item.BOI_NAME}
-                                  </option>
-                                ))}
-                              </select>
+                              <Select
+                                options={boi}
+                                onChange={boiFilter}
+                                placeholder="กรุณาเลือกข้อมูล"
+                                isClearable={true}
+                              />
                             </div>
                           </div>
                           <div className="col-md-4">
                             <div className="form-group">
                               <label htmlFor="">INTER COMPANY</label>
-                              <select 
-                                className="form-control"
-                                onChange={(event) =>
-                                  interCompanyFilter(event.target.value)
-                                }
-                                >
-                                <option value="">Please Select</option>
-                                {interCompany.map((item) => (
-                                  <option key={item.INTER_COMPANY_NO} value={item.INTER_COMPANY_NO}>
-                                    {item.INTER_COMPANY_NO} : {item.INTER_COMPANY_NAME}
-                                  </option>
-                                ))}
-                              </select>
+                              <Select
+                                options={interCompany}
+                                onChange={interCompanyFilter}
+                                placeholder="กรุณาเลือกข้อมูล"
+                                isClearable={true}
+                              />
                             </div>
                           </div>
                           <div className="col-md-4">
                             <div className="form-group">
                               <label htmlFor="">RESERVE</label>
-                              <select 
-                                className="form-control"
-                                onChange={(event) =>
-                                  reserveFilter(event.target.value)
-                                }
-                                >
-                                <option value="">Please Select</option>
-                                {reserve.map((item) => (
-                                  <option key={item.RESERVE_NO} value={item.RESERVE_NO}>
-                                    {item.RESERVE_NO} : {item.RESERVE_NAME}
-                                  </option>
-                                ))}
-                              </select>
+                              <Select
+                                options={reserve}
+                                onChange={reserveFilter}
+                                placeholder="กรุณาเลือกข้อมูล"
+                                isClearable={true}
+                              />
                             </div>
                           </div>
                           <div className="col-md-12">
                             <label htmlFor="">GENERATE ID</label><br/>
-                            {acc_id}
+                            <span className="text-success">{acc_id}</span>
                           </div>
                         </div>
                       </div>
@@ -700,7 +684,6 @@ const Create = ({ prefix = "AC" }) => {
                                 <div className="form-group">
                                   <label htmlFor="">ACCOUNT ID</label>
                                   <input
-                                    //style={{ border: 0 }}
                                     name="invoice"
                                     type="text"
                                     className="form-control"
@@ -737,14 +720,18 @@ const Create = ({ prefix = "AC" }) => {
                               <div className="col-md-1">
                                 <div className="form-group">
                                   <label htmlFor="">ภาษี (%)</label>
-                                  <input
+                                  <select
                                     type="number"
                                     className="form-control"
                                     placeholder="กรุณาเพิ่มข้อมูล"
                                     {...register(`test.${index}.pay_vat`, {
                                       required: true,
                                     })}
-                                  />
+                                  >
+                                   <option value="">เลือกข้อมูล</option> 
+                                   <option value="0">ไม่มี</option> 
+                                   <option value="7">มี</option> 
+                                  </select>
                                   {errors.test && (
                                     <span className="text-danger">
                                       This field is required
@@ -754,14 +741,14 @@ const Create = ({ prefix = "AC" }) => {
                               </div>
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">ประเภทการจ่าย</label>
+                                  <label htmlFor="">ประเภทการจ่ายเงิน</label>
                                   <select
                                     className="form-control"
                                     {...register(`test.${index}.pay_type`, {
                                       required: true,
                                     })}
                                   >
-                                    <option value="">Please Select</option>
+                                    <option value="">กรุณาเลือกข้อมูล</option>
                                     <option value="ค่าเดินทาง">
                                       ค่าเดินทาง
                                     </option>

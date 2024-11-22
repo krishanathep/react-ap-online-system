@@ -25,7 +25,7 @@ const Finance = () => {
     await axios
       .get(import.meta.env.VITE_API_KEY +"/api/petty-cash")
       .then((res) => {
-        setPettyCash(res.data.data.filter((p)=>p.status=='จัดทำเอกสาร'));
+        setPettyCash(res.data.data.filter((p)=>p.status!=='จัดทำเอกสาร'));
         setRecords(res.data.data.filter((p)=>p.status!=='จัดทำเอกสาร').slice(from, to));
         setLoading(false);
       });
@@ -202,14 +202,14 @@ const Finance = () => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0">รายการเอกสารเงินสดย่อย</h1>
+                <h1 className="m-0">PETTY CASH LIST</h1>
               </div>
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
-                    <a href="#">Home</a>
+                    <a href="#">DASHBOARD</a>
                   </li>
-                  <li className="breadcrumb-item active">Petty cash list</li>
+                  <li className="breadcrumb-item active">PETTY CASH LIST</li>
                 </ol>
               </div>
             </div>
@@ -228,7 +228,7 @@ const Finance = () => {
                             <div className="row">
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">หมายเลขเอกสาร</label>
+                                  <label htmlFor="">เลขที่เอกสาร</label>
                                   <input
                                     className="form-control"
                                     placeholder="กรุณาเพิ่มข้อมูล"
@@ -351,7 +351,7 @@ const Finance = () => {
                         },
                         {
                           accessor: "petty_cash_id",
-                          title: "หมายเลขเอกสาร",
+                          title: "เลขที่เอกสาร",
                           textAlignment: "center",
                         },
                         {

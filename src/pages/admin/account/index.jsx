@@ -249,14 +249,14 @@ const Account = () => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0">รายการเอกสารเงินสดย่อย</h1>
+                <h1 className="m-0">PETTY CASH LIST</h1>
               </div>
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
-                    <a href="#">Home</a>
+                    <a href="#">DASHBOARD</a>
                   </li>
-                  <li className="breadcrumb-item active">Petty cash list</li>
+                  <li className="breadcrumb-item active">PETTY CASH LIST</li>
                 </ol>
               </div>
             </div>
@@ -287,7 +287,7 @@ const Account = () => {
                             <div className="row">
                               <div className="col-md-2">
                                 <div className="form-group">
-                                  <label htmlFor="">หมายเลขเอกสาร</label>
+                                  <label htmlFor="">เลขที่เอกสาร</label>
                                   <input
                                     className="form-control"
                                     placeholder="กรุณาเพิ่มข้อมูล"
@@ -410,7 +410,7 @@ const Account = () => {
                         },
                         {
                           accessor: "petty_cash_id",
-                          title: "หมายเลขเอกสาร",
+                          title: "เลขที่เอกสาร",
                           textAlignment: "center",
                         },
                         {
@@ -488,7 +488,7 @@ const Account = () => {
                           render: (blogs) => (
                             <>
                               <Link
-                                to={"/account/update/" + blogs.id}
+                                to={"/admin/account/update/" + blogs.id}
                                 className="btn btn-primary"
                               >
                                 <i className="fas fa-edit"></i>

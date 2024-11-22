@@ -90,6 +90,7 @@ export default function Signin() {
                 {errors.password && <p className="text-danger">This password field is required</p>}
                 <div className="row">
                   <div className="col-8">
+                   {/* <a href="">ดาวน์โหลดคู่มือการใช้งาน</a> */}
                   </div>
                   <div className="col-4">
                     <button type="submit" className="btn btn-primary btn-block">
