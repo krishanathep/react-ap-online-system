@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useForm, useFieldArray} from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import axios from "axios";
 import { useAuthUser } from "react-auth-kit";
 import Swal from "sweetalert2";
 import Select from "react-select";
 import { Link, useNavigate } from "react-router-dom";
+import { use } from "react";
 
 const Create = () => {
   const {
@@ -40,60 +41,77 @@ const Create = () => {
   const [boi, setBoi] = useState([]);
   const [interCompany, setInterCompany] = useState([]);
   const [reserve, setReserve] = useState([]);
+  const [combination, setCombination] = useState('')
+  const [account_id, setAccountID] = useState('')
 
-  const [id_1, setID_1] = useState('000')
-  const [id_2, setID_2] = useState('00')
-  const [id_3, setID_3] = useState('0000000')
-  const [id_4, setID_4] = useState('0000000')
-  const [id_5, setID_5] = useState('000000000000')
-  const [id_6, setID_6] = useState('0000')
-  const [id_7, setID_7] = useState('0000')
-  const [id_8, setID_8] = useState('0000')
-  const [id_9, setID_9] = useState('00')
+  const [id_1, setID_1] = useState("000");
+  const [id_2, setID_2] = useState("00");
+  const [id_3, setID_3] = useState("0000000");
+  const [id_4, setID_4] = useState("0000000");
+  const [id_5, setID_5] = useState("000000000000");
+  const [id_6, setID_6] = useState("0000");
+  const [id_7, setID_7] = useState("0000");
+  const [id_8, setID_8] = useState("0000");
+  const [id_9, setID_9] = useState("00");
 
-  const acc_id = id_1 +"-"+ id_2 +"-"+ id_3 +"-"+ id_4 +"-"+ id_5 +"-"+ id_6 +"-"+ id_7 +"-"+ id_8 +"-"+ id_9 
-  
+  const acc_id_gen =
+    id_1 +
+    "-" +
+    id_2 +
+    "-" +
+    id_3 +
+    "-" +
+    id_4 +
+    "-" +
+    id_5 +
+    "-" +
+    id_6 +
+    "-" +
+    id_7 +
+    "-" +
+    id_8 +
+    "-" +
+    id_9;
+
   const companyFilter = (key) => {
-    setID_1(key.value)
-  }
+    setID_1(key.value);
+  };
 
   const branchFilter = (key) => {
-    setID_2(key.value)
-  }
+    setID_2(key.value);
+  };
 
   const accountFilter = (key) => {
-    setID_3(key.value)
-  }
+    setID_3(key.value);
+  };
 
   const costCenterFilter = (key) => {
-    setID_4(key.value)
-  }
+    setID_4(key.value);
+  };
 
   const projectFilter = (key) => {
-    setID_5(key.value)
-  }
+    setID_5(key.value);
+  };
 
   const productFilter = (key) => {
-    setID_6(key.value)
-  }
+    setID_6(key.value);
+  };
 
   const boiFilter = (key) => {
-    setID_7(key.value)
-  }
+    setID_7(key.value);
+  };
 
   const interCompanyFilter = (key) => {
-    setID_8(key.value)
-  }
+    setID_8(key.value);
+  };
 
   const reserveFilter = (key) => {
-    setID_9(key.value)
-  }
+    setID_9(key.value);
+  };
 
   const handleChange = async (selectedOption) => {
     await axios
-      .get(
-        "http://129.200.6.52/laravel_auth_jwt_api_hrd/public/api/employees"
-      )
+      .get("http://129.200.6.52/laravel_auth_jwt_api_hrd/public/api/employees")
       .then((res) => {
         res.data.employees
           .filter((e) => e.emp_id === selectedOption.value)
@@ -110,14 +128,40 @@ const Create = () => {
       });
   };
 
+  const combinationFilter = async (key,index) => {
+    console.log(key);
+    await axios
+      .get(
+        "http://129.200.6.52/laravel_oracle11g_prod_api/public/api/oracle/combinations"
+      )
+      .then((res) => {
+        const matchedCombinations = res.data.combinations.filter(
+          (c) => c.cod_combination === key
+        );
+
+        if (matchedCombinations.length > 0) {
+          matchedCombinations.forEach((i) => {
+            console.log(i.code_combination_id); // Log the found code_combination_id
+            setCombination(i.code_combination_id)
+          });
+        } else {
+          console.log("ไม่มีข้อมูล"); // Log "no data" if no match
+          setCombination('NO DATA')
+        }
+        setAccountID(key)
+      });
+  };
+
   const getCompany = async () => {
     await axios
-      .get(import.meta.env.VITE_API_KEY +"/api/company")
+      .get(
+        "http://129.200.6.52/laravel_oracle11g_prod_api/public/api/oracle/companies"
+      )
       .then((res) => {
-        const data = res.data.company;
+        const data = res.data.companies;
         const formattedOptions = data.map((item) => ({
-          value: item.COMPANY_NO, // กำหนด value ที่จะเก็บใน selectedOption
-          label: item.COMPANY_NO+" : "+item.COMPANY_NAME, // กำหนด label ที่จะแสดงใน dropdown
+          value: item.company_no, // กำหนด value ที่จะเก็บใน selectedOption
+          label: item.company_no + " : " + item.company_name, // กำหนด label ที่จะแสดงใน dropdown
         }));
         setCompany(formattedOptions);
       });
@@ -125,12 +169,14 @@ const Create = () => {
 
   const getBranch = async () => {
     await axios
-      .get(import.meta.env.VITE_API_KEY +"/api/branch")
+      .get(
+        "http://129.200.6.52/laravel_oracle11g_prod_api/public/api/oracle/branchs"
+      )
       .then((res) => {
-        const data = res.data.branch;
+        const data = res.data.branchs;
         const formattedOptions = data.map((item) => ({
-          value: item.COMPANY_NO, // กำหนด value ที่จะเก็บใน selectedOption
-          label: item.COMPANY_NO+ " : "+item.COMPANY_NAME, // กำหนด label ที่จะแสดงใน dropdown
+          value: item.branch_no, // กำหนด value ที่จะเก็บใน selectedOption
+          label: item.branch_no + " : " + item.branch_name, // กำหนด label ที่จะแสดงใน dropdown
         }));
         setBranch(formattedOptions);
       });
@@ -138,12 +184,14 @@ const Create = () => {
 
   const getAccount = async () => {
     await axios
-      .get(import.meta.env.VITE_API_KEY +"/api/account")
+      .get(
+        "http://129.200.6.52/laravel_oracle11g_prod_api/public/api/oracle/accounts"
+      )
       .then((res) => {
-        const data = res.data.account;
+        const data = res.data.accounts;
         const formattedOptions = data.map((item) => ({
-          value: item.ACCOUNT_NO, // กำหนด value ที่จะเก็บใน selectedOption
-          label: item.ACCOUNT_NO+" : "+item.ACCOUNT_NAME, // กำหนด label ที่จะแสดงใน dropdown
+          value: item.account_no, // กำหนด value ที่จะเก็บใน selectedOption
+          label: item.account_no + " : " + item.account_name, // กำหนด label ที่จะแสดงใน dropdown
         }));
         setAccount(formattedOptions);
       });
@@ -151,12 +199,14 @@ const Create = () => {
 
   const getCostCenter = async () => {
     await axios
-      .get(import.meta.env.VITE_API_KEY +"/api/cost-center")
+      .get(
+        "http://129.200.6.52/laravel_oracle11g_prod_api/public/api/oracle/cost-centers"
+      )
       .then((res) => {
-        const data = res.data.cost_center;
+        const data = res.data.cost_centers;
         const formattedOptions = data.map((item) => ({
-          value: item.COST_CENTER_NO, // กำหนด value ที่จะเก็บใน selectedOption
-          label: item.COST_CENTER_NO+" : "+item.COST_CENTER_NAME, // กำหนด label ที่จะแสดงใน dropdown
+          value: item.cost_center_no, // กำหนด value ที่จะเก็บใน selectedOption
+          label: item.cost_center_no + " : " + item.cost_center_name, // กำหนด label ที่จะแสดงใน dropdown
         }));
         setCostCenter(formattedOptions);
       });
@@ -164,12 +214,14 @@ const Create = () => {
 
   const getProject = async () => {
     await axios
-      .get(import.meta.env.VITE_API_KEY +"/api/project")
+      .get(
+        "http://129.200.6.52/laravel_oracle11g_prod_api/public/api/oracle/projects"
+      )
       .then((res) => {
-        const data = res.data.project;
+        const data = res.data.projects;
         const formattedOptions = data.map((item) => ({
-          value: item.PROJECT_NO, // กำหนด value ที่จะเก็บใน selectedOption
-          label: item.PROJECT_NO+" : "+item.PROJECT_NAME, // กำหนด label ที่จะแสดงใน dropdown
+          value: item.project_no, // กำหนด value ที่จะเก็บใน selectedOption
+          label: item.project_no + " : " + item.project_name, // กำหนด label ที่จะแสดงใน dropdown
         }));
         setProject(formattedOptions);
       });
@@ -177,12 +229,14 @@ const Create = () => {
 
   const getProduct = async () => {
     await axios
-      .get(import.meta.env.VITE_API_KEY +"/api/product")
+      .get(
+        "http://129.200.6.52/laravel_oracle11g_prod_api/public/api/oracle/products"
+      )
       .then((res) => {
-        const data = res.data.product;
+        const data = res.data.products;
         const formattedOptions = data.map((item) => ({
-          value: item.PRODUCT_NO, // กำหนด value ที่จะเก็บใน selectedOption
-          label: item.PRODUCT_NO+" : "+item.PRODUCT_NAME, // กำหนด label ที่จะแสดงใน dropdown
+          value: item.product_no, // กำหนด value ที่จะเก็บใน selectedOption
+          label: item.product_no + " : " + item.product_name, // กำหนด label ที่จะแสดงใน dropdown
         }));
         setProduct(formattedOptions);
       });
@@ -190,40 +244,44 @@ const Create = () => {
 
   const getBoi = async () => {
     await axios
-      .get(import.meta.env.VITE_API_KEY +"/api/boi")
+      .get(
+        "http://129.200.6.52/laravel_oracle11g_prod_api/public/api/oracle/bois"
+      )
       .then((res) => {
-        const data = res.data.boi;
+        const data = res.data.bois;
         const formattedOptions = data.map((item) => ({
-          value: item.BOI_NO, // กำหนด value ที่จะเก็บใน selectedOption
-          label: item.BOI_NO+" : "+item.BOI_NAME, // กำหนด label ที่จะแสดงใน dropdown
+          value: item.boi_no, // กำหนด value ที่จะเก็บใน selectedOption
+          label: item.boi_no + " : " + item.boi_name, // กำหนด label ที่จะแสดงใน dropdown
         }));
         setBoi(formattedOptions);
       });
   };
 
-
   const getInterComPany = async () => {
     await axios
-      .get(import.meta.env.VITE_API_KEY +"/api/inter-company")
+      .get(
+        "http://129.200.6.52/laravel_oracle11g_prod_api/public/api/oracle/inter-companies"
+      )
       .then((res) => {
-        const data = res.data.inter_company;
+        const data = res.data.inter_companies;
         const formattedOptions = data.map((item) => ({
-          value: item.INTER_COMPANY_NO, // กำหนด value ที่จะเก็บใน selectedOption
-          label: item.INTER_COMPANY_NO+" : "+item.INTER_COMPANY_NAME, // กำหนด label ที่จะแสดงใน dropdown
+          value: item.inter_company_no, // กำหนด value ที่จะเก็บใน selectedOption
+          label: item.inter_company_no + " : " + item.inter_company_name, // กำหนด label ที่จะแสดงใน dropdown
         }));
         setInterCompany(formattedOptions);
       });
   };
 
-
   const getReserve = async () => {
     await axios
-      .get(import.meta.env.VITE_API_KEY +"/api/reserve")
+      .get(
+        "http://129.200.6.52/laravel_oracle11g_prod_api/public/api/oracle/reserves"
+      )
       .then((res) => {
-        const data = res.data.reserve;
+        const data = res.data.reserves;
         const formattedOptions = data.map((item) => ({
-          value: item.RESERVE_NO, // กำหนด value ที่จะเก็บใน selectedOption
-          label: item.RESERVE_NO+" : "+item.RESERVE_NAME, // กำหนด label ที่จะแสดงใน dropdown
+          value: item.reserve_no, // กำหนด value ที่จะเก็บใน selectedOption
+          label: item.reserve_no + " : " + item.reserve_name, // กำหนด label ที่จะแสดงใน dropdown
         }));
         setReserve(formattedOptions);
       });
@@ -231,11 +289,11 @@ const Create = () => {
 
   const getData = async () => {
     await axios
-      .get(
-        "http://129.200.6.52/laravel_auth_jwt_api_hrd/public/api/employees"
-      )
+      .get("http://129.200.6.52/laravel_auth_jwt_api_hrd/public/api/employees")
       .then((res) => {
-        const data = res.data.employees.filter((e)=>e.dept===userdetail().dept);
+        const data = res.data.employees.filter(
+          (e) => e.dept === userdetail().dept
+        );
         const formattedOptions = data.map((item) => ({
           value: item.emp_id, // กำหนด value ที่จะเก็บใน selectedOption
           label: item.emp_id, // กำหนด label ที่จะแสดงใน dropdown
@@ -245,20 +303,19 @@ const Create = () => {
   };
 
   const getLastId = () => {
-    axios.get(import.meta.env.VITE_API_KEY +'/api/get-last-id')
-      .then((res)=>{
-        res.data.last_id
-        console.log(res.data.last_id)
-        setLatestId(res.data.last_id);
-      })
-  }
+    axios.get(import.meta.env.VITE_API_KEY + "/api/get-last-id").then((res) => {
+      res.data.last_id;
+      console.log(res.data.last_id);
+      setLatestId(res.data.last_id);
+    });
+  };
 
   useEffect(() => {
     if (latestId !== null) {
       // ดึงปีปัจจุบัน
       const currentYear = new Date().getFullYear();
-      
-      const formattedId = latestId.toString().padStart(3, '0');
+
+      const formattedId = latestId.toString().padStart(3, "0");
 
       // สร้างรหัสโดยมีโครงสร้าง ปี + "00" + ID ล่าสุด
       const code = `${currentYear}00${formattedId}`;
@@ -266,22 +323,22 @@ const Create = () => {
     }
   }, [latestId]);
 
-  const getAllSections =()=>{
+  const getAllSections = () => {
     getCompany();
-    getBranch()
-    getAccount()
-    getCostCenter()
-    getProduct()
-    getProject()
-    getBoi()
-    getInterComPany()
-    getReserve()
-  }
+    getBranch();
+    getAccount();
+    getCostCenter();
+    getProduct();
+    getProject();
+    getBoi();
+    getInterComPany();
+    getReserve();
+  };
 
   useEffect(() => {
     getData();
-    getAllSections()
-    getLastId()
+    getAllSections();
+    getLastId();
   }, []);
 
   const handleCreateSubmit = async (data) => {
@@ -312,10 +369,7 @@ const Create = () => {
 
     try {
       await axios
-        .post(
-          import.meta.env.VITE_API_KEY +"/api/petty-cash-create",
-          formData
-        )
+        .post(import.meta.env.VITE_API_KEY + "/api/petty-cash-create", formData)
         .then((res) => {
           Swal.fire({
             icon: "success",
@@ -362,7 +416,7 @@ const Create = () => {
                     <div className="card shadow-none border">
                       <div className="card-body">
                         <div className="row">
-                        <div className="col-md-2">
+                          <div className="col-md-2">
                             <div className="form-group">
                               <label htmlFor="">เลขที่เอกสาร</label>
                               <input
@@ -519,12 +573,12 @@ const Create = () => {
                           <div className="col-md-2">
                             <div className="form-group">
                               <label htmlFor="">ประเภทงบประมาณ</label>
-                              <select 
+                              <select
                                 className="form-control"
                                 {...register("credit_type", {
                                   required: true,
                                 })}
-                                >
+                              >
                                 <option value="">กรุณาเลือกข้อมูล</option>
                                 <option value="1">ในวงเงินงบประมาณ</option>
                                 <option value="2">นอกงบประมาณ</option>
@@ -573,7 +627,7 @@ const Create = () => {
                                 onChange={companyFilter}
                                 placeholder="กรุณาเลือกข้อมูล"
                                 isClearable={true}
-                              />  
+                              />
                             </div>
                           </div>
                           <div className="col-md-4">
@@ -665,8 +719,9 @@ const Create = () => {
                             </div>
                           </div>
                           <div className="col-md-12">
-                            <label htmlFor="">GENERATE ID</label><br/>
-                            <span className="text-success">{acc_id}</span>
+                            <label htmlFor="">GENERATE ID</label>
+                            <br />
+                            <span className="text-success">{acc_id_gen}</span>
                           </div>
                         </div>
                       </div>
@@ -684,20 +739,33 @@ const Create = () => {
                                 <div className="form-group">
                                   <label htmlFor="">ACCOUNT ID</label>
                                   <input
-                                    name="invoice"
                                     type="text"
                                     className="form-control"
-                                    placeholder="PLEASE COPPY FROM GENERATE ID"
-                                    {...register(`test.${index}.acc_id`, {
+                                    onChange={(event) =>
+                                      combinationFilter(event.target.value)
+                                    }
+                                    placeholder="PLEASE COPY BY GENERATE ID"
+                                  />
+                                  <input type="text" value={account_id} className="form-control" hidden
+                                   {...register(`test.${index}.acc_id`, {
                                       required: true,
                                     })}
                                   />
-                                  {errors.test && (
+                                   {errors.test && (
                                     <span className="text-danger">
                                       This field is required
                                     </span>
                                   )}
                                 </div>
+                              </div>
+                              <div className="col-md-1">
+                                <label htmlFor="">COM ID</label>
+                                <input
+                                  type="text"
+                                  size={1}
+                                  value={combination}
+                                  className="form-control"
+                                />
                               </div>
                               <div className="col-md-1">
                                 <div className="form-group">
@@ -728,9 +796,9 @@ const Create = () => {
                                       required: true,
                                     })}
                                   >
-                                   <option value="">เลือกข้อมูล</option> 
-                                   <option value="0">ไม่มี</option> 
-                                   <option value="7">มี</option> 
+                                    <option value="">เลือกข้อมูล</option>
+                                    <option value="0">ไม่มี</option>
+                                    <option value="7">มี</option>
                                   </select>
                                   {errors.test && (
                                     <span className="text-danger">
@@ -775,7 +843,7 @@ const Create = () => {
                                   )}
                                 </div>
                               </div>
-                              <div className="col-md-3">
+                              <div className="col-md-2">
                                 <div className="form-group">
                                   <label htmlFor="">รายละเอียด</label>
                                   <input
@@ -855,6 +923,7 @@ const Create = () => {
                       <button
                         onClick={handleSubmit(handleCreateSubmit)}
                         className="btn btn-primary"
+                        disabled={combination==="NO DATA" || combination===""}
                       >
                         <i className="fas fa-save"></i> ยืนยัน
                       </button>{" "}

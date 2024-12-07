@@ -4,6 +4,7 @@ import axios from "axios";
 
 export default function Home() {
   const [pettycashs, setPettyCash] = useState(0);
+  const [createDoc, setCreateDoc] = useState(0);
   const [inprogress, setInprogress] = useState(0);
   const [approverd, setApproved] = useState(0);
   const [rejected, setRejected] = useState(0);
@@ -19,6 +20,10 @@ export default function Home() {
             (f) => f.dept === profile().dept
           );
 
+          const status0 = detpFilter.filter(
+            (ap) => ap.status === "จัดทำเอกสาร"
+          );
+
           const status1 = detpFilter.filter(
             (ap) => ap.status === "รอสั่งจ่ายเงิน"
           );
@@ -31,11 +36,17 @@ export default function Home() {
             (ap) => ap.status === "ยกเลิกเอกสาร"
           );
           setPettyCash(detpFilter.length);
+          setCreateDoc(status0.length)
           setInprogress(status1.length);
           setApproved(status2.length);
           setRejected(status3.length);
         } else {
           const noFilter = res.data.data;
+
+          const status0 = noFilter.filter(
+            (ap) => ap.status === "จัดทำเอกสาร"
+          );
+
           const status1 = noFilter.filter(
             (ap) => ap.status === "รอสั่งจ่ายเงิน"
           );
@@ -46,6 +57,7 @@ export default function Home() {
 
           const status3 = noFilter.filter((ap) => ap.status === "ยกเลิกเอกสาร");
           setPettyCash(noFilter.length);
+          setCreateDoc(status0.length)
           setInprogress(status1.length);
           setApproved(status2.length);
           setRejected(status3.length);
@@ -78,17 +90,31 @@ export default function Home() {
       <div className="content">
         <div className="container-fluid">
           <div className="row">
-            <div className="col-lg-3">
+            {/* <div className="col-lg-2">
               <div className="small-box bg-info">
                 <div className="inner">
                   <h3>{pettycashs}</h3>
                   <p>เงินสดย่อย ทั้งหมด</p>
                 </div>
                 <div className="icon">
-                  <i className="fas fa-wallet"></i>
+                  <i className="fab fa-bitcoin"></i>
                 </div>
                 <a href="#" className="small-box-footer">
                   More info <i className="fas fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div> */}
+            <div className="col-lg-3">
+              <div className="small-box bg-warning">
+                <div className="inner text-white">
+                  <h3>{createDoc}</h3>
+                  <p>จัดทำเอกสาร</p>
+                </div>
+                <div className="icon">
+                  <i className="fas fa-user-edit"></i>
+                </div>
+                <a href="#" className="small-box-footer">
+                  <span className="text-white">More info</span> <i className="fas fa-arrow-circle-right text-white"></i>
                 </a>
               </div>
             </div>

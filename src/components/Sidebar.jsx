@@ -65,7 +65,7 @@ export default function Sidebar() {
                   </li>
                   <li className="nav-item">
                     <Link to="/pettycash" className="nav-link">
-                      <i className="nav-icon fas fa-wallet"></i>
+                      <i className="nav-icon fab fa-bitcoin"></i>
                       <p>PETTY CASH</p>
                     </Link>
                   </li>
@@ -89,7 +89,7 @@ export default function Sidebar() {
                   </li>
                   <li className="nav-item">
                     <Link to="/pettycash" className="nav-link">
-                      <i className="nav-icon fas fa-wallet"></i>
+                      <i className="nav-icon fab fa-bitcoin"></i>
                       <p>PETTY CASH</p>
                     </Link>
                   </li>
@@ -111,12 +111,12 @@ export default function Sidebar() {
                       <p>REPORT</p>
                     </Link>
                   </li>
-                  <li className="nav-item">
+                  {/* <li className="nav-item">
                     <Link to="/test" className="nav-link">
                       <i className="nav-icon fas fa-chart-pie"></i>
                       <p>TEST FUNCTION</p>
                     </Link>
-                  </li>
+                  </li> */}
                 </>
               ) : (
                 ""

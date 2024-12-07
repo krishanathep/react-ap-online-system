@@ -12,7 +12,7 @@ import { KanitBold } from "../../assets/fonts/Kanit-bold.jsx";
 
 const View = () => {
   const { id } = useParams();
-  const [pettycash, setPettyCash] = useState({});
+  const [pettycash, setPettyCash] = useState([]);
   const [paylists, setPayLists] = useState([]);
   const [creddit, setCredit] = useState(0);
 
@@ -44,11 +44,11 @@ const View = () => {
     doc.setFontSize(16);
 
     // กำหนดชื่อหัวเอกสารตามค่า pettycash.company
-    let companyName = 'บริษัท ไทยรุ่งยูเนี่ยนคาร์ จำกัด (มหาชน)';
-    if (pettycash.company === 'TRT') {
-        companyName = 'บริษัท ไทยรุ่ง ทูลส์ แอนด์ จำกัด';
-    } else if (pettycash.company === 'TUC') {
-        companyName = 'บริษัท ไทยอัลติเมทคาร์ จำกัด';
+    let companyName = "บริษัท ไทยรุ่งยูเนี่ยนคาร์ จำกัด (มหาชน)";
+    if (pettycash.company === "TRT") {
+      companyName = "บริษัท ไทยรุ่ง ทูลส์ แอนด์ จำกัด";
+    } else if (pettycash.company === "TUC") {
+      companyName = "บริษัท ไทยอัลติเมทคาร์ จำกัด";
     }
 
     // หัวเอกสาร
@@ -105,8 +105,7 @@ const View = () => {
 
     // เพิ่มแถวข้อมูลเพิ่มเติม (8 บรรทัด)
     for (let i = 0; i < 6; i++) {
-      tableBody.push([
-      ]);
+      tableBody.push([]);
     }
 
     // เพิ่มแถวสรุป
@@ -160,22 +159,29 @@ const View = () => {
 
     doc.text(creditText, 14, doc.lastAutoTable.finalY + 10);
 
-     // เพิ่มพื้นที่สำหรับเซ็นลายเซ็น
-     const signatureStartY = doc.lastAutoTable.finalY + 45;
-     const signatureLabels = ['ผู้ขอเบิก', 'ผู้อนุมัติ', 'ผู้รับเงิน', 'ผู้จ่ายเงิน'];
-     const signatureXStart = 30;
-     const signatureSpacing = 50;
- 
-     signatureLabels.forEach((label, index) => {
-         const x = signatureXStart + index * signatureSpacing;
-         doc.text(label, x, signatureStartY -5, { align: 'center' });
-         doc.line(x - 20, signatureStartY + 5, x + 20, signatureStartY + 5); // วาดเส้น
-         doc.text('วันที่: _____________', x, signatureStartY + 15, { align: 'center' }); // เพิ่มวันที่
-     });
- 
+    // เพิ่มพื้นที่สำหรับเซ็นลายเซ็น
+    const signatureStartY = doc.lastAutoTable.finalY + 45;
+    const signatureLabels = [
+      "ผู้ขอเบิก",
+      "ผู้อนุมัติ",
+      "ผู้รับเงิน",
+      "ผู้จ่ายเงิน",
+    ];
+    const signatureXStart = 30;
+    const signatureSpacing = 50;
+
+    signatureLabels.forEach((label, index) => {
+      const x = signatureXStart + index * signatureSpacing;
+      doc.text(label, x, signatureStartY - 5, { align: "center" });
+      doc.line(x - 20, signatureStartY + 5, x + 20, signatureStartY + 5); // วาดเส้น
+      doc.text("วันที่: _____________", x, signatureStartY + 15, {
+        align: "center",
+      }); // เพิ่มวันที่
+    });
+
     // บันทึก PDF
     //doc.save(`เงินสดย่อย-${pettycash.petty_cash_id}.pdf`);
-    
+
     const pdfUrl = doc.output("bloburl");
     window.open(pdfUrl, "_blank"); // เปิดในแท็บใหม่
   };
@@ -208,107 +214,77 @@ const View = () => {
                 <div className="card">
                   <div className="card-body">
                     <div className="col-md-12">
-                      <table className="table table-bordered">
-                        <thead>
-                          <tr key={pettycash.id}>
-                            <td>
-                              <b>จ่ายเงินให้ : {pettycash.pay_to}</b>
-                            </td>
-                            <td>
-                              <b>หน่วยงาน : {pettycash.section}</b>
-                            </td>
-                            <td>
-                              <b>ส่วนงาน : {pettycash.division}</b>
-                            </td>
-                            <td>
-                              <b>ฝ่ายงาน : {pettycash.dept}</b>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <b>หมายเลขเอกสาร : {pettycash.petty_cash_id}</b>
-                            </td>
-                            <td>
-                              <b>
-                                วันที่ขอเบิก :{" "}
-                                {dayjs(pettycash.created_at).format(
-                                  "DD-MMM-YYYY"
-                                )}
-                              </b>
-                            </td>
-                            <td>
-                              <b>ผู้ที่ขอเบิก : {pettycash.req_by}</b>
-                            </td>
-                            <td>
-                              <b>ชื่อบริษัท : {pettycash.company}</b>
-                            </td>
-                          </tr>
-                        </thead>
-                      </table>
-                    </div>
-                    <div className="col-md-12">
-                      <table className="table table-bordered mt-3">
-                        <thead>
-                          <tr align="center">
-                            <th>ลำดับ</th>
-                            <th>รายละเอียดการเบิกเงิน</th>
-                            <th>หมายเลขใบแจ้งหนี้</th>
-                            <th>ภาษี (%)</th>
-                            <th>จำนวนเงิน</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {paylists.map((pay, index) => {
-                            return (
-                              <tr key={pay.id}>
-                                <td align="center">{index + 1}</td>
-                                <td>
-                                  {pay.acc_id} <br /> {pettycash.pay_to} {"->"}{" "}
-                                  {pay.pay_type} {"->"} {pay.description}
-                                </td>
-                                <td align="center">{pay.invoice_id}</td>
-                                <td align="center">{pay.pay_vat}</td>
-                                <td align="center">{pay.amount}</td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                        <tr align="center">
-                          <td colSpan={3}>
-                            <b>{convertThai.bathText(pettycash.total)}</b>
-                          </td>
-                          <td>
-                            <b>รวมเงิน</b>
-                          </td>
-                          <td>
-                            <span>{pettycash.total}</span>
-                          </td>
-                        </tr>
-                      </table>
-                      <div className="col-md-12 mt-3">
-                        <input
-                          type="checkbox"
-                          checked={creddit === "1" ? true : false}
-                        />{" "}
-                        ในวงเงินงบประมาณ{" "}
-                        <input
-                          type="checkbox"
-                          checked={creddit === "2" ? true : false}
-                        />{" "}
-                        นอกงบประมาณ{" "}
-                        <input
-                          type="checkbox"
-                          checked={creddit === 3 ? true : false}
-                        />{" "}
-                        เกินงบประมาณ
+                      <div className="card shadow-none border">
+                        <div className="card-body">
+                          <div className="row">
+                            <div className="col-md-4">
+                              <b>เลขที่เอกสาร :</b> {pettycash.petty_cash_id}
+                            </div>
+                            <div className="col-md-4">
+                              <b>รหัสพนักงาน :</b> {pettycash.emp_id}
+                            </div>
+                            <div className="col-md-4">
+                              <b>ชื่อพนักงาน :</b> {pettycash.pay_to}
+                            </div>
+                            <div className="col-md-4">
+                              <b>หน่วยงาน :</b> {pettycash.section}
+                            </div>
+                            <div className="col-md-4">
+                              <b>ส่วนงาน :</b> {pettycash.division}
+                            </div>
+                            <div className="col-md-4">
+                              <b>ฝ่านงาน :</b> {pettycash.dept}
+                            </div>
+                            <div className="col-md-4">
+                              <b>ชื่อบริษัท :</b> {pettycash.company}
+                            </div>
+                            <div className="col-md-4">
+                              <b>ผู้ที่ขอเบิก :</b> {pettycash.req_by}
+                            </div>
+                            <div className="col-md-4">
+                              <b>ประเภทงบประมาณ :</b>{" "}
+                              {pettycash.credit_type === "1"
+                                ? "ในวงเงินงบประมาณ"
+                                : pettycash.credit_type === "2"
+                                ? "นอกงบประมาณ"
+                                : pettycash.credit_type === "3"
+                                ? "เกินงบประมาณ"
+                                : "ไม่ระบุ"}
+                            </div>
+                          </div>
+                        </div>
                       </div>
+                      <table className="table table-bordered">
+                        <tr align="center">
+                          <th>#</th>
+                          <th align="center">Account ID</th>
+                          <th>Invoice</th>
+                          <th>Type</th>
+                          <th>Description</th>
+                          <th>VAT</th>
+                          <th>Amount</th>
+                        </tr>
+                        {paylists.map((pay, index) => {
+                          return (
+                            <tr key={pay.id}>
+                              <td align="center">{index + 1}</td>
+                              <td>{pay.acc_id}</td>
+                              <td align="center">{pay.invoice_id}</td>
+                              <td align="center">{pay.pay_type}</td>
+                              <td align="center">{pay.description}</td>
+                              <td align="center">{pay.pay_vat}</td>
+                              <td align="center">{pay.amount}</td>
+                            </tr>
+                          );
+                        })}
+                      </table>
                       <div className="col-md-12">
                         <div className="float-right mt-2">
                           <button
                             className="btn btn-secondary"
                             onClick={exportPDF}
                           >
-                             <i className="fas fa-download"></i> EXPORT
+                            <i className="fas fa-download"></i> EXPORT
                           </button>{" "}
                           <Link to={"/pettycash"} className="btn btn-danger">
                             <i className="fas fa-arrow-circle-left"></i> ยกเลิก
